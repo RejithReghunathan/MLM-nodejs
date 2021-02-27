@@ -34,7 +34,31 @@ app.use(function (req, res, next) {
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.engine(
+  "hbs",
+  hbs({
+    helpers: {
+      math: function (lvalue, operator, rvalue) {
+        lvalue = parseFloat(lvalue);
+        rvalue = parseFloat(rvalue);
+        return {
+          "+": lvalue + rvalue,
+          "-": lvalue - rvalue,
+          "*": lvalue * rvalue,
+          "/": lvalue / rvalue,
+          "%": lvalue % rvalue,
+        }[operator];
+      },
+      ifEquals: function(arg1, arg2, options) {
+        return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+      }
+    },
+    extname: "hbs",
+    defaultLayout: "layout",
+    layoutDir: __dirname + "/views/layouts/",
+    partialsDir: __dirname + "/views/partials",
+  })
+);
 app.set('view engine', 'hbs');
 
 app.use(logger('dev'));
