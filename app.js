@@ -3,11 +3,35 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require("express-session");
+const Handlebars = require("handlebars");
+// const fileUpload = require("express-fileupload");
+const hbs = require("express-handlebars");
+// const dotenv=require('dotenv').config()
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+// Session
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { maxAge: 5000000 },
+  })
+);
+// cache clear
+app.use(function (req, res, next) {
+  res.set(
+    "Cache-Control",
+    "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
+  );
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
