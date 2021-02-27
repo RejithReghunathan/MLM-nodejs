@@ -5,8 +5,8 @@ const state= {
 }
 
 module.exports.connect = function(done){
-    const url = 'mongodb+srv://dbUser:dbUser@mlm.l1o9h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-    const dbname = 'MLM'
+    const url = process.env.MONGODB_URI
+    const dbname = process.env.MONGODB_DBNAME
 
     mongoClient.connect(url,{useUnifiedTopology:true},(err,data)=>{
         if(err) return done(err)
