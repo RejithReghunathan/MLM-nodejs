@@ -7,9 +7,9 @@ const session = require("express-session");
 const Handlebars = require("handlebars");
 // const fileUpload = require("express-fileupload");
 const hbs = require("express-handlebars");
-// const dotenv=require('dotenv').config()
+const dotenv=require('dotenv').config()
 
-
+const db =require('./config/connection')
 var adminRouter = require('./routes/admin');
 var userRouter = require('./routes/user');
 
@@ -66,6 +66,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// Database connection
+db.connect((err)=>{
+  if(err){
+    console.log("Connection Failed" + err);
+  }else{
+    console.log("Database connected successfully");
+  }
+})
 
 app.use('/admin', adminRouter);
 app.use('/',userRouter)
