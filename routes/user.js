@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const db = require('../config/connection')
 
 router.get('/',(req,res)=>{
-  res.send('Hello world, whith a smile ')
+                                                                                                                                                                                            
 })
 
 module.exports = router;
