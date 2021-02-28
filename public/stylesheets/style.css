@@ -1,0 +1,42 @@
+@import url("//db.onlinewebfonts.com/c/33c69019b1d9231e1004f52ae937b0da?family=Neutraface+Text+Bold");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+body{
+    background-color:#f1f2f4;
+}
+.header-nav{
+    height: 70px;
+    background-color:#1d4354;
+    color: white;
+    font-weight: bolder;
+    font-family: "Neutraface Text Bold";
+    font-weight: bolder;
+}
+.login-box{
+    background-color: white;
+    max-width: 510px;
+    height: 300px;
+    margin-top: 60px;
+    border-radius: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px  ;
+}
+/* .login-text{
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    padding-top: 20px;
+}
+.text-username{
+  display: block;
+  margin:auto;
+  margin-top: 25px;
+  height: 40px;
+  width: 330px;
+  border-radius: 6px;
+  outline: none;
+  border-color: #e0e0e0;
+
+} */
