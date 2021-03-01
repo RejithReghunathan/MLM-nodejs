@@ -22,6 +22,9 @@ router.get('/home',(req,res)=>{
   res.render('User/home')
 })
 router.get('/invite',(req,res)=>{
-  
+  userController.getInviteLink(id).then(()=>{
+    res.render('User/home',)
+    
+  })
 })
 module.exports = router;
