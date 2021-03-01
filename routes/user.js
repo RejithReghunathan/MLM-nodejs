@@ -7,7 +7,9 @@ router.get('/',(req,res)=>{
   res.render('User/login.hbs')                                    
 })
 router.get('/register',(req,res)=>{
-  res.render('User/register',{name:'UMAR'})
+  let rc= req.query.id
+  console.log(rc);
+  res.render('User/register',{name:rc})
 })
 router.post('/login',(req,res)=>{
   console.log(req.body);
@@ -15,5 +17,11 @@ router.post('/login',(req,res)=>{
     console.log('res',response);
     res.json(response)
   })
+})
+router.get('/home',(req,res)=>{
+  res.render('User/home')
+})
+router.get('/invite',(req,res)=>{
+  
 })
 module.exports = router;

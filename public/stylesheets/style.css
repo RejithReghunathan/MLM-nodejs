@@ -2,7 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
 body{
     background-color:#f1f2f4!important;
+    list-style-type: none;
 }
+.nav-font{
+    font-family: "Neutraface Text Bold";
+
+  }
 .header-nav{
     height: 70px;
     background-color:#1d4354;

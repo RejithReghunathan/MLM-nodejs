@@ -2,7 +2,7 @@
   <div class="container1">
     <div class="row ">
       <div class="col login-sec">
-        <h2 class="text-center">Login Now</h2>
+        <h2 class="text-center" style="color:#1d4354!important;">Login Now</h2>
         <form class="login-form" id="logform" method="post" action="login">
           <div class="form-group">
             <label for="exampleInputEmail1" class="text-uppercase">Username</label>
@@ -15,9 +15,9 @@
           </div>
           <div style="display: none;" class="text-danger" id="userErr">Access Denied</div>
           <div class="form-check">
-            <label class="form-check-label">
+            <label  class="form-check-label">
              
-              <button type="submit" class="btn btn-login float-right mx-auto">Submit</button>
+              <button type="submit" style="background-color: #37a000;" class="btn btn-login float-right mx-auto">Submit</button>
           </div>
 
         </form>
@@ -35,18 +35,17 @@
             }
         },
         submitHandler: function (logform) {
-
             $.ajax({
                 url: logform.action,
                 type: logform.method,
                 data: $(logform).serialize(),
                 success: (response) => {
                   console.log(response)
-                    if(response.status!=false){
+                    if(response.status==false){
                       $('#userErr').show()
                     }
                     else{
-                      alert('Login Success')
+                      window.location.href="/home"
                     }
                 }
             });
