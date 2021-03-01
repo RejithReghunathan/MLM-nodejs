@@ -1,7 +1,7 @@
 @import url("//db.onlinewebfonts.com/c/33c69019b1d9231e1004f52ae937b0da?family=Neutraface+Text+Bold");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
 body{
-    background-color:#f1f2f4;
+    background-color:#f1f2f4!important;
 }
 .header-nav{
     height: 70px;
@@ -27,7 +27,7 @@ body{
     background-color:#1d4354;
 position: absolute;
   right: 0;
-  bottom: 0;
+  /* bottom: 0; */
   left: 0;
   padding: 1rem;
 
@@ -66,4 +66,5 @@ position: absolute;
   border-color: #e0e0e0;
 
 } */
+/* Layout Login / Register */
 
