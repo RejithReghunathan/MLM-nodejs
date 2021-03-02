@@ -12,7 +12,7 @@ router.get('/',(req,res)=>{
   }                                  
 })
 router.get('/register',(req,res)=>{
-  let rc= req.query.id
+  let rc= req.query.code
   console.log(rc);
   res.render('User/register',{name:rc})
 })
@@ -35,15 +35,16 @@ router.get('/home',(req,res)=>{
 })
 router.get('/invite',(req,res)=>{
   let user = req.session.user
-  userController.getInviteLink(user._id).then(()=>{
-    res.render('User/home',)
+  userController.getInviteLink(user._id).then((response)=>{
+    res.render('User/invite',{response,user})
     
   })
 })
 router.post('/signup',(req,res)=>{
-  console.log("Register",req.body);
   userController.userSignup(req.body).then((response)=>{
     req.session.user = response;
+    console.log(response);
+    res.json(response)
   }).catch((response)=>{
     res.json(response)
   })

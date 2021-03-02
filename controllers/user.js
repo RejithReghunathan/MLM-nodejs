@@ -39,12 +39,12 @@ module.exports = {
                 referral_code: data.referral_code
             })
             if (user) {
-                if (user.referrals <= 1) {
+                if (user.referrals < 2) {
                     data.status = false
                     data.referred_code = user.referral_code
                     data.referred_user = user.name
                     data.referral_code = referralCodeGenerator.custom('uppercase',3, 3, data.name)
-                    data.side = 'left'
+                    data.side = 'right'
                     data.role = 1
                     data.referrals = 0
                     referrals = user.referrals + 1
@@ -56,17 +56,25 @@ module.exports = {
                             referrals: referrals
                         }
                     })
-                    let response=db.get().collection(collection.USER_COLLECTION).insertOne(data)
+                    let response=await db.get().collection(collection.USER_COLLECTION).insertOne(data)
                     resolve(response.ops[0])
                 }else{
-                    status.errCode=2
+                    status.errCode=2 //limit exceeded
                     reject(status)
                 }
             } else {
-                status.errCode=1
+                status.errCode=1  //invalid referal
                 reject(status)
             }
 
+        })
+    },
+    getInviteLink:(id)=>{
+        return new Promise(async(resolve,reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(id)})
+            rc=user.referral_code
+            link='localhost:8000/register?code='+rc
+            resolve(link)
         })
     }
 }
