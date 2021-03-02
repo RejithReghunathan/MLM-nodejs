@@ -53,4 +53,12 @@ router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
 })
+router.get('/acivateAcct',(req,res)=>{
+  let user = req.session.user
+  if(user){
+    res.render('User/activateAcct',{user})
+  }else{
+  res.render('User/login.hbs')  
+  }      
+})
 module.exports = router;
