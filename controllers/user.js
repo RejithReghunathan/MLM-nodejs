@@ -39,7 +39,7 @@ module.exports = {
                 referral_code: data.referral_code
             })
             if (user) {
-                if (user.referrals <= 2) {
+                if (user.referrals <= 1) {
                     data.status = false
                     data.referred_code = user.referral_code
                     data.referred_user = user.name
@@ -57,9 +57,9 @@ module.exports = {
                         }
                     })
                     let response=db.get().collection(collection.USER_COLLECTION).insertOne(data)
-                    resolve(response)
+                    resolve(response.ops[0])
                 }else{
-                    status.errCode=3
+                    status.errCode=2
                     reject(status)
                 }
             } else {

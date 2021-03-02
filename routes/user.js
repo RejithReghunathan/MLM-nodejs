@@ -41,10 +41,11 @@ router.get('/invite',(req,res)=>{
   })
 })
 router.post('/signup',(req,res)=>{
+  console.log("Register",req.body);
   userController.userSignup(req.body).then((response)=>{
-    console.log('The data of the India ',response);
-  }).catch(()=>{
-    console.log('the data of the country absent');
+    req.session.user = response;
+  }).catch((response)=>{
+    res.json(response)
   })
 })
 router.get('/logout',(req,res)=>{
