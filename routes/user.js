@@ -4,7 +4,12 @@ const userController = require('../controllers/user')
 
 
 router.get('/',(req,res)=>{
-  res.render('User/login.hbs')                                    
+  let user = req.session.user
+  if(user){
+    res.render('User/home',{user})
+  }else{
+  res.render('User/login.hbs')  
+  }                                  
 })
 router.get('/register',(req,res)=>{
   let rc= req.query.id
@@ -14,15 +19,23 @@ router.get('/register',(req,res)=>{
 router.post('/login',(req,res)=>{
   console.log(req.body);
   userController.userLogin(req.body).then((response)=>{
-    console.log('res',response);
+    req.session.user = response.user;
     res.json(response)
   })
 })
 router.get('/home',(req,res)=>{
-  res.render('User/home')
+  let user=req.session.user 
+  if(user){
+    res.render('User/home',{user})
+  }
+  else{
+    res.redirect('/')
+  }
+  
 })
 router.get('/invite',(req,res)=>{
-  userController.getInviteLink(id).then(()=>{
+  let user = req.session.user
+  userController.getInviteLink(user._id).then(()=>{
     res.render('User/home',)
     
   })
@@ -33,5 +46,9 @@ router.post('/signup',(req,res)=>{
   }).catch(()=>{
     console.log('the data of the country absent');
   })
+})
+router.get('/logout',(req,res)=>{
+  req.session.destroy()
+  res.redirect('/')
 })
 module.exports = router;

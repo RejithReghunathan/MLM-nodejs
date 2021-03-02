@@ -13,7 +13,8 @@
             <label for="exampleInputPassword1"  class="text-uppercase">Password</label>
             <input type="password" class="form-control" name="password" placeholder="">
           </div>
-          <div style="display: none;" class="text-danger" id="userErr">Access Denied</div>
+          <div style="display: none;font-weight:bolder" class="text-danger text-center" id="userErr">Access Denied</div>
+        
           <div class="form-check">
             <label  class="form-check-label">
              
@@ -41,11 +42,14 @@
                 data: $(logform).serialize(),
                 success: (response) => {
                   console.log(response)
-                    if(response.status==false){
+                    if(response.status==2){
                       $('#userErr').show()
                     }
-                    else{
-                      window.location.href="/home"
+                    else if(response.status==3){
+                         $('#userErr').show()
+                    }
+                    else if(response.status==1){
+                      window.location.href = "home"
                     }
                 }
             });

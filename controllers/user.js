@@ -7,16 +7,29 @@ let referralCodeGenerator = require('referral-code-generator')
 module.exports = {
     userLogin: (data) => {
         return new Promise(async (resolve, reject) => {
-            let status = false
             let response = {}
-            console.log('data', data);
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
-                name: data.email
+                email: data.email
             })
+            console.log('THe user of the country',user);
             if (!user) {
-                response.status = false
+                response.status = 3
                 resolve(response)
             }
+            else{
+                bcrypt.compare(data.password,user.password).then((status)=>{
+                    if(status){
+                        response.status=1
+                        response.user=user
+                        resolve(response)
+                    }
+                    else{
+                        response.status=2
+                        resolve(response)
+                    }
+                })
+            }
+
         })
     },
     userSignup: (data) => {
