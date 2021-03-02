@@ -27,4 +27,11 @@ router.get('/invite',(req,res)=>{
     
   })
 })
+router.post('/signup',(req,res)=>{
+  userController.userSignup(req.body).then((response)=>{
+    console.log('The data of the India ',response);
+  }).catch(()=>{
+    console.log('the data of the country absent');
+  })
+})
 module.exports = router;
