@@ -114,5 +114,26 @@ module.exports = {
             }})
             resolve(data)
         })
+    },
+    documentUpload:(data,userId)=>{
+        let  detail ={
+        }
+        detail.panCard=data.pan
+        detail.bankAcct=data.bank
+        detail.ifsc=data.ifsc
+        detail.userId=objectId(userId)
+        console.log('ith vilichu');
+        return new Promise((resolve,reject)=>{
+           db.get().collection(collection.DOCUMENT_COLLECTION).insertOne(detail).then((result)=>{
+                if(result){
+                    db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{$set:{
+                        document:true
+                    }})
+                }
+                resolve(result.ops[0])
+            })
+        
+            
+        })
     }
 }

@@ -1,4 +1,5 @@
 var express = require('express');
+const { ObjectID } = require('mongodb');
 var router = express.Router();
 const userController = require('../controllers/user')
 
@@ -78,6 +79,13 @@ router.post('/verifyOTP',(req,res)=>{
       res.json(data)
     })
     
+  })
+})
+router.post('/documentUpload',(req,res)=>{
+  let user = req.session.user
+  console.log("data Ellam varum",req.body);
+  userController.documentUpload(req.body,user._id).then((datas)=>{
+    res.json(datas)
   })
 })
 module.exports = router;
