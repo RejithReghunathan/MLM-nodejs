@@ -1,3 +1,12 @@
+   <!-- Bootstrap 4 CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
+      <!-- Telephone Input CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css'>
+      <!-- Icons CSS -->
+    <link rel='stylesheet' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
+      <!-- Nice Select CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css'>
+         
 <style>
   @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -511,11 +520,11 @@ code{
   color: #fff;
 }
 </style>
-<main>
+<main style="margin-top: 25px;">
   <article>
 
       <!-- Start Multiform HTML -->
-  <section class="multi_step_form">  
+  <section class="multi_step_form" style="margin-bottom:25px;">  
   <form id="msform"> 
     <!-- Tittle -->
     <div class="tittle">
@@ -534,22 +543,31 @@ code{
       <h6>We will send you a SMS. Input the code to verify.</h6> 
       <div class="form-row"> 
         <div class="form-group col-md-6">  
-          <input type="tel" id="phone" class="form-control" placeholder="+91"> 
+          <input type="tel" id="phone" class="form-control" > 
         </div>  
         <div class="form-group col-md-6"> 
-          <input type="text" class="form-control" placeholder="+8801123456789">
+          <input type="text" class="form-control" placeholder="Enter phone" id="phnum" maxlength="10" >  
         </div> 
       </div> 
-      <div class="done_text"> 
+       <button type="button" class="action-button mt-5" onclick="requestOTP()" id="otpSubmit">Submit</button>  
+      <div style="display: none;" id="otp">
+        <div class="done_text"> 
         <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
         <h6>A secret code is sent to your phone. <br>Please enter it here.</h6> 
       </div>  
       <div class="code_group"> 
-        <input type="text" class="form-control" placeholder="0">
-        <input type="text" class="form-control" placeholder="0">
-        <input type="text" class="form-control" placeholder="0">
-        <input type="text" class="form-control" placeholder="0">
+        <input type="text" class="form-control" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" placeholder="0" maxlength="1">
+
       </div>  
+       <button type="button" class="action-button mt-5" onclick="testtest()" style="display: none;" id="otpSubmit2">Submit</button>
+      </div>
+      <br>
+      <br>
       <button type="button" class="action-button previous_button">Back</button>
       <button type="button" class="next action-button">Continue</button>  
     </fieldset>
@@ -611,7 +629,7 @@ code{
     <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/js/intlTelInput.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js'></script>
-  <script>
+  <script>  
     (function($) {
     "use strict";  
     
@@ -716,7 +734,7 @@ code{
     function phoneNoselect(){
         if ( $('#msform').length ){   
             $("#phone").intlTelInput(); 
-            $("#phone").intlTelInput("setNumber", "+880"); 
+            $("#phone").intlTelInput("setNumber", "+91"); 
         };
     }; 
     //* Select js
@@ -730,5 +748,28 @@ code{
     phoneNoselect ();
     nice_Select ();
 })(jQuery);
+  </script>
+  <script>
+    function requestOTP(){
+      let cc=$('#phone').val()
+      let phnum=$('#phnum').val()
+      let mobile=cc+phnum
+      console.log(mobile)
+      $.ajax({
+        method:'post',
+        url:'/acivateAcct/requestOTP',
+        data:{
+          mobile
+        },
+        success(response){
+          if(response){
+            $('#otp').show()
+            $('#otpSubmit').hide()
+            $('#otpSubmit2').show()
+          }
+        }
+      })
+     
+    }
   </script>
   

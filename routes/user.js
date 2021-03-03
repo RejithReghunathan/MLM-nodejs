@@ -61,4 +61,12 @@ router.get('/acivateAcct',(req,res)=>{
   res.render('User/login.hbs')  
   }      
 })
+router.post('/acivateAcct/requestOTP',(req,res)=>{
+  console.log(req.body,"activate account");
+  userController.requestOTP(req.body).then(()=>{
+    let a=true
+    res.json(a)
+  })
+    
+})
 module.exports = router;
