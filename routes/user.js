@@ -69,9 +69,11 @@ router.post('/requestOTP',(req,res)=>{
   }) 
 })
 router.post('/verifyOTP',(req,res)=>{
+  console.log('data',req.body);
   userController.verifyOTP(req.body).then((data)=>{
-    let a = true
-    res.json(a)
+    console.log(data);
+    data.otp=true
+    res.json(data)
   })
 })
 module.exports = router;

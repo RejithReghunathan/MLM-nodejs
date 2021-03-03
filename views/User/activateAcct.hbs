@@ -538,8 +538,9 @@ code{
       <li>Security Questions</li>
     </ul>
     <!-- fieldsets -->
-    <fieldset>
-      <h3>Setup your phone</h3>
+    <fieldset  >
+     <div id="first" >
+        <h3>Setup your phone</h3>
       <h6>We will send you a SMS. Input the code to verify.</h6> 
       <div class="form-row"> 
         <div class="form-group col-md-6">  
@@ -550,7 +551,7 @@ code{
         </div> 
       </div> 
        <button type="button" class="action-button mt-5" onclick="requestOTP()" id="otpSubmit">Submit</button>  
-      <div style="display: none;" id="otp">
+      <div  style="display: none;" id="otp">
         <div class="done_text"> 
         <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
         <h6>A secret code is sent to your phone. <br>Please enter it here.</h6> 
@@ -564,18 +565,22 @@ code{
         <input type="text" class="form-control" id="n6" placeholder="0" maxlength="1">
 
       </div>  
-       <button type="button" class="action-button mt-5" onclick="verifyOTP()" style="display: none;" id="otpSubmit2">Submit</button>
+       <button type="button" class="action-button mt-5" onclick="verifyOTP()" id="otpSubmit2">Submit</button>
       </div>
       <br>
       <br>
-      <button type="button" class="action-button previous_button">Back</button>
-      <button type="button" class="next action-button">Continue</button>  
-    </fieldset>
-    <fieldset >
-      <div class="done_text"> 
+       <h6 style="display: none;" id="wrngotp">Wrong Otp</h6> 
+
+     </div>  
+     <div id="second" style="display: none;">
+       <div class="done_text"> 
         <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
-         <h3>Phone Verified Succesfully</h3>
+        <h3>Phone Verification completed successfully</h3>
       </div>  
+      <br>
+      
+     </div>
+     <button type="button" class="action-button previous_button">Back</button>
       <button type="button" class="next action-button">Continue</button>  
     </fieldset>
     <fieldset>
@@ -785,6 +790,7 @@ code{
       let num5 = $('#n5').val()
       let num6 = $('#n6').val()
       let otp = num1+num2+num3+num4+num5+num6
+      console.log(otp)
       $.ajax({
         method:'post',
         url:'/verifyOTP',
@@ -792,8 +798,13 @@ code{
           otp
         },
         success:(response)=>{
-          if(response){
-
+          console.log(response)
+          if(response.otp){
+            $('#first').hide()
+            $('#second').show()
+          }
+          else{
+            $('#wrngotp').show()
           }
         }
       })

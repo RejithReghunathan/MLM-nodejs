@@ -94,6 +94,7 @@ module.exports = {
     },
     verifyOTP:(data)=>{
         let otp = data.otp
+        console.log("OTP OF THE COUNTYE",otp);
         return new Promise((resolve,reject)=>{
             client.verify.services(process.env.serviceID).verificationChecks
             .create({
