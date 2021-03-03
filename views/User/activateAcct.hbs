@@ -556,19 +556,26 @@ code{
         <h6>A secret code is sent to your phone. <br>Please enter it here.</h6> 
       </div>  
       <div class="code_group"> 
-        <input type="text" class="form-control" placeholder="0" maxlength="1">
-        <input type="text" class="form-control" placeholder="0" maxlength="1">
-        <input type="text" class="form-control" placeholder="0" maxlength="1">
-        <input type="text" class="form-control" placeholder="0" maxlength="1">
-        <input type="text" class="form-control" placeholder="0" maxlength="1">
-        <input type="text" class="form-control" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" id="n1" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" id="n2" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" id="n3" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" id="n4" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" id="n5" placeholder="0" maxlength="1">
+        <input type="text" class="form-control" id="n6" placeholder="0" maxlength="1">
 
       </div>  
-       <button type="button" class="action-button mt-5" onclick="testtest()" style="display: none;" id="otpSubmit2">Submit</button>
+       <button type="button" class="action-button mt-5" onclick="verifyOTP()" style="display: none;" id="otpSubmit2">Submit</button>
       </div>
       <br>
       <br>
       <button type="button" class="action-button previous_button">Back</button>
+      <button type="button" class="next action-button">Continue</button>  
+    </fieldset>
+    <fieldset >
+      <div class="done_text"> 
+        <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
+         <h3>Phone Verified Succesfully</h3>
+      </div>  
       <button type="button" class="next action-button">Continue</button>  
     </fieldset>
     <fieldset>
@@ -757,7 +764,7 @@ code{
       console.log(mobile)
       $.ajax({
         method:'post',
-        url:'/acivateAcct/requestOTP',
+        url:'/requestOTP',
         data:{
           mobile
         },
@@ -769,7 +776,27 @@ code{
           }
         }
       })
-     
+    }
+    function verifyOTP(){
+      let num1 = $('#n1').val()
+      let num2 = $('#n2').val()
+      let num3 = $('#n3').val()
+      let num4 = $('#n4').val()
+      let num5 = $('#n5').val()
+      let num6 = $('#n6').val()
+      let otp = num1+num2+num3+num4+num5+num6
+      $.ajax({
+        method:'post',
+        url:'/verifyOTP',
+        data:{
+          otp
+        },
+        success:(response)=>{
+          if(response){
+
+          }
+        }
+      })
     }
   </script>
   

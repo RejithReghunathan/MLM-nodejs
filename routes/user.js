@@ -61,12 +61,17 @@ router.get('/acivateAcct',(req,res)=>{
   res.render('User/login.hbs')  
   }      
 })
-router.post('/acivateAcct/requestOTP',(req,res)=>{
-  console.log(req.body,"activate account");
-  userController.requestOTP(req.body).then(()=>{
+router.post('/requestOTP',(req,res)=>{
+  userController.requestOTP(req.body).then((data)=>{
+    console.log("The data of the country of the India",data);
     let a=true
     res.json(a)
+  }) 
+})
+router.post('/verifyOTP',(req,res)=>{
+  userController.verifyOTP(req.body).then((data)=>{
+    let a = true
+    res.json(a)
   })
-    
 })
 module.exports = router;
