@@ -101,8 +101,18 @@ module.exports = {
                 to: phone,
                 code: otp
             }).then((data) => {
+                data.phone=phone
                 resolve(data)
             })
+        })
+    },
+    addPhone:(id,phone)=>{
+        phone=parseInt(phone)
+        return new Promise(async(resolve,reject)=>{
+           let data=await db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(id)},{$set:{
+                phone:phone
+            }})
+            resolve(data)
         })
     }
 }

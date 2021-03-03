@@ -539,6 +539,16 @@ code{
     </ul>
     <!-- fieldsets -->
     <fieldset  >
+      {{#if user.phone}}
+      <div id="second" >
+       <div class="done_text"> 
+        <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
+        <h3>Phone Verification completed successfully</h3>
+      </div>  
+      <br>
+      
+     </div>
+     {{else}}
      <div id="first" >
         <h3>Setup your phone</h3>
       <h6>We will send you a SMS. Input the code to verify.</h6> 
@@ -572,15 +582,7 @@ code{
        <h6 style="display: none;" id="wrngotp">Wrong Otp</h6> 
 
      </div>  
-     <div id="second" style="display: none;">
-       <div class="done_text"> 
-        <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
-        <h3>Phone Verification completed successfully</h3>
-      </div>  
-      <br>
-      
-     </div>
-     <button type="button" class="action-button previous_button">Back</button>
+     {{/if}}
       <button type="button" class="next action-button">Continue</button>  
     </fieldset>
     <fieldset>
