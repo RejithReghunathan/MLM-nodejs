@@ -3,7 +3,10 @@ const collection = require('../config/collection')
 var objectId = require("mongodb").ObjectID;
 const bcrypt = require('bcrypt')
 let referralCodeGenerator = require('referral-code-generator');
-// const { config } = require('dotenv/types');
+var instance = new Razorpay({
+    key_id: process.env.razorpayKeyID,
+    key_secret: process.env.razorpayKeySECRET,
+  });
 const client = require('twilio')(process.env.accountSID, process.env.authToken)
 var phone 
 
@@ -132,8 +135,7 @@ module.exports = {
                 }
                 resolve(result.ops[0])
             })
-        
-            
         })
-    }
+    },
+    
 }
