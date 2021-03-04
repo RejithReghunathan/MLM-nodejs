@@ -3,6 +3,7 @@ const collection = require('../config/collection')
 var objectId = require("mongodb").ObjectID;
 const bcrypt = require('bcrypt')
 let referralCodeGenerator = require('referral-code-generator');
+const Razorpay = require('razorpay')
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -135,5 +136,46 @@ module.exports = {
             })
         })
     },
-
+    generateRazorpay:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+          var options = {
+            amount:25000,
+            currency:'INR',
+            receipt:"RCPT"+userId
+          };
+          let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)})
+          instance.orders.create(options,function(err,order){
+            order.user=user
+            console.log(order);
+            resolve(order)
+          })
+        })
+      },
+      verifyPaymentDetails:(details)=>{
+        return new Promise((resolve,reject)=>{
+          const crypto = require('crypto')
+          let hmac = crypto.createHmac('sha256', 'Vc7ocS2CYtfgTGayZs8Hatdk')
+          hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]']);
+          hmac=hmac.digest('hex')
+          if(hmac==details['payment[razorpay_signature]']){
+            resolve()
+          }else{
+            reject()
+          }
+        })
+      },
+      changePaymentStatus:(orderId)=>{
+        return new Promise((resolve,reject)=>{
+          db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(orderId)},
+          {
+            $set:{
+             payment:true,
+             status:true
+            }
+          }
+          ).then(()=>{
+            resolve()
+          })
+        })
+      },
 }

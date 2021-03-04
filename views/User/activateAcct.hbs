@@ -662,6 +662,7 @@ code{
       <!-- END Multiform HTML -->
   </article>
  </main>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
  <script>
    function submitDetails(){
      let pan =$('#panNum').val()
@@ -690,6 +691,78 @@ code{
      }
      
    }
+   function paymentRazor(){
+     $.ajax({
+       method:'post',
+       url:'/paymentRazorpay',
+       success:(response)=>{
+         if(response){
+           
+           razorpayPayment(response)
+         }
+       }
+     })
+   }
+   function razorpayPayment(order) {
+     console.log(order)
+        var options = {
+            "key": "rzp_test_VQhP9t51w4WZYW", // Enter the Key ID generated from the Dashboard
+            "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Royal Hub",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                {
+                    {
+                        {
+                            // {
+                            //   !--alert(response.razorpay_payment_id);
+                            // alert(response.razorpay_order_id);
+                            //alert(response.razorpay_signature); --}
+                        }
+                    }
+                }
+                verifyPayment(response, order)
+            },
+            "prefill": {
+                "name": order.user.name,
+                "email": order.user.email,
+                "contact": order.user.phone
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+
+
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+
+    function verifyPayment(payment, order) {
+        $.ajax({
+            url: '/verify-payment',
+            method: 'post',
+            data: {
+                payment,
+                order
+            },
+            success: (response) => {
+                console.log(response, "response")
+                if (response.status) {
+                    window.location.href = '/invite'
+                } else {
+                    alert('payment failed')
+                }
+            }
+        })
+    }
    function viewImage(event) {
         document.getElementById('imgVieww').src = URL.createObjectURL(event.target.files[0])
         $('#imgVieww').show()
@@ -699,6 +772,7 @@ code{
         $('#imgView').show()
     }
  </script>
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>

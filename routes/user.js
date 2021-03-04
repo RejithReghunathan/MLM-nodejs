@@ -88,4 +88,25 @@ router.post('/documentUpload',(req,res)=>{
     res.json(datas)
   })
 })
+router.post('/paymentRazorpay',(req,res)=>{
+  let user = req.session.user
+  userController.generateRazorpay(user._id).then((response)=>{
+    
+    res.json(response)
+  })
+})
+router.post("/verify-payment", (req, res) => {
+  let user = req.session.user
+  userController
+    .verifyPaymentDetails(req.body)
+    .then(() => {
+      userController.changePaymentStatus(user._id).then(() => {
+        res.json({ status: true });
+      });
+    })
+    .catch((err) => {
+      res.json({ status: "payment failed" });
+    });
+});
+
 module.exports = router;
