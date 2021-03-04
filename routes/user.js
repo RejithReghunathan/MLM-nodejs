@@ -108,5 +108,19 @@ router.post("/verify-payment", (req, res) => {
       res.json({ status: "payment failed" });
     });
 });
-
+router.get('/dashBoard',(req,res)=>{
+  let user = req.session.user
+  if(user){
+    res.render('User/dashboard',{user})
+  }else{
+  res.render('User/login.hbs')  
+  }                          
+})
+router.get('/tree',(req,res)=>{
+  console.log('CLicked');
+  userController.tree().then((data)=>{
+    console.log('Data',data);
+    res.render('User/data',{data})
+  })
+})
 module.exports = router;
