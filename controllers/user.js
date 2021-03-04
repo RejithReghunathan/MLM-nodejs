@@ -18,7 +18,7 @@ module.exports = {
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 email: data.email
             })
-            console.log('THe user of the country', user);
+        
             if (!user) {
                 response.status = 3
                 resolve(response)
@@ -97,7 +97,6 @@ module.exports = {
     },
     verifyOTP:(data)=>{
         let otp = data.otp
-        console.log("OTP OF THE COUNTYE",otp);
         return new Promise((resolve,reject)=>{
             client.verify.services(process.env.serviceID).verificationChecks
             .create({
@@ -125,7 +124,6 @@ module.exports = {
         detail.bankAcct=data.bank
         detail.ifsc=data.ifsc
         detail.userId=objectId(userId)
-        console.log('ith vilichu');
         return new Promise((resolve,reject)=>{
            db.get().collection(collection.DOCUMENT_COLLECTION).insertOne(detail).then((result)=>{
                 if(result){
@@ -137,5 +135,5 @@ module.exports = {
             })
         })
     },
-    
+
 }
