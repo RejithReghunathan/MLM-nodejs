@@ -192,6 +192,7 @@ module.exports = {
     },
     tree: ( ) => {
         let userid = '603dd5c981696c167af5d0bb'
+        let a =0
         var obj = []
         return new Promise(async(resolve, reject) => {
             userFuct(userid)
@@ -199,15 +200,24 @@ module.exports = {
                 let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                     _id: objectId(userid)
                 })
-                
-                // obj.push(user)
                 if (user != null) {
+                    obj.push(user)
+                    // console.log(obj);
+                    a=a+1
+                    console.log(a,"Mandel NUmber");
+                    if(a==4){
+                        console.log(obj);
+                        resolve(obj)
+                    }
                     userFuct(user.left)
                     userFuct(user.right)
-                }    
+                } 
+                
             }
+            console.log(a,"Number");
+            resolve(obj)   
     
-          resolve(obj)
+        
         })
     }
 }
