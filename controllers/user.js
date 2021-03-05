@@ -190,37 +190,24 @@ module.exports = {
             })
         })
     },
-    tree: () => {
+    tree: ( ) => {
         let userid = '603dd5c981696c167af5d0bb'
-        // var temp=[]
-        // return new Promise((resolve, reject) => {
-        //     async function userFuct(userid){
-        //      db.get().collection(collection.USER_COLLECTION).findOne({
-        //             _id: objectId(userid)
-        //         }).then((user)=>{
-        //             let temp = []
-        //             if(user!=null){
-        //                 // apppendUser(user)  
-        //                 temp.push(data)   
-        //                 userFuct(user.left)
-        //                 userFuct(user.right)
-        //             }
-        //         })
-        //     }
-
-        //     userFuct(userid)
-        // })
-        return new Promise(async (resolve, reject) => {
-            function userFuct(userid) {
+        var obj = []
+        return new Promise(async(resolve, reject) => {
+            userFuct(userid)
+            async function userFuct(userid) {
                 let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                     _id: objectId(userid)
                 })
+                
+                // obj.push(user)
                 if (user != null) {
                     userFuct(user.left)
                     userFuct(user.right)
-                }
+                }    
             }
-            userFuct(userid)
+    
+          resolve(obj)
         })
     }
 }
