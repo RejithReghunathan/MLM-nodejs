@@ -3,7 +3,10 @@ const collection = require('../config/collection')
 var objectId = require("mongodb").ObjectID;
 const bcrypt = require('bcrypt')
 let referralCodeGenerator = require('referral-code-generator');
-const Razorpay = require('razorpay')
+const Razorpay = require('razorpay');
+const {
+    resolve
+} = require('path');
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -188,21 +191,36 @@ module.exports = {
         })
     },
     tree: () => {
-        let userid= '603dd5c981696c167af5d0bb'
-        return new Promise((resolve, reject) => {
-            async function userFuct(userid){
-                let user =await db.get().collection(collection.USER_COLLECTION).findOne({
+        let userid = '603dd5c981696c167af5d0bb'
+        // var temp=[]
+        // return new Promise((resolve, reject) => {
+        //     async function userFuct(userid){
+        //      db.get().collection(collection.USER_COLLECTION).findOne({
+        //             _id: objectId(userid)
+        //         }).then((user)=>{
+        //             let temp = []
+        //             if(user!=null){
+        //                 // apppendUser(user)  
+        //                 temp.push(data)   
+        //                 userFuct(user.left)
+        //                 userFuct(user.right)
+        //             }
+        //         })
+        //     }
+
+        //     userFuct(userid)
+        // })
+        return new Promise(async (resolve, reject) => {
+            function userFuct(userid) {
+                let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                     _id: objectId(userid)
                 })
-            if(user!=null){
-                console.log(user);
-                userFuct(user.left)
-                userFuct(user.right)
-            }
+                if (user != null) {
+                    userFuct(user.left)
+                    userFuct(user.right)
+                }
             }
             userFuct(userid)
-            resolve()
-            
         })
     }
 }
