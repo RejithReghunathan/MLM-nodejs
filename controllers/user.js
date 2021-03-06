@@ -7,6 +7,7 @@ const Razorpay = require('razorpay');
 const {
     resolve
 } = require('path');
+const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environment/log');
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -190,34 +191,87 @@ module.exports = {
             })
         })
     },
-    tree: ( ) => {
+    tree: () => {
+        class Node {
+            constructor(data) {
+                this.data = data;
+                this.left = null;
+                this.right = null;
+            }
+        }
+        class BinarySearchTree {
+            constructor() {
+                this.root = null;
+            }
+            insert(data) {
+
+                var newNode = new Node(data);
+                if (this.root === null){
+                    console.log("Inserted root",data);
+                    this.root = newNode;
+                }
+                else
+                    this.insertNode(this.root, newNode);
+            }
+            insertNode(node, newNode) {
+
+                if (newNode.data < node.data) {
+    
+                    if (node.left === null){
+                        console.log("Inserted left");
+                        node.left = newNode;
+                    }
+                    else
+                    
+    
+                        this.insertNode(node.left, newNode);
+                } else {
+    
+                    if (node.right === null){
+                        console.log('Inserted right');
+                        node.right = newNode;
+                    }
+                    else
+    
+    
+                        this.insertNode(node.right, newNode);
+                }
+            }
+             postorder(node) {
+                if (node !== null) {
+                    this.postorder(node.left);
+                    this.postorder(node.right);
+                    console.log(node.data);
+                }
+            }
+        }
+
+     
+
+       
         let userid = '603dd5c981696c167af5d0bb'
-        let a =0
+        let a = 0
         var obj = []
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             userFuct(userid)
+            var BST = new BinarySearchTree();
+
             async function userFuct(userid) {
                 let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                     _id: objectId(userid)
                 })
+                BST.insert(user);
                 if (user != null) {
-                    obj.push(user)
-                    // console.log(obj);
-                    a=a+1
-                    console.log(a,"Mandel NUmber");
-                    if(a==4){
-                        console.log(obj);
-                        resolve(obj)
-                    }
                     userFuct(user.left)
                     userFuct(user.right)
-                } 
-                
+                }
+
             }
-            console.log(a,"Number");
-            resolve(obj)   
-    
-        
+            console.log("postorder traversal");
+            BST.postorder(userid)
+            resolve()
+
+
         })
     }
 }
