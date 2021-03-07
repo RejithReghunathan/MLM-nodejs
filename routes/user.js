@@ -85,7 +85,21 @@ router.post('/documentUpload',(req,res)=>{
   let user = req.session.user
   console.log("data Ellam varum",req.body);
   userController.documentUpload(req.body,user._id).then((datas)=>{
-    res.json(datas)
+    req.session.user.document=true
+    let pan = req.body.imagePan;
+    let bank =req.body.imageBank;
+        pan.mv("./public/documents/" + user._id + "pan.jpg", (err, done) => {
+          if (!err) {
+            bank.mv("./public/documents/"+user._id+"bank.jpg",(err,done)=>{
+              if(!err){
+                res.json(datas)
+              }
+            })
+          } else {
+            console.log("Error in adding Image");
+          }
+        });
+    
   })
 })
 router.post('/paymentRazorpay',(req,res)=>{

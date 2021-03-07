@@ -609,7 +609,24 @@ code{
       <button type="button" class="next action-button">Continue</button>  
     </fieldset>
 <fieldset>  
-      <h3>Verify Your Personal Details</h3>
+  {{#if user.document}}
+  <div > 
+    <div class="done_text"> 
+        <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
+        <h3>Document uploaded for verification </h3>
+      </div>  
+      <br>
+  </div>
+  {{else}}
+   <div id="third" style="display: none;"> 
+    <div class="done_text"> 
+        <a href="#" class="don_icon"><i class="ion-android-done"></i></a> 
+        <h3>Document uploaded for verification </h3>
+      </div>  
+      <br>
+  </div>
+  <div id="fourth">
+         <h3>Verify Your Personal Details</h3>
       <h6>Please upload any of these documents to verify your Identity.</h6>
       
       <div class="input-group"> 
@@ -617,7 +634,7 @@ code{
           <input type="text" class="form-control" required name="panNum" id="panNum" style="text-transform: uppercase;" placeholder="PAN number">
          </div> 
         <div class="custom-file" style="margin-left:400px;margin-top:10px;" >
-          <input type="file" class="custom-file-input" id="upload" required onchange="viewImag(event)">
+          <input type="file" class="custom-file-input" id="upload" name="pan" required onchange="viewImag(event)">
           <label class="custom-file-label" for="upload"><i class="ion-android-cloud-outline"></i>PAN Card</label>
         </div>
       </div>
@@ -627,7 +644,7 @@ code{
          </div> 
         <div class="custom-file" style="margin-left:400px;margin-top:10px;" >
           <input type="file" class="custom-file-input" id="uploadw" onchange="viewImage(event)">
-          <label class="custom-file-label" for="uploadw"><i class="ion-android-cloud-outline"></i>Bank Card</label>
+          <label class="custom-file-label" for="uploadw" name="bank"><i class="ion-android-cloud-outline"></i>Bank Card</label>
         </div>
         
       </div>
@@ -644,11 +661,18 @@ code{
         <li><a href="#"><i class="ion-paperclip"></i>Bank Card  </a>
         <img src="" id="imgVieww" alt="" style="height: 200px;width:300px; display:none;"> </li>
       </ul>
+  </div>
+  {{/if}}
       <h6 class="text-danger" style="display: none;" id="error">Please Fill all the feilds </h6>
       <h6 class="text-success" style="display: none;" id="done">Documents submitted for verification</h6>
       <button type="button" class="action-button previous previous_button">Back</button>
+      {{#if user.document}}
+      <button type="button" class="next action-button"  id="continueShow" style="display: none;">Continue</button>  
+
+      {{else}}
       <button type="button" class="submit" onclick="submitDetails()" id="submitHide">Sumit</button>  
-      <button type="button" class="next action-button"  id="continueShow">Continue</button>  
+{{/if}}
+      <button type="button" class="next action-button"  id="continueShow" style="display: none;">Continue</button>  
     </fieldset> 
     <fieldset>
       <h3>Just Pay 250 and Start earning</h3>
@@ -684,7 +708,9 @@ code{
            if(response){
              $('#submitHide').hide()
              $('#continueShow').show()
-             $('#done').show()
+             {{!-- $('#done').show() --}}
+             $('#third').show()
+             $('#fourth').hide()
            }
          }
        })
