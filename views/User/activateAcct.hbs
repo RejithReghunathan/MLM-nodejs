@@ -670,7 +670,7 @@ code{
       <button type="button" class="next action-button"  id="continueShow" style="display: none;">Continue</button>  
 
       {{else}}
-      <button type="button" class="submit" onclick="hello()" id="submitHide">Sumit</button>  
+      <button type="button" class="submit" onclick="submitDetails()" id="submitHide">Sumit</button>  
 {{/if}}
       <button type="button" class="next action-button"  id="continueShow" style="display: none;">Continue</button>  
     </fieldset> 
@@ -688,32 +688,33 @@ code{
  </main>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
  <script>
-   function hello(){
-     let imagePan = $('#upload').files()
-     let imageBank = $('#uploadw').files()
-     console.log(imagePan,imageBank)
-   }
+   
    function submitDetails(){
      let pan =$('#panNum').val()
      let bank = $('#bankNum').val()
      let ifsc = $('#ifsc').val()
-     let imagePan = $('#upload').files()
-     let imageBank = $('#uploadw').files()
-     if(pan==''||bank==''||ifsc==''||imageBank==''||imagePan==''){
+      var imagePa = document.getElementById('upload').files[0]
+      var imageBan = document.getElementById('uploadw').files[0]
+      var formData = new FormData()
+      formData.append('upload',imagePa)
+      formData.append('uploadw',imageBan)
+      formData.append('pan',pan)
+      formData.append('bank',bank)
+      formData.append('ifsc',ifsc)
+
+     if(pan==''||bank==''||ifsc==''||imageBan==''||imagePa==''){
        $('#error').show()
      }
      else{
        $.ajax({
          method:'POST',
          url:'/documentUpload',
-         enctype:"multipart/form-data",
-         processData: false,  // Important!
+         {{!-- enctype:"multipart/form-data", --}}
+         processData: false,  
         contentType: false,
         cache: false,
-         data:{
-           pan,bank,ifsc,imageBank,imagePan
-         },
-         success:(response)=>{
+         data:formData,
+           success:(response)=>{
            if(response){
              $('#submitHide').hide()
              $('#continueShow').show()

@@ -132,19 +132,24 @@ module.exports = {
         detail.bankAcct = data.bank
         detail.ifsc = data.ifsc
         detail.userId = objectId(userId)
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.DOCUMENT_COLLECTION).insertOne(detail).then((result) => {
-                if (result) {
-                    db.get().collection(collection.USER_COLLECTION).updateOne({
-                        _id: objectId(userId)
-                    }, {
-                        $set: {
-                            document: true
-                        }
-                    })
-                }
-                resolve(result.ops[0])
-            })
+        return new Promise(async(resolve, reject) => {
+            let data = await db.get().collection(collection.DOCUMENT_COLLECTION).findOne({_id:objectId(userId)})
+            if(!data){
+                db.get().collection(collection.DOCUMENT_COLLECTION).insertOne(detail).then((result) => {
+                    if (result) {
+                        db.get().collection(collection.USER_COLLECTION).updateOne({
+                            _id: objectId(userId)
+                        }, {
+                            $set: {
+                                document: true
+                            }
+                        })
+                    }
+                    resolve(result.ops[0])
+                })
+            }else{
+                reject()
+            }
         })
     },
     generateRazorpay: (userId) => {

@@ -83,14 +83,15 @@ router.post('/verifyOTP',(req,res)=>{
 })
 router.post('/documentUpload',(req,res)=>{
   let user = req.session.user
-  console.log("data Ellam varum",req.body);
+  console.log("data Ellam varum",req.files);
+  console.log("Data",req.body);
   userController.documentUpload(req.body,user._id).then((datas)=>{
     req.session.user.document=true
-    let pan = req.body.imagePan;
-    let bank =req.body.imageBank;
-        pan.mv("./public/documents/" + user._id + "pan.jpg", (err, done) => {
+    let pan = req.files.upload;
+    let bank =req.files.uploadw;
+        pan.mv("./public/documents/" + user._id + "-PAN.jpg", (err) => {
           if (!err) {
-            bank.mv("./public/documents/"+user._id+"bank.jpg",(err,done)=>{
+            bank.mv("./public/documents/"+user._id+"-BANK.jpg",(err)=>{
               if(!err){
                 res.json(datas)
               }
@@ -100,12 +101,14 @@ router.post('/documentUpload',(req,res)=>{
           }
         });
     
+  }).catch(()=>{
+    console.log('Can Uploaf document Document alreday exists');
   })
 })
 router.post('/paymentRazorpay',(req,res)=>{
   let user = req.session.user
-  userController.generateRazorpay(user._id).then((response)=>{
-    
+  userController.generateRazorpay(user._id).then((response)=>{ 
+    req.session.user.status=true
     res.json(response)
   })
 })
