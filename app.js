@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const session = require("express-session");
 const Handlebars = require("handlebars");
+const fileUpload = require("express-fileupload");
 // const fileUpload = require("express-fileupload");
 const hbs = require("express-handlebars");
 const dotenv=require('dotenv').config()
@@ -61,6 +62,7 @@ app.engine(
 );
 app.set('view engine', 'hbs');
 
+app.use(fileUpload());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
