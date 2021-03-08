@@ -134,7 +134,7 @@ router.get('/dashBoard',(req,res)=>{
 router.get('/tree',(req,res)=>{
   console.log('CLicked');
   userController.tree().then((data)=>{
-    console.log('Data',data);
+    console.log('Data of three',data);
     res.render('User/data',{data})
   })
 })

@@ -8,6 +8,7 @@ const {
     resolve
 } = require('path');
 const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environment/log');
+const { count } = require('console');
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -197,86 +198,24 @@ module.exports = {
         })
     },
     tree: () => {
-        // class Node {
-        //     constructor(data) {
-        //         this.data = data;
-        //         this.left = null;
-        //         this.right = null;
-        //     }
-        // }
-        // class BinarySearchTree {
-        //     constructor() {
-        //         this.root = null;
-        //     }
-        //     insert(data) {
-
-        //         var newNode = new Node(data);
-        //         if (this.root === null){
-        //             console.log("Inserted root",data);
-        //             this.root = newNode;
-        //         }
-        //         else
-        //             this.insertNode(this.root, newNode);
-        //     }
-        //     insertNode(node, newNode) {
-
-        //         if (newNode.data < node.data) {
-    
-        //             if (node.left === null){
-        //                 console.log("Inserted left");
-        //                 node.left = newNode;
-        //             }
-        //             else
-                    
-    
-        //                 this.insertNode(node.left, newNode);
-        //         } else {
-    
-        //             if (node.right === null){
-        //                 console.log('Inserted right');
-        //                 node.right = newNode;
-        //             }
-        //             else
-    
-    
-        //                 this.insertNode(node.right, newNode);
-        //         }
-        //     }
-        //      postorder(node) {
-        //         if (node !== null) {
-        //             this.postorder(node.left);
-        //             this.postorder(node.right);
-        //             console.log(node.data);
-        //         }
-        //     }
-        // }
-
-     
-
-       
         let userid = '603dd5c981696c167af5d0bb'
-        let a = 0
-        var obj = []
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
+            var obj = []
+            var count = 0
             userFuct(userid)
             async function userFuct(userid) {
                 let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                     _id: objectId(userid)
                 })
                 if (user!=null) {
-                    async (user)=>{
-                    await obj.push(user)
-                    }
-                    var temp = user
-                    // console.log(temp)
-                    let hello= array.push(user)
-                    console.log(array);
+                    obj.push(user)
                     userFuct(user.left)
                     userFuct(user.right)
                 }
-
             }
-            resolve(obj)
+            setTimeout(()=>{
+                resolve(obj)
+            },4000)
         })
     }
 }
