@@ -83,8 +83,6 @@ router.post('/verifyOTP',(req,res)=>{
 })
 router.post('/documentUpload',(req,res)=>{
   let user = req.session.user
-  console.log("data Ellam varum",req.files);
-  console.log("Data",req.body);
   userController.documentUpload(req.body,user._id).then((datas)=>{
     req.session.user.document=true
     let pan = req.files.upload;
