@@ -757,8 +757,8 @@
                 <input type="text" class="form-control" placeholder="Account Number" id="bankNum" name="bankNum">
               </div>
               <div class="custom-file" style="margin-left:400px;margin-top:10px;">
-                <input type="file" class="custom-file-input" id="uploadw" onchange="viewImage(event)">
-                <label class="custom-file-label" for="uploadw" name="bank"><i class="ion-android-cloud-outline"></i>Bank
+                <input type="file" class="custom-file-input" id="uploadw"  name="bank" onchange="viewImage(event)">
+                <label class="custom-file-label" for="uploadw" ><i class="ion-android-cloud-outline"></i>Bank
                   Card</label>
               </div>
 
@@ -785,7 +785,7 @@
           <h6 class="text-success" style="display: none;" id="done">Documents submitted for verification</h6>
           <button type="button" class="action-button previous previous_button">Back</button>
           {{#if user.document}}
-          <button type="button" class="next action-button" id="continueShow" style="display: none;">Continue</button>
+          <button type="button" class="next action-button" id="continueShow">Continue</button>
 
           {{else}}
           <button type="button" class="submit" onclick="submitDetails()" id="submitHide">Sumit</button>
@@ -806,8 +806,8 @@
 </main>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-
   function submitDetails() {
+    console.log('Submiteed')
     let pan = $('#panNum').val()
     let bank = $('#bankNum').val()
     let ifsc = $('#ifsc').val()
@@ -834,9 +834,9 @@
         data: formData,
         success: (response) => {
           if (response) {
+            $('#error').show()
             $('#submitHide').hide()
             $('#continueShow').show()
-            { { !--$('#done').show() --} }
             $('#third').show()
             $('#fourth').hide()
           }
@@ -897,8 +897,6 @@
     var rzp1 = new Razorpay(options);
     rzp1.open();
   }
-
-
   function verifyPayment(payment, order) {
     $.ajax({
       url: '/verify-payment',
@@ -918,10 +916,13 @@
     })
   }
   function viewImage(event) {
+    console.log('Called one')
     document.getElementById('imgVieww').src = URL.createObjectURL(event.target.files[0])
     $('#imgVieww').show()
   }
   function viewImag(event) {
+    console.log('Called two')
+
     document.getElementById('imgView').src = URL.createObjectURL(event.target.files[0])
     $('#imgView').show()
   }
