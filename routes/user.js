@@ -134,9 +134,23 @@ router.get('/dashBoard',(req,res)=>{
 router.get('/tree',(req,res)=>{
   let user = req.session.user
   console.log(user);
-  userController.singleUser(user._id).then((data)=>{
-    console.log('Data of three',data);
-    res.render('User/data',{data})
+  // userController.singleUser(user._id).then((data)=>{
+  //   console.log('Data of three',data);
+    
+  // })
+  let data = {
+    name:user.name,
+    _id:user._id
+  }
+  console.log("The Data",data);
+  res.render('User/data',{data})
+})
+router.post('/getSubOridinates',(req,res)=>{
+  // console.log(req.body.id);
+  userController.getAllSubordiante(req.body.id).then((data)=>{
+    console.log(data);
+    res.json({a:true})
+    
   })
 })
 module.exports = router;

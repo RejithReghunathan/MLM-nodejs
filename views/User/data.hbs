@@ -186,32 +186,30 @@
 
 
 </script>
- <a href="javascript:void(0);" style="margin-right: 7px;">
-                            <div class="member-view-box">
-                                <div class="member-image">
-                                    <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
-                                    <div class="member-details">
-                                        <h3 style="margin-left: -20px";> Member 2</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
 <script>
     function hello(id){
     console.log('Njn njekki',id)
-    $(function (){
-       
-        var first = ' <a href="javascript:void(0);" style="margin-right: 7px;">'
-                           var second=' <div class="member-view-box">'
-                                var third = '<div class="member-image">'
-                                    var fouth = '<img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">'
-                                var five = '   <div class="member-details">'
-                                      var six = '  <h3 style="margin-left: -20px";> Member 2</h3>'
-                                    </div>
-                                </div>
-                            </div>
-                        </a>'
-        $('<li>').append(iam).appendTo('#this');
+    $.ajax({
+        method:'post',
+        url:'/getSubOridinates',
+        data:{
+            id
+        },
+        success:(response)=>{
+            if(response.b==true){
+            alert('Data came ',response)
+            }else if(response.a==true){
+            alert('Data rejected ',response)
+
+            }
+        }
     })
+    
 }
 </script>
+
+{{!-- $(function (){
+       
+        var first = ' <a href="javascript:void(0);" style="margin-right: 7px; onclick="hello(89798798)"><div class="member-view-box"><div class="member-image"><img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member"><div class="member-details"><h3 style="margin-left: -20px";> this is me</h3></div> </div></div></a>'
+        $('<li>').append(first).appendTo('#this');
+    }) --}}
