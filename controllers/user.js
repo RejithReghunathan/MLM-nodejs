@@ -243,7 +243,7 @@ module.exports = {
                 console.log('hello',user);
                 setTimeout(()=>{
                     resolve(subOrdinates,user)
-                },1000)
+                },100)
                 
             }
             else if(user.left!=null){
