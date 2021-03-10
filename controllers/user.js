@@ -215,8 +215,10 @@ module.exports = {
                 }
             }
             setTimeout(()=>{
+                let length = obj.length
+                console.log(length);
                 resolve(obj)
-            },4000)
+            },2000)
         })
     },
     singleUser:(id)=>{
