@@ -196,10 +196,13 @@
             id
         },
         success:(response)=>{
+            console.log(response)
             if(response.b==true){
             alert('Data came ',response)
             }else if(response.a==true){
-            alert('Data rejected ',response)
+                if(response.userData.left!=null && response.userData.right){
+                         alert('Data rejected ',response)
+                }
 
             }
         }

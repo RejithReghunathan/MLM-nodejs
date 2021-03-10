@@ -229,29 +229,42 @@ module.exports = {
         })
     },
     getAllSubordiante:(id)=>{
-        return new Promise(async(request,resolve)=>{
+        return new Promise(async(resolve,reject)=>{
             let subOrdinates = []
             let user =await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(id)})
             console.log("USER",user);
             if(user.left!=null&&user.right!=null){
+                console.log('enteres');
                 let left = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.left)})
                 let right = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.right)})
                 subOrdinates.push(left)
                 subOrdinates.push(right)
                 console.log(subOrdinates,"THE SUBS");
-                console.log('hello');
-                resolve(subOrdinates)
+                console.log('hello',user);
+                setTimeout(()=>{
+                    resolve(subOrdinates,user)
+                },1000)
+                
             }
             else if(user.left!=null){
                 let left = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.left)})
                 subOrdinates.push(left)
-                resolve(subOrdinates)
-
+                setTimeout(()=>{
+                    resolve(subOrdinates)
+                },1000)
             }
             else if(user.right!=null){
                 let right = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.right)})
                 subOrdinates.push(right)
-                resolve(subOrdinates)
+                setTimeout(()=>{
+                    resolve(subOrdinates)
+                },1000)
+
+            }
+            else{
+                setTimeout(()=>{
+                    reject()
+                },1000)
 
             }
         })

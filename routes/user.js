@@ -1,5 +1,6 @@
 var express = require('express');
 const { ObjectID } = require('mongodb');
+const user = require('../controllers/user');
 var router = express.Router();
 const userController = require('../controllers/user')
 
@@ -146,11 +147,14 @@ router.get('/tree',(req,res)=>{
   res.render('User/data',{data})
 })
 router.post('/getSubOridinates',(req,res)=>{
-  // console.log(req.body.id);
+  
   userController.getAllSubordiante(req.body.id).then((data)=>{
-    console.log(data);
-    res.json({a:true})
+    userController.singleUser(req.body.id).then((userData)=>{
+      res.json({a:true,data,userData})
+    })
     
+  }).catch(()=>{
+    res.json({b:true})
   })
 })
 module.exports = router;
