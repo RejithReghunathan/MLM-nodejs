@@ -251,14 +251,14 @@ module.exports = {
                 subOrdinates.push(left)
                 setTimeout(()=>{
                     resolve(subOrdinates)
-                },1000)
+                },100)
             }
             else if(user.right!=null){
                 let right = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.right)})
                 subOrdinates.push(right)
                 setTimeout(()=>{
                     resolve(subOrdinates)
-                },1000)
+                },100)
 
             }
             else{

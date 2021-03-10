@@ -127,7 +127,7 @@
     <div class="genealogy-tree">
         <ul>
             <li>
-                <a href="javascript:void(0);" onclick="hello('{{data._id}}')">
+                <a href="javascript:void(0);" onclick="tree('{{data._id}}')">
                     <div class="member-view-box" >
                         <div class="member-image">
                             <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
@@ -137,34 +137,8 @@
                         </div>
                     </div>
                 </a>
-               
+
                 <ul id="{{data._id}}" class="active">
-                    {{!-- <li>
-                        <a href="javascript:void(0);" onclick="hello('hijgji876')" style="d-flex justify-content-center">
-                            <div class="member-view-box" style="margin-left: -2px;">
-                                <div class="member-image">
-                                    <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
-                                    <div class="member-details">
-                                        <h3 style="margin-left: -25px;">Member 1</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    
-                    </li> --}}
-                    {{!-- <li>
-                        <a href="javascript:void(0);" style="margin-right: 7px;">
-                            <div class="member-view-box">
-                                <div class="member-image">
-                                    <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
-                                    <div class="member-details">
-                                        <h3 style="margin-left: -20px";> Member 2</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                       
-                    </li> --}}
                 </ul>
             </li>
         </ul>
@@ -172,25 +146,9 @@
 </div>
     
 </div>
-{{!-- <script>
-    $(function () {
-    $('.genealogy-tree ul').hide();
-    $('.genealogy-tree>ul').show();
-    $('.genealogy-tree ul.active').show();
-    $('.genealogy-tree li').on('click', function (e) {
-        var children = $(this).find('> ul');
-        if (children.is(":visible")) children.hide('fast').removeClass('active');
-        else children.show('fast').addClass('active');
-        e.stopPropagation();
-    });
-});
 
-
-</script> --}}
 <script>
-    function hello(id){
-    console.log('Njn njekki',id)
-    {{!-- removeData() --}}
+    function tree(id){
     $.ajax({
         method:'post',
         url:'/getSubOridinates',
@@ -198,15 +156,16 @@
             id
         },
         success:(response)=>{
+            
             console.log(response)
             if(response.b==true){
             alert('Data came ',response)
             }else if(response.a==true){
-                if(response.userData.left!=null && response.userData.right){
-                         var data = response.data 
-                         for(i=0;i<data.length;i++){
-                             console.log('umerinte id',id)
-                             $('#'+id).append('<li><a href="javascript:void(0);" onclick="'+helloq(data[i]._id)+'" style="d-flex justify-content-center"><div class="member-view-box" style="margin-left: -2px;"><div class="member-image"><img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member"><div class="member-details"><h3 style="margin-left: -25px;">'+data[i].name+'</h3></div></div></div></a></li>')  
+                if(response.userData){
+                         var datas = response.data
+                         for(i=0;i<datas.length;i++){
+                             console.log(id,"Is the id")
+                             $('#'+id).append('<li><a href="javascript:void(0);" onclick="tree(\'' + datas[i]._id + '\')"  style="d-flex justify-content-center"><div class="member-view-box" style="margin-left: -2px;"><div class="member-image"><img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member"><div class="member-details"><h3 style="margin-left: -25px;">'+datas[i].name+'</h3></div></div></div></a><ul  id='+datas[i]._id+' class="active"></ul></li>')  
                 }
                 }
             }
@@ -214,9 +173,7 @@
     })
     
 }
-function helloq(a){
-    console.log('CLICKED',a)
-}
+
 function removeData(){
     setTimeout(()=>{
     $('#this').remove()
