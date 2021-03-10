@@ -232,14 +232,12 @@ module.exports = {
         return new Promise(async(resolve,reject)=>{
             let subOrdinates = []
             let user =await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(id)})
-            console.log("USER",user);
             if(user.left!=null&&user.right!=null){
                 console.log('enteres');
                 let left = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.left)})
                 let right = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.right)})
                 subOrdinates.push(left)
                 subOrdinates.push(right)
-                console.log(subOrdinates,"THE SUBS");
                 console.log('hello',user);
                 setTimeout(()=>{
                     resolve(subOrdinates,user)
