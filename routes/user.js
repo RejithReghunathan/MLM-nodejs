@@ -88,6 +88,7 @@ router.post('/verifyOTP', (req, res) => {
   userController.verifyOTP(req.body).then((data) => {
 
     data.otp = true
+    req.session.user.phone=true
     userController.addPhone(user._id, data.phone).then(() => {
       res.json(data)
     })

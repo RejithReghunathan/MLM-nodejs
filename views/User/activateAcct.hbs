@@ -718,8 +718,10 @@
               <h3>Phone Verification completed successfully</h3>
             </div>
             <br>
+            </div>
             {{/if}}
-            <button type="button" class="next action-button">Continue</button>
+
+            <button type="button" id="otpbtn" class="next action-button" style="display: none;">Continue</button>
         </fieldset>
         <fieldset>
           {{#if user.document}}
@@ -1094,6 +1096,7 @@
         if (response.otp) {
           $('#first').hide()
           $('#second').show()
+          $('#otpbtn').show()
         }
         else {
           $('#wrngotp').show()
