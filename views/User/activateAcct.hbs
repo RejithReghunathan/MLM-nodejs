@@ -690,8 +690,9 @@
                 <input type="text" class="form-control" placeholder="Enter phone" id="phnum" maxlength="10">
               </div>
             </div>
-            <button type="button" class="action-button mt-5" onclick="requestOTP()" id="otpSubmit">Submit</button>
             <h6 style="display: none;" id="exists">Wrong Otp</h6>
+            <button type="button" class="action-button mt-5" onclick="requestOTP()" id="otpSubmit">Submit</button>
+            
             <div style="display: none;" id="otp">
               <div class="done_text">
                 <a href="#" class="don_icon"><i class="ion-android-done"></i></a>
@@ -1069,10 +1070,14 @@
         mobile
       },
       success(response) {
-        if (response) {
+        if (response.data==true) {
+          $('#exists').hide()
           $('#otp').show()
           $('#otpSubmit').hide()
           $('#otpSubmit2').show()
+        }
+        else if(response.data==false){
+          $('#exists').show()
         }
       }
     })

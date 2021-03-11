@@ -76,17 +76,23 @@ router.get('/acivateAcct', (req, res) => {
   }
 })
 router.post('/requestOTP', (req, res) => {
-  userController.requestOTP(req.body).then((data) => {
-    console.log("The data of the country of the India", data);
-    let a = true
-    res.json(a)
+ 
+  userController.phoneExist(req.body.mobile).then((response)=>{
+    if(response){
+      console.log(response,"THE RES");
+    res.json({data:false})
+    }
+  }).catch(()=>{
+    userController.requestOTP(req.body).then((result) => {
+      res.json({data:true})
+    })
   })
+  
 })
 router.post('/verifyOTP', (req, res) => {
   let user = req.session.user
   console.log('data', req.body);
   userController.verifyOTP(req.body).then((data) => {
-
     data.otp = true
     req.session.user.phone=true
     userController.addPhone(user._id, data.phone).then(() => {

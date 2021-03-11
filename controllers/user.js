@@ -268,5 +268,17 @@ module.exports = {
 
             }
         })
+    },
+    phoneExist:(mob)=>{
+        return new Promise(async(resolve,reject)=>{
+            let number = '+'+mob
+            console.log(number,"THE NUMBER");
+            let num =await db.get().collection(collection.USER_COLLECTION).findOne({phone:number})
+            if(num){
+                resolve(num)
+            }else{
+                reject()
+            }
+        })
     }
 }
