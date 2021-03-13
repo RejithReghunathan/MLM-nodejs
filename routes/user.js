@@ -19,13 +19,11 @@ router.get('/', (req, res) => {
 })
 router.get('/register', (req, res) => {
   let rc = req.query.code
-  console.log(rc);
   res.render('User/register', {
     name: rc
   })
 })
 router.post('/login', (req, res) => {
-  console.log(req.body);
   userController.userLogin(req.body).then((response) => {
     req.session.user = response.user;
     res.json(response)
@@ -55,7 +53,6 @@ router.get('/invite', (req, res) => {
 router.post('/signup', (req, res) => {
   userController.userSignup(req.body).then((response) => {
     req.session.user = response;
-    console.log(response);
     res.json(response)
   }).catch((response) => {
     res.json(response)
@@ -79,7 +76,7 @@ router.post('/requestOTP', (req, res) => {
  
   userController.phoneExist(req.body.mobile).then((response)=>{
     if(response){
-      console.log(response,"THE RES");
+     
     res.json({data:false})
     }
   }).catch(()=>{
@@ -91,7 +88,6 @@ router.post('/requestOTP', (req, res) => {
 })
 router.post('/verifyOTP', (req, res) => {
   let user = req.session.user
-  console.log('data', req.body);
   userController.verifyOTP(req.body).then((data) => {
     data.otp = true
     req.session.user.phone=true
@@ -180,7 +176,7 @@ router.post('/getSubOridinates', (req, res) => {
 })
 router.get('/tree',(req,res)=>{
   userController.tree().then((datas)=>{
-    console.log(datas,"THe data");
+    
   })
 })
 module.exports = router;
