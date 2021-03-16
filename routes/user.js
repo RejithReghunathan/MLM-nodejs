@@ -150,9 +150,12 @@ router.get('/dashBoard', (req, res) => {
       name: user.name,
       _id: user._id
     }
-    res.render('User/data', {
-      data,user
+    userController.getFirstLevel(user._id).then((result)=>{
+      res.render('User/data', {
+        data,user,result
+      })
     })
+    
   } else {
     res.render('User/login.hbs',{user:true,login:true})
   }

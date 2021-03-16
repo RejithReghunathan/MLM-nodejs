@@ -163,18 +163,21 @@
                     </a>
 
                     <ul id="{{data._id}}" class="active">
+                        {{#if result.left}}
                         <li>
                             <a href="javascript:void(0);">
                                 <div class="member-view-box">
                                     <div class="member-image">
                                         <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
                                         <div class="member-details">
-                                            <h3>Member 1</h3>
+                                            <h3>{{result.left.name}}</h3>
                                         </div>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                        {{/if}}
+                        {{#if result.right}}
                         <li>
                             <a href="javascript:void(0);">
                                 <div class="member-view-box">
@@ -187,6 +190,7 @@
                                 </div>
                             </a>
                         </li>
+                        {{/if}}
                     </ul>
                 </li>
             </ul>

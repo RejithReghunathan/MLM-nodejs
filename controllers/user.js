@@ -10,6 +10,7 @@ const {
 const { LogInstance } = require('twilio/lib/rest/serverless/v1/service/environment/log');
 const { count } = require('console');
 const { request } = require('http');
+const { disable } = require('debug');
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -279,6 +280,21 @@ module.exports = {
             }else{
                 reject()
             }
+        })
+    },
+    getFirstLevel:(userId)=>{
+        let data = {}
+        return new Promise(async(resolve,reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({
+                _id:objectId(userId)
+            })
+            if(user){
+                let userLeft =await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.left)})
+                let userRight =await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(user.right)})
+                data.left=userLeft
+                data.right=userRight
+            }
+            resolve(data)
         })
     }
 }
