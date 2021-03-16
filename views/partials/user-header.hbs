@@ -38,6 +38,8 @@
                    <h1 class="text-white"><span style="color: #7dda46;">Royal</span>Hub</h1>
               </div>
                {{#if user}}
+               {{#if login}}
+              {{else}}
               <div class="col-md-6" style="display: flex;">
                  
                   <ul class="nav-font"style="list-style-type: none; font-size:20px;margin-top:20px;display:flex; float:right;">
@@ -48,6 +50,8 @@
                       <li style="color: #7cd947; font-weight:100">{{user.name}}</li>
 
                   </ul>
+                  {{/if}}
+
                   {{/if}}
               </div>
           </div>

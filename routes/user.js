@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
       user
     })
   } else {
-    res.render('User/login.hbs')
+    res.render('User/login.hbs',{user:true,login:true})
   }
 })
 router.get('/register', (req, res) => {
@@ -69,7 +69,7 @@ router.get('/acivateAcct', (req, res) => {
       user
     })
   } else {
-    res.render('User/login.hbs')
+    res.render('User/login.hbs',{user:true,login:true})
   }
 })
 router.post('/requestOTP', (req, res) => {
@@ -154,7 +154,7 @@ router.get('/dashBoard', (req, res) => {
       data,user
     })
   } else {
-    res.render('User/login.hbs')
+    res.render('User/login.hbs',{user:true,login:true})
   }
 })
 
