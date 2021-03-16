@@ -69,7 +69,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // Database connection
-db.connect((err)=>{
+db.connect(function done(err){
   if(err){
     console.log("Connection Failed" + err);
   }else{
