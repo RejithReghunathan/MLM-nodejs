@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 router.get('/register', (req, res) => {
   let rc = req.query.code
   res.render('User/register', {
-    name: rc
+    name: rc,user:true,login:true
   })
 })
 router.post('/login', (req, res) => {
