@@ -13,6 +13,13 @@ router.get('/',(req,res)=>{
     }  
 })
 router.get('/login',(req,res)=>{
+    let adminLoggedIn = req.session.adminLoggedIn
+    if(adminLoggedIn){
+        res.render('Admin/dashboard',{admin:true})
+    }
+    else{
+        res.render('Admin/login-admin')
+    }  
     res.render('Admin/login-admin')
 })
 router.post('/login',(req,res)=>{
@@ -29,5 +36,15 @@ router.get('/logoutadmin', (req, res) => {
     req.session.adminLoggedIn=false
     res.redirect('/admin')
 })
-
+router.get('/getAllUser',(req,res)=>{
+    console.log("EE route vilichi");
+    let adminLoggedIn = req.session.adminLoggedIn
+    if(adminLoggedIn){
+        res.render('Admin/allUsers',{admin:true})
+    }
+    else{
+        res.render('Admin/login-admin')
+    }  
+    
+})
 module.exports = router;
