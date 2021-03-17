@@ -2,7 +2,7 @@ var express = require('express');
 const {
   ObjectID
 } = require('mongodb');
-const user = require('../controllers/user');
+
 var router = express.Router();
 const userController = require('../controllers/user')
 
