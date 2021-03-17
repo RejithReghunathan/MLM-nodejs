@@ -165,7 +165,7 @@ router.get('/dashBoard', (req, res) => {
     userController.getFirstLevel(user._id).then((result)=>{
       userController.tree(user._id).then((count)=>{
         count=count-1
-        res.render('User/data', {
+        res.render('User/tree', {
           data,user,result,count
         })
       })

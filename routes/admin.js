@@ -10,8 +10,7 @@ router.get('/',(req,res)=>{
     }
     else{
         res.render('Admin/login-admin')
-    }
-    
+    }  
 })
 router.get('/login',(req,res)=>{
     res.render('Admin/login-admin')
@@ -26,8 +25,9 @@ router.post('/login',(req,res)=>{
         res.json(response)
     })
 })
-router.get('/logadmin', (req, res) => {
+router.get('/logoutadmin', (req, res) => {
     req.session.adminLoggedIn=false
     res.redirect('/admin')
-  })
+})
+
 module.exports = router;
