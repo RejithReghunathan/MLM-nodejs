@@ -147,6 +147,7 @@
     }
 </style>
 <div class="container" style="max-with:auto;background-color:#fff; margin-top:30px; border-radius:4px;">
+    <div  style="margin-top:20px; height:60px;width:250px;background-color:rgb(255, 255, 255);border-radius:6px; box-shadow: 0 2px 4px  ;"><h3 style="padding:15px">SubOridinates : <span style="color:#7dda46;">67</span></h3></div>
     <div class="body genealogy-body genealogy-scroll">
         <div class="genealogy-tree">
             <ul>
@@ -161,11 +162,11 @@
                             </div>
                         </div>
                     </a>
-
-                    <ul id="{{data._id}}" class="active">
+                    {{#if result}}
+                    <ul  class="active">
                         {{#if result.left}}
                         <li>
-                            <a href="javascript:void(0);">
+                            <a href="javascript:void(0);" onclick="tree('{{result.left._id}}')">
                                 <div class="member-view-box">
                                     <div class="member-image">
                                         <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
@@ -175,23 +176,30 @@
                                     </div>
                                 </div>
                             </a>
+                            <ul  id="{{result.left._id}}"  class="active">
+
+                            </ul>
                         </li>
                         {{/if}}
                         {{#if result.right}}
-                        <li>
-                            <a href="javascript:void(0);">
+                        <li style="margin-right: 10px;" >
+                            <a href="javascript:void(0);" onclick="tree('{{result.right._id}}')">
                                 <div class="member-view-box">
                                     <div class="member-image">
                                         <img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member">
                                         <div class="member-details">
-                                            <h3>Member 2</h3>
+                                            <h3>{{result.right.name}}</h3>
                                         </div>
                                     </div>
                                 </div>
                             </a>
+                             <ul  id="{{result.right._id}}"  class="active">
+
+                            </ul>
                         </li>
                         {{/if}}
                     </ul>
+                    {{/if}}
                 </li>
             </ul>
         </div>
