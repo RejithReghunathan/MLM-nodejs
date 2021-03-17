@@ -64,7 +64,7 @@ module.exports = {
             })
             if(email){
                 status.errCode=3
-                reject(status)
+                
             }else{
             if (user) {
                 if (user.referrals < 2) {
@@ -121,13 +121,13 @@ module.exports = {
 
         })
     },
-    getInviteLink: (id) => {
+    getInviteLink: (id,host) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 _id: objectId(id)
             })
             rc = user.referral_code
-            link = 'localhost:8000/register?code=' + rc
+            link = host + '/register?code=' + rc
             resolve(link)
         })
     },

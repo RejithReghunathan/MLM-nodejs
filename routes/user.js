@@ -42,7 +42,7 @@ router.get('/home', (req, res) => {
 })
 router.get('/invite', (req, res) => {
   let user = req.session.user
-  userController.getInviteLink(user._id).then((response) => {
+  userController.getInviteLink(user._id,req.headers.host).then((response) => {
     res.render('User/invite', {
       response,
       user
