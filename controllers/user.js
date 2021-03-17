@@ -199,11 +199,9 @@ module.exports = {
             })
         })
     },
-    tree: () => {
-        let userid = '603dd5c981696c167af5d0bb'
+    tree: (userid) => {
         return new Promise((resolve, reject) => {
             var obj = []
-            var count = 0
             userFuct(userid)
             async function userFuct(userid) {
                 let user = await db.get().collection(collection.USER_COLLECTION).findOne({
@@ -217,9 +215,8 @@ module.exports = {
             }
             setTimeout(()=>{
                 let length = obj.length
-                console.log(length);
-                resolve(obj)
-            },2000)
+                resolve(length)
+            },1000)
         })
     },
     singleUser:(id)=>{

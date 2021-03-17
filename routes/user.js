@@ -150,9 +150,12 @@ router.get('/dashBoard', (req, res) => {
       name: user.name,
       _id: user._id
     }
+    
     userController.getFirstLevel(user._id).then((result)=>{
-      res.render('User/data', {
-        data,user,result
+      userController.tree(user._id).then((count)=>{
+        res.render('User/data', {
+          data,user,result,count
+        })
       })
     })
     
