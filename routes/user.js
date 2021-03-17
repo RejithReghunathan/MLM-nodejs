@@ -9,7 +9,8 @@ const userController = require('../controllers/user')
 
 router.get('/', (req, res) => {
   let user = req.session.user
-  if (user) {
+  let loggedIn = req.session.userLoggedIn
+  if (loggedIn) {
     res.render('User/home', {
       user
     })
@@ -26,12 +27,14 @@ router.get('/register', (req, res) => {
 router.post('/login', (req, res) => {
   userController.userLogin(req.body).then((response) => {
     req.session.user = response.user;
+    req.session.userLoggedIn=true
     res.json(response)
   })
 })
 router.get('/home', (req, res) => {
   let user = req.session.user
-  if (user) {
+  let loggedIn = req.session.userLoggedIn
+  if (loggedIn) {
     res.render('User/home', {
       user
     })
@@ -42,13 +45,19 @@ router.get('/home', (req, res) => {
 })
 router.get('/invite', (req, res) => {
   let user = req.session.user
-  userController.getInviteLink(user._id,req.headers.host).then((response) => {
-    res.render('User/invite', {
-      response,
-      user
+  let loggedIn = req.session.userLoggedIn
+  if(loggedIn){
+    userController.getInviteLink(user._id,req.headers.host).then((response) => {
+      res.render('User/invite', {
+        response,
+        user
+      })
+  
     })
-
-  })
+  }else{
+    res.redirect('/')
+  }
+  
 })
 router.post('/signup', (req, res) => {
   userController.userSignup(req.body).then((response) => {
@@ -59,12 +68,13 @@ router.post('/signup', (req, res) => {
   })
 })
 router.get('/logout', (req, res) => {
-  req.session.destroy()
+  req.session.userLoggedIn=false
   res.redirect('/')
 })
 router.get('/acivateAcct', (req, res) => {
+  let loggedIn = req.session.userLoggedIn
   let user = req.session.user
-  if (user) {
+  if (loggedIn) {
     res.render('User/activateAcct', {
       user
     })
@@ -144,8 +154,9 @@ router.post("/verify-payment", (req, res) => {
     });
 });
 router.get('/dashBoard', (req, res) => {
+  let loggedIn = req.session.userLoggedIn
   let user = req.session.user
-  if (user) {
+  if (loggedIn) {
     let data = {
       name: user.name,
       _id: user._id
