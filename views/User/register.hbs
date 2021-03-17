@@ -33,6 +33,7 @@
           </div>
             <div style="display: none;font-weight:bolder" class="text-danger text-center" id="userErr">Invalid Referral Code</div>
             <div style="display: none;font-weight:bolder" class="text-danger text-center" id="userErrR">Reffered Users Limit exceeded</div>
+            <div style="display: none;font-weight:bolder" class="text-danger text-center" id="userErrEmail">Email already taken</div>
           <div class="form-check mx-auto">
             <button type="submit" class="btn btn-login float-right mx-auto" style="margin-left: 150px;margin-top:10px;">
               Register
@@ -77,6 +78,8 @@
           }
           else if (response.errCode == 2) {
             $('#userErrR').show()
+          }else if(response.errCode ==3){
+            $('#userErrEmail').show()
           }
           else {
             window.location.href = "home"

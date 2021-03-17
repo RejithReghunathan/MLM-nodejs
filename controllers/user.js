@@ -59,6 +59,13 @@ module.exports = {
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 referral_code: data.referral_code
             })
+            let email = await db.get().collection(collection.USER_COLLECTION).findOne({
+                email:data.email
+            })
+            if(email){
+                status.errCode=3
+                reject(status)
+            }else{
             if (user) {
                 if (user.referrals < 2) {
                     if (user.referrals == 0) {
@@ -110,6 +117,7 @@ module.exports = {
                 status.errCode = 1 //invalid referal
                 reject(status)
             }
+        }
 
         })
     },
@@ -341,5 +349,6 @@ module.exports = {
             }
             resolve(data)
         })
-    }
+    },
+
 }

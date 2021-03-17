@@ -181,9 +181,4 @@ router.post('/getSubOridinates', (req, res) => {
     })
   })
 })
-router.get('/tree',(req,res)=>{
-  userController.tree().then((datas)=>{
-    
-  })
-})
 module.exports = router;
