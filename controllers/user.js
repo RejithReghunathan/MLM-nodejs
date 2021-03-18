@@ -236,7 +236,7 @@ module.exports = {
                 $set: {
                     payment: true,
                     status: true,
-                    verify:true
+                    verify:false
                 }
             }).then(() => {
                 resolve()
@@ -353,5 +353,4 @@ module.exports = {
             resolve(data)
         })
     },
-
 }
