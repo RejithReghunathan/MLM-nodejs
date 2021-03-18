@@ -70,5 +70,18 @@ module.exports={
                 reject()
             }
         })
+    },
+    verifyPanAdmin:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+           let data = await db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({userId:objectId(userId)},{
+                $set:{
+                    panVerify:true
+                }
+            })
+            if(data)
+            {
+            resolve()
+            }
+        })
     }
 }

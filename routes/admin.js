@@ -62,4 +62,10 @@ router.get('/verifyUsers',(req,res)=>{
         res.render('Admin/login-admin')
     }  
 })
+router.post('/verifyPan',(req,res)=>{
+    adminController.verifyPanAdmin(req.body.userId).then(()=>{
+        res.send({res:true})
+    })
+    
+})
 module.exports = router;

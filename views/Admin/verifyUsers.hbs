@@ -28,9 +28,16 @@
 									
 									<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
 									<td style="text-align: center;">{{this.name}}</td>
-									<td style="text-align: center;"><button type="button" class="btn btn-primary m-2"
+									<td id="{{this._id}}panverify" style="text-align:center; display:none;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+									{{#if documents.panVerify}}
+									<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+									{{else}}
+											
+											<td style="text-align: center;" id="{{this._id}}panveri"><button type="button" class="btn btn-primary m-2"
 											data-toggle="modal" data-target="#{{this.name}}{{math @index "+" 1}}pan">Verify Pan</button>
 									</td>
+
+									{{/if}}
 									<div class="modal fade" id="{{this.name}}{{math @index "+" 1}}pan" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered">
 											<div class="modal-content">
@@ -42,13 +49,13 @@
 												</div>
 												<div class="modal-body text-center" style="color: #fff;"><b>PAN:
 														{{documents.panCard}}</b></div>
-												<div><img src="/documents/{{this._id}}-PAN.jpg" alt=""
+												<div id="img-containser" style="height: 250px; position:relative"><img src="/documents/{{this._id}}-PAN.jpg" alt=""
 														style="width:450px;height:250px;align-items:center;margin-left:25px;">
 												</div>
 												<div class="modal-footer" style="margin-top: 10px;">
-													<button type="button" class="btn btn-secondary"
+													<button type="button" id="btn" class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Verify Pan</button>
+													<button type="button" class="btn btn-primary" onclick="verifyPan('{{this._id}}')">Verify Pan</button>
 													<button type="button" class="btn btn-danger">Reject Pan</button>
 												</div>
 											</div>
@@ -75,9 +82,9 @@
 														style="width:450px;height:250px;align-items:center;margin-left:25px;">
 												</div>
 												<div class="modal-footer" style="margin-top: 10px;">
-													<button type="button" class="btn btn-secondary"
+													<button type="button"  class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary">Verify Bank</button>
+													<button type="button" class="btn btn-primary" onclick="verifyPan('{{this._id}}')">Verify Bank</button>
 													<button type="button" class="btn btn-danger">Reject Bank</button>
 												</div>
 											</div>
@@ -96,6 +103,48 @@
 	</div>
 </div>
 
+<script>
+	function verifyPan(userId,num){
+		$.ajax({
+			url:'/admin/verifyPan',
+			method:'post',
+			data:{
+				userId
+			},
+			success:(respone)=>{
+				if(respone){
+					alert('Pan verified')
+					$('#'+userId+'panveri').hide()
+					$('#'+userId+'panverify').show()
+					$('#btn').click()
+					
+				}
+			}
+
+		})
+	}
+</script>
+<script>
+	function verifyBank(userId){
+		$.ajax({
+			url:'/admin/verifyBanK',
+			method:'post',
+			data:{
+				userId
+			},
+			success:(respone)=>{
+				if(respone){
+					alert('Bank verified')
+					$('#'+userId+'bankveri').hide()
+					$('#'+userId+'bankverify').show()
+					
+					
+				}
+			}
+
+		})
+	}
+</script>
 {{!-- <script>
 	$('#exampleVaryingModalContent').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget) // Button that triggered the modal
