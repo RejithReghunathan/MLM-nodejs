@@ -40,7 +40,9 @@ router.get('/getAllUser',(req,res)=>{
     console.log("EE route vilichi");
     let adminLoggedIn = req.session.adminLoggedIn
     if(adminLoggedIn){
-        res.render('Admin/allUsers',{admin:true})
+        adminController.getAllUsers().then((users)=>{
+            res.render('Admin/allUsers',{admin:true,users})
+        })
     }
     else{
         res.render('Admin/login-admin')

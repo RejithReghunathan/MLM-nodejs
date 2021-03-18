@@ -8,7 +8,7 @@
 						<div class="card radius-15">
 						<div class="card-body">
 							<div class="card-title">
-								<h4 class="mb-0">Table head options</h4>
+								<h4 class="mb-0 text-dark">All Users</h4>
 							</div>
 							<hr/>
 							<div class="table-responsive">
@@ -16,60 +16,42 @@
 									<thead class="thead-dark">
 										<tr>
 											<th scope="col">#</th>
-											<th scope="col">First</th>
-											<th scope="col">Last</th>
-											<th scope="col">Handle</th>
+											<th scope="col">Name</th>
+											<th scope="col">E-mail</th>
+											<th scope="col">Phone</th>
+											<th scope="col">Refferals</th>
+											<th scope="col">Verification</th>
+											<th scope="col">Document</th>
+											<th scope="col">Payment</th>
 										</tr>
 									</thead>
 									<tbody>
+										{{#each users}}
 										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
+											
+											<th scope="row">{{math @index "+" 1}}</th>
+											<td>{{name}}</td>
+											<td>{{email}}</td>
+											<td>{{phone}}</td>
+											<td>{{referrals}}</td>
+											{{#if verify}}
+											<td><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+											{{else}}
+											<td><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
+											{{/if}}
+											{{#if document}}
+											<td><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+											{{else}}
+											<td><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
+											{{/if}}
+											{{#if Payment}}
+											<td><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+											{{else}}
+											<td><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
+											{{/if}}
+											
 										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
-										</tr>
-									</tbody>
-								</table>
-								<table class="table">
-									<thead class="thead-light">
-										<tr>
-											<th scope="col">#</th>
-											<th scope="col">First</th>
-											<th scope="col">Last</th>
-											<th scope="col">Handle</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
-										</tr>
-										<tr>
-											<th scope="row">2</th>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-										</tr>
-										<tr>
-											<th scope="row">3</th>
-											<td>Larry</td>
-											<td>the Bird</td>
-											<td>@twitter</td>
-										</tr>
+										{{/each}}
 									</tbody>
 								</table>
 							</div>
