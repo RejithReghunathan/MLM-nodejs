@@ -41,7 +41,7 @@
 													</button>
 												</div>
 												<div class="modal-body text-center" style="color: #fff;"><b>PAN:
-														5765765765987</b></div>
+														{{documents.panCard}}</b></div>
 												<div><img src="/documents/{{this._id}}-PAN.jpg" alt=""
 														style="width:450px;height:250px;align-items:center;margin-left:25px;">
 												</div>
@@ -67,8 +67,10 @@
 														aria-label="Close"> <span aria-hidden="true">&times;</span>
 													</button>
 												</div>
-												<div class="modal-body text-center" style="color: #fff;"><b>PAN:
-														5765765765987</b></div>
+												<div class="modal-body " style="color: #fff;"><b>
+														Bank Account : {{documents.bankAcct}}</b></div>
+														<div class="modal-body " style="color: #fff;"><b>
+														IFSC Code : {{documents.ifsc}}</b></div>
 												<div><img src="/documents/{{this._id}}-BANK.jpg" alt=""
 														style="width:450px;height:250px;align-items:center;margin-left:25px;">
 												</div>
@@ -81,7 +83,7 @@
 											</div>
 										</div>
 									</div>
-									<td style="text-align: center;">{{this.phone}}</td>
+									<td style="text-align: center;">+{{this.phone}}</td>
 								</tr>
 								{{/each}}
 							</tbody>

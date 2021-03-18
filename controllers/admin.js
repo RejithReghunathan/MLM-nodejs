@@ -38,12 +38,32 @@ module.exports={
                 {
                     $project:{
                         name:1,
-                        _id:1
+                        _id:1,
+                        phone:1
                     }
-                }
+                },
+                {
+                    $lookup:{
+                        from:"document",
+                        localField:"_id",
+                        foreignField:"userId",
+                        as:"documents"
+                    }
+                },
+                {
+                    $project:{
+                        name:1,
+                        _id:1,
+                        phone:1,
+                        documents:{
+                            $arrayElemAt:["$documents",0]
+                        }
+                    }
+                },
             ]).toArray()
             
             if(users){
+                console.log("Aggregate cheyth samanam ..",users);
                 resolve(users)
             }
             else{

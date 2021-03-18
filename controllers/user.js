@@ -176,6 +176,8 @@ module.exports = {
         detail.bankAcct = data.bank
         detail.ifsc = data.ifsc
         detail.userId = objectId(userId)
+        detail.verifyBank=false
+        detail.panVerify=false
         return new Promise(async (resolve, reject) => {
             let data = await db.get().collection(collection.DOCUMENT_COLLECTION).findOne({
                 _id: objectId(userId)
@@ -194,7 +196,7 @@ module.exports = {
                     resolve(result.ops[0])
                 })
             } else {
-                reject()
+                // Come back here for updating after the admin reject the documentl verification 
             }
         })
     },
