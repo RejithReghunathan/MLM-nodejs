@@ -32,7 +32,8 @@ module.exports={
                 {
                     $match:{
                         status:true,
-                        role:1
+                        role:1,
+                        verify:false
                     }
                 },
                 {
@@ -111,6 +112,14 @@ module.exports={
             if(data)
             {
             resolve()
+            }
+        })
+    },
+    getverifiedUsers:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let users = db.get().collection(collection.USER_COLLECTION).find({verify:true}).toArray()
+            if(users){
+                resolve(users)
             }
         })
     }

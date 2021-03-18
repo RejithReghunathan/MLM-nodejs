@@ -71,4 +71,9 @@ router.post('/verifyBank',(req,res)=>{
         res.send({res:true})
     })
 })
+router.get('/verifiedUser',(req,res)=>{
+    adminController.getverifiedUsers().then((users)=>{
+        res.render('Admin/verifiedUser',{admin:true,users})
+    })
+})
 module.exports = router;

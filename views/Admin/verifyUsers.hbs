@@ -11,6 +11,7 @@
 						<h4 class="mb-0 text-dark">Verify Users</h4>
 					</div>
 					<hr />
+					{{#if users}}
 					<div class="table-responsive">
 						<table class="table">
 							<thead class="thead-dark">
@@ -103,6 +104,10 @@
 						</table>
 
 					</div>
+					{{else}}
+					
+					<h4 style="color: black;" class="text-center">No new users uploaded documents</h4>
+					{{/if}}
 				</div>
 			</div>
 		</div>
