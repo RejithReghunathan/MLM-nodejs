@@ -20,7 +20,6 @@ router.get('/login',(req,res)=>{
     else{
         res.render('Admin/login-admin')
     }  
-    res.render('Admin/login-admin')
 })
 router.post('/login',(req,res)=>{
     adminController.adminLogin(req.body).then((admin)=>{
@@ -48,5 +47,14 @@ router.get('/getAllUser',(req,res)=>{
         res.render('Admin/login-admin')
     }  
     
+})
+router.get('/verifyUsers',(req,res)=>{
+    let adminLoggedIn = req.session.adminLoggedIn
+    if(adminLoggedIn){
+        res.render('Admin/verifyUsers',{admin:true})
+    }
+    else{
+        res.render('Admin/login-admin')
+    }  
 })
 module.exports = router;

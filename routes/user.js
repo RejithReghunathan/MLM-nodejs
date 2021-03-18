@@ -161,7 +161,6 @@ router.get('/dashBoard', (req, res) => {
       name: user.name,
       _id: user._id
     }
-    
     userController.getFirstLevel(user._id).then((result)=>{
       userController.tree(user._id).then((count)=>{
         count=count-1
@@ -175,7 +174,6 @@ router.get('/dashBoard', (req, res) => {
     res.render('User/login.hbs',{user:true,login:true})
   }
 })
-
 router.post('/getSubOridinates', (req, res) => {
   userController.getAllSubordiante(req.body.id).then((data) => {
     userController.singleUser(req.body.id).then((userData) => {
