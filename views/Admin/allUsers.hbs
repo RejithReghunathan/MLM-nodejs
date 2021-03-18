@@ -15,39 +15,39 @@
 								<table class="table">
 									<thead class="thead-dark">
 										<tr>
-											<th scope="col">#</th>
-											<th scope="col">Name</th>
-											<th scope="col">E-mail</th>
-											<th scope="col">Phone</th>
-											<th scope="col">Refferals</th>
-											<th scope="col">Verification</th>
-											<th scope="col">Document</th>
-											<th scope="col">Payment</th>
+											<th scope="col" style="text-align: center;">#</th>
+											<th scope="col" style="text-align: center;">Name</th>
+											<th scope="col" style="text-align: center;">E-mail</th>
+											<th scope="col" style="text-align: center;">Phone</th>
+											<th scope="col" style="text-align: center;">Refferals</th>
+											<th scope="col" style="text-align: center;">Verification</th>
+											<th scope="col" style="text-align: center;">Document</th>
+											<th scope="col" style="text-align: center;">Payment</th>
 										</tr>
 									</thead>
 									<tbody>
 										{{#each users}}
 										<tr>
 											
-											<th scope="row">{{math @index "+" 1}}</th>
-											<td>{{name}}</td>
-											<td>{{email}}</td>
-											<td>{{phone}}</td>
-											<td>{{referrals}}</td>
+											<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
+											<td style="text-align: center;">{{name}}</td>
+											<td style="text-align: center;">{{email}}</td>
+											<td style="text-align: center;">{{phone}}</td>
+											<td style="text-align: center;">{{referrals}}</td>
 											{{#if verify}}
-											<td><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+											<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
 											{{else}}
-											<td><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
+											<td style="text-align: center;"><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
 											{{/if}}
 											{{#if document}}
-											<td><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+											<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
 											{{else}}
-											<td><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
+											<td style="text-align: center;"><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
 											{{/if}}
-											{{#if Payment}}
-											<td><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+											{{#if payment}}
+											<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
 											{{else}}
-											<td><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
+											<td style="text-align: center;"><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
 											{{/if}}
 											
 										</tr>
