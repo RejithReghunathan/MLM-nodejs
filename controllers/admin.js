@@ -25,5 +25,30 @@ module.exports={
             let users = await db.get().collection(collection.USER_COLLECTION).find({role:1}).toArray()
             resolve(users)
         })
+    },
+    getUnverifiedUsers:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let users = await db.get().collection(collection.USER_COLLECTION).aggregate([
+                {
+                    $match:{
+                        status:true,
+                        role:1
+                    }
+                },
+                {
+                    $project:{
+                        name:1,
+                        _id:1
+                    }
+                }
+            ]).toArray()
+            
+            if(users){
+                resolve(users)
+            }
+            else{
+                reject()
+            }
+        })
     }
 }

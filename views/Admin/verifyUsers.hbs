@@ -1,92 +1,105 @@
 <div class="page-wrapper">
-			<!--page-content-wrapper-->
-			<div class="page-content-wrapper">
-				<div class="page-content">
-					<!--breadcrumb-->
-					
-					<!--end breadcrumb-->
-						<div class="card radius-15">
-						<div class="card-body">
-							<div class="card-title">
-								<h4 class="mb-0 text-dark">Verify Users</h4>
-							</div>
-							<hr/>
-                            <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal3">Centered Modal</button>
-							<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title">Modal title</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Save changes</button>
+	<!--page-content-wrapper-->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<!--breadcrumb-->
+
+			<!--end breadcrumb-->
+			<div class="card radius-15">
+				<div class="card-body">
+					<div class="card-title">
+						<h4 class="mb-0 text-dark">Verify Users</h4>
+					</div>
+					<hr />
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col" style="text-align: center;">#</th>
+									<th scope="col" style="text-align: center;">Name</th>
+									<th scope="col" style="text-align: center;">PAN</th>
+									<th scope="col" style="text-align: center;">Bank Card</th>
+									<th scope="col" style="text-align: center;">Phone</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each users}}
+								<tr>
+									
+									<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
+									<td style="text-align: center;">{{this.name}}</td>
+									<td style="text-align: center;"><button type="button" class="btn btn-primary m-2"
+											data-toggle="modal" data-target="#{{this.name}}{{math @index "+" 1}}pan">Verify Pan</button>
+									</td>
+									<div class="modal fade" id="{{this.name}}{{math @index "+" 1}}pan" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Verify Pan Card</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close"> <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body text-center" style="color: #fff;"><b>PAN:
+														5765765765987</b></div>
+												<div><img src="/documents/{{this._id}}-PAN.jpg" alt=""
+														style="width:450px;height:250px;align-items:center;margin-left:25px;">
+												</div>
+												<div class="modal-footer" style="margin-top: 10px;">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Verify Pan</button>
+													<button type="button" class="btn btn-danger">Reject Pan</button>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-							<div class="table-responsive">
-								<table class="table">
-									<thead class="thead-dark">
-										<tr>
-											<th scope="col" style="text-align: center;">#</th>
-											<th scope="col" style="text-align: center;">Name</th>
-											<th scope="col" style="text-align: center;">E-mail</th>
-											<th scope="col" style="text-align: center;">Phone</th>
-											<th scope="col" style="text-align: center;">Refferals</th>
-											<th scope="col" style="text-align: center;">Verification</th>
-											<th scope="col" style="text-align: center;">Document</th>
-											<th scope="col" style="text-align: center;">Payment</th>
-										</tr>
-									</thead>
-									<tbody>
-										{{#each users}}
-										<tr>
-											
-											<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
-											<td style="text-align: center;">{{name}}</td>
-											<td style="text-align: center;">{{email}}</td>
-											<td style="text-align: center;">{{phone}}</td>
-											<td style="text-align: center;">{{referrals}}</td>
-											{{#if verify}}
-											<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
-											{{else}}
-											<td style="text-align: center;"><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
-											{{/if}}
-											{{#if document}}
-											<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
-											{{else}}
-											<td style="text-align: center;"><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
-											{{/if}}
-											{{#if payment}}
-											<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
-											{{else}}
-											<td style="text-align: center;"><button type="button" class="btn  m-1 px-5 radius-30" style="background-color: red;">Pending</button></td>
-											{{/if}}
-											
-										</tr>
-										{{/each}}
-									</tbody>
-								</table>
-                                
-							</div>
-						</div>
+									<td style="text-align: center;"><button type="button" class="btn btn-primary m-2"
+											data-toggle="modal" data-target="#{{this.name}}{{math @index "+" 1}}bank">Verify Bank</button>
+									</td>
+
+									<div class="modal fade" id="{{this.name}}{{math @index "+" 1}}bank" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Verify Bank Card</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close"> <span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body text-center" style="color: #fff;"><b>PAN:
+														5765765765987</b></div>
+												<div><img src="/documents/{{this._id}}-BANK.jpg" alt=""
+														style="width:450px;height:250px;align-items:center;margin-left:25px;">
+												</div>
+												<div class="modal-footer" style="margin-top: 10px;">
+													<button type="button" class="btn btn-secondary"
+														data-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-primary">Verify Bank</button>
+													<button type="button" class="btn btn-danger">Reject Bank</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<td style="text-align: center;">{{this.phone}}</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+
 					</div>
 				</div>
-			</div>		
-        </div>
+			</div>
+		</div>
+	</div>
+</div>
 
-<script>
-		$('#exampleVaryingModalContent').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget) // Button that triggered the modal
-			var recipient = button.data('whatever') // Extract info from data-* attributes
-				// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-				// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			var modal = $(this)
-			modal.find('.modal-title').text('New message to ' + recipient)
-			modal.find('.modal-body input').val(recipient)
-		});
-    </script>
+{{!-- <script>
+	$('#exampleVaryingModalContent').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var recipient = button.data('whatever') 
+		var modal = $(this)
+		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-body input').val(recipient)
+	});
+</script> --}}

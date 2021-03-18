@@ -51,7 +51,12 @@ router.get('/getAllUser',(req,res)=>{
 router.get('/verifyUsers',(req,res)=>{
     let adminLoggedIn = req.session.adminLoggedIn
     if(adminLoggedIn){
-        res.render('Admin/verifyUsers',{admin:true})
+        adminController.getUnverifiedUsers().then((users)=>{
+            res.render('Admin/verifyUsers',{admin:true,users})
+        }).catch(()=>{
+            console.log("no data found");
+        })
+       
     }
     else{
         res.render('Admin/login-admin')

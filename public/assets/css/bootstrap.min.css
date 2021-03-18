@@ -6004,7 +6004,7 @@ a.close.disabled {
 }
 
 .modal-dialog-centered.modal-dialog-scrollable .modal-content {
-  max-height: none;
+  max-height: auto;
 }
 
 .modal-dialog-centered.modal-dialog-scrollable::before {
