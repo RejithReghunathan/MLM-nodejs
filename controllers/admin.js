@@ -63,7 +63,6 @@ module.exports={
             ]).toArray()
             
             if(users){
-                console.log("Aggregate cheyth samanam ..",users);
                 resolve(users)
             }
             else{
@@ -78,6 +77,37 @@ module.exports={
                     panVerify:true
                 }
             })
+            if(data.bankVerify){
+                if(data.panVerify){
+                    db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{
+                        $set:{
+                            verify:true
+                        }
+                    })
+                }
+            }
+            if(data)
+            {
+            resolve()
+            }
+        })
+    },
+    verifyBankAdmin:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+           let data = await db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({userId:objectId(userId)},{
+                $set:{
+                    bankVerify:true
+                }
+            })
+            if(data.panVerify){
+                if(data.bankVerify){
+                    db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{
+                        $set:{
+                            verify:true
+                        }
+                    })
+                }
+            }
             if(data)
             {
             resolve()

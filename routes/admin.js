@@ -55,8 +55,7 @@ router.get('/verifyUsers',(req,res)=>{
             res.render('Admin/verifyUsers',{admin:true,users})
         }).catch(()=>{
             console.log("no data found");
-        })
-       
+        }) 
     }
     else{
         res.render('Admin/login-admin')
@@ -65,7 +64,11 @@ router.get('/verifyUsers',(req,res)=>{
 router.post('/verifyPan',(req,res)=>{
     adminController.verifyPanAdmin(req.body.userId).then(()=>{
         res.send({res:true})
+    }) 
+})
+router.post('/verifyBank',(req,res)=>{
+    adminController.verifyBankAdmin(req.body.userId).then(()=>{
+        res.send({res:true})
     })
-    
 })
 module.exports = router;

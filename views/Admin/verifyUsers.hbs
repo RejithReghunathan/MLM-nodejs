@@ -61,9 +61,15 @@
 											</div>
 										</div>
 									</div>
-									<td style="text-align: center;"><button type="button" class="btn btn-primary m-2"
-											data-toggle="modal" data-target="#{{this.name}}{{math @index "+" 1}}bank">Verify Bank</button>
+									<td id="{{this._id}}bankverify" style="text-align:center; display:none;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+									{{#if documents.bankVerify}}
+									<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+									{{else}}
+										
+											<td style="text-align: center;" id="{{this._id}}bankveri"><button type="button" class="btn btn-primary m-2"
+											data-toggle="modal" data-target="#{{this.name}}{{math @index "+" 1}}bank">Verify Pan</button>
 									</td>
+									{{/if}}
 
 									<div class="modal fade" id="{{this.name}}{{math @index "+" 1}}bank" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog modal-dialog-centered">
@@ -84,7 +90,7 @@
 												<div class="modal-footer" style="margin-top: 10px;">
 													<button type="button"  class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
-													<button type="button" class="btn btn-primary" onclick="verifyPan('{{this._id}}')">Verify Bank</button>
+													<button type="button" class="btn btn-primary" onclick="verifyBank('{{this._id}}')">Verify Bank</button>
 													<button type="button" class="btn btn-danger">Reject Bank</button>
 												</div>
 											</div>
