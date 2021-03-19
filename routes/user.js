@@ -190,4 +190,14 @@ router.post('/getSubOridinates', (req, res) => {
     })
   })
 })
+router.get('/account',(req,res)=>{
+  let user = req.session.user
+  let loggedIn = req.session.userLoggedIn
+  if (loggedIn) {
+    res.render('User/account',{user})
+  } else {
+    res.redirect('/')
+  }
+  
+})
 module.exports = router;
