@@ -208,7 +208,7 @@ router.get('/wallet',(req,res)=>{
   if (loggedIn) {
     userController.getDetails(user._id).then((userData)=>{
       userController.getInviteLink(user._id,req.headers.host).then((inviteLink) => {
-        res.render('User/account',{user,userData,inviteLink})
+        res.render('User/wallet',{user,userData,inviteLink})
       })
     })
   } else {
