@@ -72,10 +72,11 @@
 											</div>
 											<div class="ml-md-4 flex-grow-1">
 												<div class="d-flex align-items-center mb-1">
-													<h4 class="mb-0 text-primary" >{{userData.name}}</h4>
+													<h4 class="mb-0" style="color: black;" ><b>{{userData.name}}</b></h4>
 													
 												</div>
-												<p class="mb-0 text-primary">{{userData.email}}</p><br>
+												<p class="mb-0" style="color: black;"><b>{{userData.email}}</b></p>
+												<span class="badge badge-success">Verified</span>
 												
 											</div>
 											
@@ -103,7 +104,7 @@
 												</tr>
 												<tr>
 													<th style="border:none">Invite Link:</th>
-													<td style="border:none"><input type="text" value="{{inviteLink}}" id="myInput">
+													<td style="border:none"><input type="text" value="{{inviteLink}}" id="myInput" readonly>
 													<button class="btn btn-success" onclick="myFunction()">Copy link</button></td>
 												</tr>
 											</tbody>
@@ -459,30 +460,16 @@
 										</tr>
 									</thead>
 									<tbody>
+										{{#each data}}
 										<tr>
 											<th scope="row" style="text-align: center;">1</th>
 											<td style="text-align: center;">Level One</td>
-											<td style="text-align: center;">2</td>
+											<td style="text-align: center;">{{referrals}}</td>
 											<td style="text-align: center;">3</td>
-											<td style="text-align: center;">150</td>
+											<td style="text-align: center;">{{amount}}</td>
 											<td style="text-align: center;">150</td>
 										</tr>
-										<tr>
-											<th scope="row" style="text-align: center;">2</th>
-											<td style="text-align: center;">Level Two</td>
-											<td style="text-align: center;">2</td>
-											<td style="text-align: center;">3</td>
-											<td style="text-align: center;">150</td>
-											<td style="text-align: center;">150</td>
-										</tr>
-										<tr>
-											<th scope="row" style="text-align: center;">3</th>
-											<td style="text-align: center;">Level Three</td>
-											<td style="text-align: center;">2</td>
-											<td style="text-align: center;">3</td>
-											<td style="text-align: center;">150</td>
-											<td style="text-align: center;">150</td>
-										</tr>
+										{{/each}}
 									</tbody>
 								</table>
 								<br><br>

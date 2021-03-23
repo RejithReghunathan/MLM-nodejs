@@ -187,14 +187,13 @@ router.post('/getSubOridinates', (req, res) => {
 router.get('/account',(req,res)=>{
   let user = req.session.user
   let loggedIn = req.session.userLoggedIn
-  
+  let subOridantes = []
   if (loggedIn) {
     userController.getDetails(user._id).then((userData)=>{
       userController.getInviteLink(user._id,req.headers.host).then((inviteLink) => {
-        userController.subOrdinatesDetails(user._id).then(()=>{
-      
-        })
-        res.render('User/account',{user,userData,inviteLink})
+        userController.subOrdinatesDetails(user._id).then((data)=>{
+        res.render('User/account',{user,userData,inviteLink,data})
+      })
       })
     })
   } else {

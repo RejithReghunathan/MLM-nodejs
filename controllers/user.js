@@ -362,5 +362,18 @@ module.exports = {
             })
             resolve(user)
         })
+    },
+    subOrdinatesDetails:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let sub=[]
+            let list = await db.get().collection(collection.USER_COLLECTION).aggregate([
+                {
+                    $match:{
+                        _id:objectId(userId)
+                    }
+                }
+            ]).toArray()
+           resolve(list)
+        })
     }
 }
