@@ -355,4 +355,12 @@ module.exports = {
             resolve(data)
         })
     },
+    getDetails:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            let user = db.get().collection(collection.USER_COLLECTION).findOne({
+                _id:objectId(userId)
+            })
+            resolve(user)
+        })
+    }
 }

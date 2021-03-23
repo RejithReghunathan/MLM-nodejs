@@ -66,41 +66,45 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-12 col-lg-7 border-right">
-										<div class="d-md-flex align-items-center">
+										<div class="d-md-flex align-items-center" style="margin-left: 20px;margin-top:20px;">
 											<div class="mb-md-0 mb-3">
 												<img src="assets/images/avatars/avatar-1.png" class="rounded-circle shadow" width="130" height="130" alt="" />
 											</div>
 											<div class="ml-md-4 flex-grow-1">
 												<div class="d-flex align-items-center mb-1">
-													<h4 class="mb-0">Michle Clark</h4>
-													<p class="mb-0 ml-auto">$44/hr</p>
+													<h4 class="mb-0 text-primary" >{{userData.name}}</h4>
+													
 												</div>
-												<p class="mb-0 text-muted">Sr. Web Developer</p>
-												<p class="text-primary"><i class='bx bx-buildings'></i> Epic Coders</p>
-												<button type="button" class="btn btn-primary">Connect</button>
-												<button type="button" class="btn btn-outline-secondary ml-2">Resume</button>
+												<p class="mb-0 text-primary">{{userData.email}}</p><br>
+												
 											</div>
-										</div>
+											
+										</div><br>
+										
+										<a href="#"><p class="mb-0 ml-5" style="color: black;text-decoration:none; padding-left:20px">Edit Profile</p></a>
 									</div>
-									<div class="col-12 col-lg-5">
-										<table class="table table-sm table-borderless mt-md-0 mt-3">
-											<tbody>
+									<div class="col-12 col-lg-5" style="margin-top:20px;">
+										<table class="table table-sm table-borderless mt-md-0 mt-3" style="border:none">
+											<tbody style="border:none">
 												<tr>
-													<th>Availability:</th>
-													<td>Full-time (40hr/wk) <span class="badge badge-success">available</span>
+													<th style="border:none">Document Verification:</th>
+													<td style="border:none"> {{#if userData.document}} <span class="badge badge-success">Verified</span>{{else}}
+													<span class="badge badge-danger">pending</span>{{/if}}
 													</td>
 												</tr>
 												<tr>
-													<th>Age:</th>
-													<td>27</td>
+													<th style="border:none">Phone:</th>
+													<td style="border:none">{{#if userData.document}} <span class="badge badge-success">Verified</span>{{else}}
+													<span class="badge badge-danger">pending</span>{{/if}}</td>
 												</tr>
 												<tr>
-													<th>Location:</th>
-													<td>Sankt, Petersburg, Russia</td>
+													<th style="border:none">Referrals:</th>
+													<td style="border:none">2</td>
 												</tr>
 												<tr>
-													<th>Years experience:</th>
-													<td>6</td>
+													<th style="border:none">Invite Link:</th>
+													<td style="border:none"><input type="text" value="{{inviteLink}}" id="myInput">
+													<button class="btn btn-success" onclick="myFunction()">Copy link</button></td>
 												</tr>
 											</tbody>
 										</table>
@@ -114,7 +118,7 @@
 									</div>
 								</div>
 								<!--end row-->
-								<ul class="nav nav-pills">
+								{{!-- <ul class="nav nav-pills">
 									<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#Experience"><span class="p-tab-name">Experience</span><i class='bx bx-donate-blood font-24 d-sm-none'></i></a>
 									</li>
 									<li class="nav-item"> <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Biography"><span class="p-tab-name">Biography</span><i class='bx bxs-user-rectangle font-24 d-sm-none'></i></a>
@@ -440,7 +444,49 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> --}}
+								<h3 style="text-align: center;color:#1d4354;"><b>Subordinates Lists</b></h3><br>
+								<div class="table-responsive">
+								<table class="table">
+									<thead style="background-color:#1d4354;" class="text-white">
+										<tr>
+											<th scope="col" style="text-align: center; color:white">#</th>
+											<th scope="col" style="text-align: center; color:white">Level One </th>
+											<th scope="col" style="text-align: center; color:white">Total Subordiantes</th>
+											<th scope="col" style="text-align: center; color:white">Verified users</th>
+											<th scope="col" style="text-align: center; color:white">Amount Earned</th>
+											<th scope="col" style="text-align: center; color:white">Total</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row" style="text-align: center;">1</th>
+											<td style="text-align: center;">Level One</td>
+											<td style="text-align: center;">2</td>
+											<td style="text-align: center;">3</td>
+											<td style="text-align: center;">150</td>
+											<td style="text-align: center;">150</td>
+										</tr>
+										<tr>
+											<th scope="row" style="text-align: center;">2</th>
+											<td style="text-align: center;">Level Two</td>
+											<td style="text-align: center;">2</td>
+											<td style="text-align: center;">3</td>
+											<td style="text-align: center;">150</td>
+											<td style="text-align: center;">150</td>
+										</tr>
+										<tr>
+											<th scope="row" style="text-align: center;">3</th>
+											<td style="text-align: center;">Level Three</td>
+											<td style="text-align: center;">2</td>
+											<td style="text-align: center;">3</td>
+											<td style="text-align: center;">150</td>
+											<td style="text-align: center;">150</td>
+										</tr>
+									</tbody>
+								</table>
+								<br><br>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -449,6 +495,15 @@
 			<!--end page-content-wrapper-->
 		</div>
 <script src="/assets/js/jquery.min.js"></script>
+<script>
+function myFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Link copied");
+}
+</script>
 	<script src="/assets/js/popper.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
 	<script src="/assets/plugins/simplebar/js/simplebar.min.js"></script>

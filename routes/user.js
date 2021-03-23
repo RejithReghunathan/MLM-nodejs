@@ -47,13 +47,7 @@ router.get('/invite', (req, res) => {
   let user = req.session.user
   let loggedIn = req.session.userLoggedIn
   if(loggedIn){
-    userController.getInviteLink(user._id,req.headers.host).then((response) => {
-      res.render('User/invite', {
-        response,
-        user
-      })
-  
-    })
+    
   }else{
     res.redirect('/')
   }
@@ -193,8 +187,16 @@ router.post('/getSubOridinates', (req, res) => {
 router.get('/account',(req,res)=>{
   let user = req.session.user
   let loggedIn = req.session.userLoggedIn
+  
   if (loggedIn) {
-    res.render('User/account',{user})
+    userController.getDetails(user._id).then((userData)=>{
+      userController.getInviteLink(user._id,req.headers.host).then((inviteLink) => {
+        userController.subOrdinatesDetails(user._id).then(()=>{
+      
+        })
+        res.render('User/account',{user,userData,inviteLink})
+      })
+    })
   } else {
     res.redirect('/')
   }
