@@ -216,14 +216,14 @@
 									<img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw"
 										alt="wallet">
 									<p>Total Balance</p>
-									<p class="amount">$ 123</p>
+									<p class="amount">$ {{math userData.wallet.refferalAmount "+" userData.wallet.refferalAmount}}</p>
 								</div>
 								<div class="footer-menu">
 								</div>
 								<br>
 								<div>
-									<h3>Referral Bonus : $ 231</h3><br>
-									<h3>Referral Bonus : $ 231</h3><br>
+									<h3>Referral Bonus : $ {{userData.wallet.refferalAmount}}</h3><br>
+									<h3>Additional Bonus : $ {{userData.wallet.refferalAmount}}</h3><br>
 
 								</div>
 								<div class="footer-menu">
@@ -232,7 +232,7 @@
 			<button type="button" class="btn btn-outline-light">Add Money</button>
 			<button type="button" class="btn btn-outline-light">Widthdraw</button>
 			</div>
-					<div class="card radius-15">
+					{{!-- <div class="card radius-15">
 						<div class="card-body">
 							<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal3">Centered Modal</button>
 							<!-- Modal -->
@@ -254,8 +254,8 @@
 							</div>
 
 						</div>
-					</div>
-					<button type="button" class="btn btn-primary radius-30 px-5 m-3" data-toggle="modal" data-target="#exampleModal8">Card Modal</button>
+					</div> --}}
+					{{!-- <button type="button" class="btn btn-primary radius-30 px-5 m-3" data-toggle="modal" data-target="#exampleModal8">Card Modal</button>
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal8" tabindex="-1" role="dialog" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
@@ -271,9 +271,10 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> --}}
 							<br><br>
 						</div>
+						<br>
 					</div>
 				</div>
 			</div>

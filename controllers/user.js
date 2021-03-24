@@ -56,6 +56,7 @@ module.exports = {
     userSignup: (data) => {
         return new Promise(async (resolve, reject) => {
             let status = {}
+            let wallet ={}
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 referral_code: data.referral_code
             })
@@ -79,6 +80,9 @@ module.exports = {
                         data.verify=false
                         referrals = user.referrals + 1
                         data.password = await bcrypt.hash(data.password, 10);
+                        wallet.refferalAmount = 0
+                        wallet.bonusAmount = 0
+                        data.wallet = wallet
                         let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
                         db.get().collection(collection.USER_COLLECTION).updateOne({
                             referral_code: user.referral_code
@@ -100,6 +104,9 @@ module.exports = {
                         data.verify=false
                         referrals = user.referrals + 1
                         data.password = await bcrypt.hash(data.password, 10);
+                        wallet.refferalAmount = 0
+                        wallet.bonusAmount = 0
+                        data.wallet = wallet
                         let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
                         db.get().collection(collection.USER_COLLECTION).updateOne({
                             referral_code: user.referral_code

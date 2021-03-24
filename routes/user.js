@@ -56,6 +56,7 @@ router.get('/invite', (req, res) => {
 router.post('/signup', (req, res) => {
   userController.userSignup(req.body).then((response) => {
     req.session.user = response;
+    console.log(response,"The reponse");
     res.json(response)
   }).catch((response) => {
     res.json(response)
@@ -120,7 +121,7 @@ router.post('/documentUpload', (req, res) => {
     });
 
   }).catch(() => {
-    console.log('Can Uploaf document Document alreday exists');
+    console.log('Can Upload document Document alreday exists');
   })
 })
 router.post('/paymentRazorpay', (req, res) => {
