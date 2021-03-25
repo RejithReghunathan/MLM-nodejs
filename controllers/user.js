@@ -43,7 +43,22 @@ module.exports = {
                     if (status) {
                         response.status = 1
                         response.user = user
-                        resolve(response)
+                        if(user.wallet){
+                            resolve(response)
+                        }
+                        else{
+                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                _id:objectId(user._id)
+                            },
+                            {
+                            $set:{
+                                wallet:{
+                                    refferalAmount:0,
+                                    bonusAmount:0
+                                }
+                            }})
+                        }
+                        
                     } else {
                         response.status = 2
                         resolve(response)
