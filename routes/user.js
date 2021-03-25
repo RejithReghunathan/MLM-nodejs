@@ -3,7 +3,10 @@ const {
   ObjectID
 } = require('mongodb');
 
+require('./passport')
+
 var router = express.Router();
+const passport = require('passport')
 const userController = require('../controllers/user')
 
 
@@ -42,16 +45,6 @@ router.get('/home', (req, res) => {
     res.redirect('/')
   }
 
-})
-router.get('/invite', (req, res) => {
-  let user = req.session.user
-  let loggedIn = req.session.userLoggedIn
-  if(loggedIn){
-    
-  }else{
-    res.redirect('/')
-  }
-  
 })
 router.post('/signup', (req, res) => {
   userController.userSignup(req.body).then((response) => {
@@ -214,7 +207,21 @@ router.get('/wallet',(req,res)=>{
     })
   } else {
     res.redirect('/')
-  }
+  }  
+})
+router.get('/googleAuth',passport.authenticate('google',{scope:['profile','email']}))
+
+router.get('/googleAuth/callback',passport.authenticate('google',{failureRedirect:'/failure'}),
+(req,res)=>{
+  res.redirect('/success')
+}
+)
+router.get('/success',(req,res)=>{
+ 
+    res.render('User/home', {
+      user,name:req.user.displayName,email:req.user.emails[0]
+    })
   
 })
+
 module.exports = router;

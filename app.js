@@ -9,14 +9,17 @@ const fileUpload = require("express-fileupload");
 // const fileUpload = require("express-fileupload");
 const hbs = require("express-handlebars");
 const dotenv=require('dotenv').config()
+const cookieSession = require('cookie-session')
 
 const db =require('./config/connection')
 var adminRouter = require('./routes/admin');
 var userRouter = require('./routes/user');
+const passport = require('passport');
 
 var app = express();
 
 // Session
+
 app.use(
   session({
     secret: "keyboard cat",
@@ -25,6 +28,13 @@ app.use(
     cookie: { maxAge: 5000000 },
   })
 );
+// app.use(cookieSession({
+//   name: 'session',
+//   keys: ['key1', 'key2']
+// }))
+app.use(passport.initialize())
+app.use(passport.session())
+ 
 // cache clear
 app.use(function (req, res, next) {
   res.set(
