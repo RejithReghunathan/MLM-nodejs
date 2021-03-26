@@ -8,19 +8,25 @@
             <label for="exampleInputEmail1" class="text-uppercase">Username</label>
             <input type="text" class="form-control" name="email" placeholder="">
           </div>
-          
+
           <div class="form-group">
-            <label for="exampleInputPassword1"  class="text-uppercase">Password</label>
+            <label for="exampleInputPassword1" class="text-uppercase">Password</label>
             <input type="password" class="form-control" name="password" placeholder="">
           </div>
           <div style="display: none;font-weight:bolder" class="text-danger text-center" id="userErr">Access Denied</div>
-        
-          <div class="form-check">
-            <label  class="form-check-label">
-             
-              <button type="submit" style="background-color: #37a000;    margin-left: 150px;margin-top:20px;" class="btn btn-login  mx-auto">Submit</button>
-          </div>
 
+          <div class="form-check">
+            <label class="form-check-label">
+
+              <button type="submit" style="background-color: #37a000;     margin-left: 180px;margin-top:20px;"
+                class="btn btn-login  mx-auto">Submit</button>
+          </div>
+          {{!-- <button><a href="/googleAuth">Google</a></button> --}}
+
+             <div>
+               <a href="/googleAuth" style="background-color: #fafafa;   color:rgb(0, 0, 0); box-shadow: 0 2px 4px black;margin-top:20px;"
+                class="btn btn-login  mx-auto"><img src="./documents/google.png" style="height: 20px;width:20px" alt=""> &nbsp Sign in with Google</a>
+             </div>
         </form>
       </div>
     </div>
@@ -28,31 +34,31 @@
 </div>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script>
-    $('#logform').validate({
-        rules: {
-            email: {
-                required: true,
-                email: true
-            }
-        },
-        submitHandler: function (logform) {
-            $.ajax({
-                url: logform.action,
-                type: logform.method,
-                data: $(logform).serialize(),
-                success: (response) => {
-                  console.log(response)
-                    if(response.status==2){
-                      $('#userErr').show()
-                    }
-                    else if(response.status==3){
-                         $('#userErr').show()
-                    }
-                    else if(response.status==1){
-                      window.location.href = "home"
-                    }
-                }
-            });
+  $('#logform').validate({
+    rules: {
+      email: {
+        required: true,
+        email: true
+      }
+    },
+    submitHandler: function (logform) {
+      $.ajax({
+        url: logform.action,
+        type: logform.method,
+        data: $(logform).serialize(),
+        success: (response) => {
+          console.log(response)
+          if (response.status == 2) {
+            $('#userErr').show()
+          }
+          else if (response.status == 3) {
+            $('#userErr').show()
+          }
+          else if (response.status == 1) {
+            window.location.href = "home"
+          }
         }
-    });
+      });
+    }
+  });
 </script>

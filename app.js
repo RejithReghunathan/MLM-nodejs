@@ -20,18 +20,18 @@ var app = express();
 
 // Session
 
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 5000000 },
-  })
-);
-// app.use(cookieSession({
-//   name: 'session',
-//   keys: ['key1', 'key2']
-// }))
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     resave: true,
+//     saveUninitialized: true,
+//     cookie: { maxAge: 5000000 },
+//   })
+// );
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 app.use(passport.initialize())
 app.use(passport.session())
  

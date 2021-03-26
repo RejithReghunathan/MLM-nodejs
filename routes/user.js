@@ -219,7 +219,7 @@ router.get('/googleAuth/callback',passport.authenticate('google',{failureRedirec
 router.get('/success',(req,res)=>{
  
     res.render('User/home', {
-      user,name:req.user.displayName,email:req.user.emails[0]
+      gname:req.user.displayName,email:req.user.emails[0]
     })
   
 })
