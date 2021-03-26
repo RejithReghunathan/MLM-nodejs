@@ -397,5 +397,17 @@ module.exports = {
             ]).toArray()
            resolve(list)
         })
+    },
+    emailCheck:(emailId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let email =await db.get().collection(collection.USER_COLLECTION).findOne({email:emailId})
+            if(email){
+                console.log(email,"athe Email")
+                resolve(email)
+            }
+            else{
+                reject()
+            }
+        })
     }
 }

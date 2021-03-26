@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
       user
     })
   } else {
-    res.render('User/login.hbs',{user:true,login:true})
+    res.render('User/login',{user:true,login:true})
   }
 })
 router.get('/register', (req, res) => {
@@ -213,15 +213,21 @@ router.get('/googleAuth',passport.authenticate('google',{scope:['profile','email
 
 router.get('/googleAuth/callback',passport.authenticate('google',{failureRedirect:'/failure'}),
 (req,res)=>{
-  res.redirect('/success')
+  userController.emailCheck(req.user.email).then((data)=>{
+    if(data){
+      console.log('success');
+      req.session.user = data;
+      req.session.userLoggedIn=true
+    res.redirect('/home')
+    }
+    }).catch(()=>{
+      res.redirect('/')
+    })
 }
 )
-router.get('/success',(req,res)=>{
- 
-    res.render('User/home', {
-      gname:req.user.displayName,email:req.user.emails[0]
-    })
-  
+
+router.get('/failure',(req,res)=>{
+  res.render('User/login.hbs',{user:true,login:true,google:true})
 })
 
 module.exports = router;

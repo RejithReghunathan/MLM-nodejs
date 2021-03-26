@@ -14,7 +14,9 @@
             <input type="password" class="form-control" name="password" placeholder="">
           </div>
           <div style="display: none;font-weight:bolder" class="text-danger text-center" id="userErr">Access Denied</div>
-
+          {{#if google}}
+ <div style="font-weight:bolder" class="text-danger text-center" id="googleErr">Google Authentication Failed</div>
+ {{/if}}
           <div class="form-check">
             <label class="form-check-label">
 
