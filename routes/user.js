@@ -225,13 +225,11 @@ router.get('/googleAuth/callback',passport.authenticate('google',{failureRedirec
     })
 }
 )
-
 router.get('/failure',(req,res)=>{
   res.render('User/login.hbs',{user:true,login:true,google:true})
 })
 router.get('/facebookAuth',passport.authenticate('facebook',{scope:['profile','email']}))
-router.get('/facebookAuth/callback',passport.authenticate('facebook',{failureRedirect:'/failure'},
-),
+router.get('/facebookAuth/callback',passport.authenticate('facebook',{failureRedirect:'/failure'},),
 (req,res)=>{
   userController.emailCheck(req.user.email).then((data)=>{
     if(data){
