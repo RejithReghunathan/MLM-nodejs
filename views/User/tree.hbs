@@ -214,6 +214,9 @@
 
 <script>
     function tree(id) {
+        let checkIdExists=[]
+        checkIdExists.push(id)
+        console.log('The check the data',checkIdExists)
         $.ajax({
             method: 'post',
             url: '/getSubOridinates',
@@ -233,6 +236,8 @@
                             $('#' + id).append('<li><a href="javascript:void(0);" onclick="tree(\'' + datas[i]._id + '\')"  style="d-flex justify-content-center"><div class="member-view-box" style="margin-left: -2px;"><div class="member-image"><img src="https://image.flaticon.com/icons/svg/145/145867.svg" alt="Member"><div class="member-details"><h3 style="margin-left: -25px;">' + datas[i].name + '</h3></div></div></div></a><ul  id=' + datas[i]._id + ' class="active"></ul></li>')
                         }
                     }
+                } else if(response.a==false){
+                    {{!-- alert('already clicked') --}}
                 }
             }
         })

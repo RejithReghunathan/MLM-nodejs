@@ -2,6 +2,7 @@ var express = require('express');
 const {
   ObjectID
 } = require('mongodb');
+const { session } = require('passport');
 
 require('./passport')
 
@@ -31,6 +32,7 @@ router.post('/login', (req, res) => {
   userController.userLogin(req.body).then((response) => {
     req.session.user = response.user;
     req.session.userLoggedIn=true
+    req.session.id=[]
     res.json(response)
   })
 })
@@ -142,6 +144,8 @@ router.post("/verify-payment", (req, res) => {
     });
 });
 router.get('/dashBoard', (req, res) => {
+  req.session.id=[]
+
   let loggedIn = req.session.userLoggedIn
   let user = req.session.user
   if (loggedIn) {
@@ -163,15 +167,31 @@ router.get('/dashBoard', (req, res) => {
   }
 })
 router.post('/getSubOridinates', (req, res) => {
+  let id = req.body.id; 
+  var check = 0
   userController.getAllSubordiante(req.body.id).then((data) => {
     userController.singleUser(req.body.id).then((userData) => {
-      res.json({
-        a: true,
-        data,
-        userData
-      })
+      for(i=0;i<=req.session.id.length;i++){
+        if(req.session.id[i]===id){
+            check =1
+            res.json({
+            a: false,
+            data,
+            userData
+          })
+        }
+         }
+         if(check===  0){
+          req.session.id.push(id)
+          console.log("vannu",req.session.id);
+          res.json({
+          a: true,
+          data,
+          userData
+       })
+     }
     })
-
+    
   }).catch(() => {
     res.json({
       b: true
@@ -210,7 +230,6 @@ router.get('/wallet',(req,res)=>{
   }  
 })
 router.get('/googleAuth',passport.authenticate('google',{scope:['profile','email']}))
-
 router.get('/googleAuth/callback',passport.authenticate('google',{failureRedirect:'/failure'}),
 (req,res)=>{
   userController.emailCheck(req.user.email).then((data)=>{

@@ -288,7 +288,6 @@ module.exports = {
         })
     },
     singleUser: (id) => {
-        console.log("USERID", id);
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 _id: objectId(id)
