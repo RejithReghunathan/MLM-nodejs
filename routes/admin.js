@@ -36,7 +36,6 @@ router.get('/logoutadmin', (req, res) => {
     res.redirect('/admin')
 })
 router.get('/getAllUser',(req,res)=>{
-    console.log("EE route vilichi");
     let adminLoggedIn = req.session.adminLoggedIn
     if(adminLoggedIn){
         adminController.getAllUsers().then((users)=>{
@@ -45,8 +44,7 @@ router.get('/getAllUser',(req,res)=>{
     }
     else{
         res.render('Admin/login-admin')
-    }  
-    
+    }   
 })
 router.get('/verifyUsers',(req,res)=>{
     let adminLoggedIn = req.session.adminLoggedIn
@@ -75,5 +73,17 @@ router.get('/verifiedUser',(req,res)=>{
     adminController.getverifiedUsers().then((users)=>{
         res.render('Admin/verifiedUser',{admin:true,users})
     })
+})
+router.get('/memberShips',(req,res)=>{
+    let adminLoggedIn = req.session.adminLoggedIn
+    if(adminLoggedIn){
+        // adminController.getAllUsers().then((users)=>{
+            res.render('Admin/memberships',{admin:true})
+        // })
+    }
+    else{
+        res.render('Admin/login-admin')
+    }  
+    
 })
 module.exports = router;

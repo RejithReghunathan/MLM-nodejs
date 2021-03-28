@@ -261,4 +261,6 @@ router.get('/facebookAuth/callback',passport.authenticate('facebook',{failureRed
       res.redirect('/')
     })
 })
+
+
 module.exports = router;
