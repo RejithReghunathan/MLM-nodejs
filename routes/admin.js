@@ -98,4 +98,10 @@ router.post('/addMembership',(req,res)=>{
         }
     })
 })
+router.get('/membershipUser',(req,res)=>{
+    adminController.viewMembership().then((users)=>{
+        console.log(users);
+        res.render('Admin/membershipUsers',{admin:true,users})
+    })
+})
 module.exports = router;

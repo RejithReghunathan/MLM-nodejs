@@ -1,6 +1,7 @@
 const db = require('../config/connection')
 const collection = require('../config/collection')
 var objectId = require("mongodb").ObjectID;
+const { response } = require('express');
 
 module.exports={
     adminLogin:(data)=>{
@@ -138,6 +139,14 @@ module.exports={
         if(datas){
             resolve(datas)
         }
+        })
+    },
+    viewMembership:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let data = await db.get().collection(collection.USER_COLLECTION).find({payment:true}).toArray()
+            if(data){
+                resolve(data)
+            }
         })
     }
 }

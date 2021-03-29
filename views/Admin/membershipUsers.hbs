@@ -1,0 +1,41 @@
+<div class="page-wrapper">
+			<!--page-content-wrapper-->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<!--breadcrumb-->
+					
+					<!--end breadcrumb-->
+						<div class="card radius-15">
+						<div class="card-body">
+							<div class="card-title">
+								<h4 class="mb-0 text-dark">Membership Based on User</h4>
+							</div>
+							<hr/>
+							<div class="table-responsive">
+								<table class="table">
+									<thead class="thead-dark">
+										<tr>
+											<th scope="col" style="text-align: center;">#</th>
+											<th scope="col" style="text-align: center;">Name</th>
+											<th scope="col" style="text-align: center;">Membership Type</th>
+											<th scope="col" style="text-align: center;">Amount</th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each users}}
+										<tr>
+											
+											<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
+											<td style="text-align: center;">{{name}}</td>
+											<td style="text-align: center;">Silver</td>
+											<td style="text-align: center;">250</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>		
+</div>
