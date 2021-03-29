@@ -11,15 +11,47 @@
 								<h4 class="mb-0" style="color:black">Membership Management</h4>
 							</div>
 							<hr/>
-							<form>
-								
-								<div class="form-group" style="color: black;">
-									<label>Add New Membership </label>
-									<input type="search" class="form-control" style="border-color: black; color:black">
+							<form method="POST" action="/admin/addMembership" id="addMember">
+								<div class="form-row">
+									<div class="col-md-6 mb-3">
+										<label for="validationCustom01">Membership Name </label>
+										<input type="text" class="form-control" id="validationCustom01" value="Mark" name="name" style="border-color: black; color:black" required>
+										<div class="valid-feedback">Looks good!</div>
+									</div>
+									<div class="col-md-6 mb-3">
+										<label for="validationCustom02">Membership Amount</label>
+										<input type="number" class="form-control" id="validationCustom02" value="Otto" name="amount" style="border-color: black; color:black" required>
+										<div class="valid-feedback">Looks good!</div>
+									</div>
 								</div>
-								
+								<button class="btn btn-primary" type="submit">Submit form</button>
 							</form>
 						</div>
 					</div>
                     </div>
                     </div>
+				<script>
+  $('#addMember').validate({
+    rules: {
+      name: {
+        required: true,
+      },
+	  amount:{
+		  required:true
+	  }
+    },
+    submitHandler: function (addMember) {
+      $.ajax({
+        url: addMember.action,
+        type: addMember.method,
+        data: $(addMember).serialize(),
+        success: (response) => {
+          console.log(response)
+          if(response.data){
+			  alert(response.data)
+		  }
+        }
+      });
+    }
+  });
+</script>

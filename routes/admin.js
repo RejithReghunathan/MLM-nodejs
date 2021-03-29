@@ -77,13 +77,21 @@ router.get('/verifiedUser',(req,res)=>{
 router.get('/memberShips',(req,res)=>{
     let adminLoggedIn = req.session.adminLoggedIn
     if(adminLoggedIn){
-        // adminController.getAllUsers().then((users)=>{
+        adminController.getAllMembership().then((users)=>{
             res.render('Admin/memberships',{admin:true})
-        // })
+        })
     }
     else{
         res.render('Admin/login-admin')
     }  
     
+})
+router.post('/addMembership',(req,res)=>{
+    console.log(req.body);
+    adminController.addMembership(req.body).then((data)=>{
+        if(data){
+            res.json({data})
+        }
+    })
 })
 module.exports = router;

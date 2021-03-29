@@ -122,5 +122,17 @@ module.exports={
                 resolve(users)
             }
         })
+    },
+    addMembership:(data)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.MEMBERSHIP_COLLECTION).insertOne({name:data.name,amount:data.amount}).then((result)=>{
+                if(result){
+                    resolve(result.ops[0])
+                }
+            })
+        })
+    },
+    getAllMembership:()=>{
+        
     }
 }
