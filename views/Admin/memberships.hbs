@@ -1,57 +1,95 @@
 <div class="page-wrapper">
-			<!--page-content-wrapper-->
-			<div class="page-content-wrapper">
-				<div class="page-content">
-                    <div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
-						<div class="breadcrumb-title pr-3">MemberShips</div>
+	<!--page-content-wrapper-->
+	<div class="page-content-wrapper">
+		<div class="page-content">
+			<div class="page-breadcrumb d-none d-md-flex align-items-center mb-3">
+				<div class="breadcrumb-title pr-3">MemberShips</div>
+			</div>
+			<div class="card radius-15">
+				<div class="card-body">
+					<div class="card-title">
+						<h4 class="mb-0" style="color:black">Membership Management</h4>
 					</div>
-                    	<div class="card radius-15">
-						<div class="card-body">
-							<div class="card-title">
-								<h4 class="mb-0" style="color:black">Membership Management</h4>
+					<hr />
+					<form method="POST" action="/admin/addMembership" id="addMember">
+						<div class="form-row">
+							<div class="col-md-6 mb-3">
+								<label for="validationCustom01">Membership Name </label>
+								<input type="text" class="form-control" id="validationCustom01" placeholder="Membership Name" name="name"
+									style="border-color: black; color:black" required>
+								<div class="valid-feedback">Looks good!</div>
 							</div>
-							<hr/>
-							<form method="POST" action="/admin/addMembership" id="addMember">
-								<div class="form-row">
-									<div class="col-md-6 mb-3">
-										<label for="validationCustom01">Membership Name </label>
-										<input type="text" class="form-control" id="validationCustom01" value="Mark" name="name" style="border-color: black; color:black" required>
-										<div class="valid-feedback">Looks good!</div>
-									</div>
-									<div class="col-md-6 mb-3">
-										<label for="validationCustom02">Membership Amount</label>
-										<input type="number" class="form-control" id="validationCustom02" value="Otto" name="amount" style="border-color: black; color:black" required>
-										<div class="valid-feedback">Looks good!</div>
-									</div>
-								</div>
-								<button class="btn btn-primary" type="submit">Submit form</button>
-							</form>
+							<div class="col-md-6 mb-3">
+								<label for="validationCustom02">Membership Amount</label>
+								<input type="number" class="form-control" id="validationCustom02" placeholder="Membership Amount"
+									name="amount" style="border-color: black; color:black" required>
+								<div class="valid-feedback">Looks good!</div>
+							</div>
 						</div>
+						<button class="btn btn-primary" type="submit">Submit form</button>
+					</form>
+					<br>
+					<div class="table-responsive">
+						<table class="table" id="membTable">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col" style="text-align: center;">#</th>
+									<th scope="col" style="text-align: center;">Membership Type</th>
+									<th scope="col" style="text-align: center;">Amount</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								{{#each memberships}}
+								<tr>
+
+									<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
+									<td style="text-align: center;">{{name}}</td>
+									<td style="text-align: center;">{{amount}}</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
 					</div>
-                    </div>
-                    </div>
-				<script>
-  $('#addMember').validate({
-    rules: {
-      name: {
-        required: true,
-      },
-	  amount:{
-		  required:true
-	  }
-    },
-    submitHandler: function (addMember) {
-      $.ajax({
-        url: addMember.action,
-        type: addMember.method,
-        data: $(addMember).serialize(),
-        success: (response) => {
-          console.log(response)
-          if(response.data){
-			  alert(response.data)
-		  }
-        }
-      });
-    }
-  });
-</script>
+				</div>
+			</div>
+		</div>
+	</div>
+	 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+	<script>
+		$('#addMember').validate({
+			rules: {
+				name: {
+					required: true,
+				},
+				amount: {
+					required: true
+				}
+			},
+			submitHandler: function (addMember) {
+				$.ajax({
+					url: addMember.action,
+					type: addMember.method,
+					data: $(addMember).serialize(),
+					success: (response) => {
+						console.log(response)
+						$(function () {
+                    
+                        
+                            $('<tr>').append(
+                                $('<td scope="row" style="text-align: center;">').text(response.length),
+                                $('<td style="text-align: center;">').text(response.data.name),                               
+                                $('<td style="text-align: center;">').text(response.data.amount)).appendTo('#membTable');
+                       
+                   
+                });
+
+
+					}
+				});
+			}
+		});
+	</script>

@@ -133,6 +133,11 @@ module.exports={
         })
     },
     getAllMembership:()=>{
-        
+        return new Promise(async(resolve,reject)=>{
+        let datas= await db.get().collection(collection.MEMBERSHIP_COLLECTION).find({}).toArray()
+        if(datas){
+            resolve(datas)
+        }
+        })
     }
 }
