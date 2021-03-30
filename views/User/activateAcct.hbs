@@ -684,11 +684,11 @@
             <h3>Setup your phone</h3>
             <h6>We will send you a SMS. Input the code to verify.</h6>
             <div class="form-row">
-              <div class="form-group col-md-6">
-                <input type="tel" id="phone" class="form-control">
+              <div class="form-group col-md-6" >
+                <input type="tel" id="phone" style="width: 145px;" class="form-control">
               </div>
               <div class="form-group col-md-6">
-                <input type="text" class="form-control" placeholder="Enter phone" id="phnum" maxlength="10">
+                <input type="text" class="form-control" style="margin-right: 200px;" placeholder="Enter phone" id="phnum" maxlength="10">
               </div>
             </div>
             <h6 style="display: none;" id="exists">Wrong Otp</h6>
@@ -700,12 +700,12 @@
                 <h6>A secret code is sent to your phone. <br>Please enter it here.</h6>
               </div>
               <div class="code_group">
-                <input type="text" class="form-control" id="n1" placeholder="0" maxlength="1">
-                <input type="text" class="form-control" id="n2" placeholder="0" maxlength="1">
-                <input type="text" class="form-control" id="n3" placeholder="0" maxlength="1">
-                <input type="text" class="form-control" id="n4" placeholder="0" maxlength="1">
-                <input type="text" class="form-control" id="n5" placeholder="0" maxlength="1">
-                <input type="text" class="form-control" id="n6" placeholder="0" maxlength="1">
+                <input type="text" class="form-control" id="n1" onkeyup="movetoNext(this, 'n2')" placeholder="0" maxlength="1">
+                <input type="text" class="form-control" id="n2" onkeyup="movetoNext(this, 'n3')" placeholder="0" maxlength="1">
+                <input type="text" class="form-control" id="n3" onkeyup="movetoNext(this, 'n4')" placeholder="0" maxlength="1">
+                <input type="text" class="form-control" id="n4" onkeyup="movetoNext(this, 'n5')" placeholder="0" maxlength="1">
+                <input type="text" class="form-control" id="n5" onkeyup="movetoNext(this, 'n6')" placeholder="0" maxlength="1">
+                <input type="text" class="form-control" id="n6"  placeholder="0" maxlength="1">
 
               </div>
               <button type="button" class="action-button mt-5" onclick="verifyOTP()" id="otpSubmit2">Submit</button>
@@ -1112,4 +1112,12 @@
     })
   }
 
+</script>
+<script>
+  
+function movetoNext(current, nextFieldID) {  
+if (current.value.length >= current.maxLength) {  
+document.getElementById(nextFieldID).focus();  
+}  
+}  
 </script>
