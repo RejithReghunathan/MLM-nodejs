@@ -773,8 +773,11 @@
               <div class="form-group fg_2" style="position:absolute;width:350px">
                 <input type="text" class="form-control" name="ifsc" id="ifsc" placeholder="IFSC Code"
                   style="text-transform: uppercase;">
+                  
               </div>
+              
             </div>
+            <ul><div style="color: red;margin-top:30px;display:none;" id='ifscInvalid'>Invalid IFSC Code</div></ul>
 
             <ul class="file_added mt-5" style="list-style-type: none;">
               <h6>Files Added</h6>
@@ -816,47 +819,65 @@
     console.log('Submiteed')
     let pan = $('#panNum').val()
     var panVal = $('#panNumber').val();
+     let bank = $('#bankNum').val()
+    let ifsc = $('#ifsc').val()
+            var imagePa = document.getElementById('upload').files[0]
+    var imageBan = document.getElementById('uploadw').files[0]
     var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+
+     if (pan == '' || bank == '' || ifsc == '' || imageBan == '' || imagePa == '') {
+      $('#error').show()
+    }else{
 
     if(regpan.test(pan)){
       $('#panInvalid').hide()
-    let bank = $('#bankNum').val()
-    let ifsc = $('#ifsc').val()
-    var imagePa = document.getElementById('upload').files[0]
-    var imageBan = document.getElementById('uploadw').files[0]
-    var formData = new FormData()
-    formData.append('upload', imagePa)
-    formData.append('uploadw', imageBan)
-    formData.append('pan', pan)
-    formData.append('bank', bank)
-    formData.append('ifsc', ifsc)
-
-    if (pan == '' || bank == '' || ifsc == '' || imageBan == '' || imagePa == '') {
-      $('#error').show()
-    }
-    else {
+   
+    if(ifsc){
       $.ajax({
-        method: 'POST',
-        url: '/documentUpload',
+        method:'POST',
+        url:'/verifyIFSC',
+        data:{
+          ifsc
+        },
+        success:(res)=>{
+          console.log(res)
+        if(res.a){
+  
+        var formData = new FormData()
+        formData.append('upload', imagePa)
+        formData.append('uploadw', imageBan)
+        formData.append('pan', pan)
+        formData.append('bank', bank)
+        formData.append('ifsc', ifsc)
+        $.ajax({
+          method: 'POST',
+          url: '/documentUpload',
 
-        processData: false,
-        contentType: false,
-        cache: false,
-        data: formData,
-        success: (response) => {
-          if (response) {
-            $('#submitHide').hide()
-            $('#continueShow').show()
-            $('#third').show()
-            $('#fourth').hide()
+          processData: false,
+          contentType: false,
+          cache: false,
+          data: formData,
+          success: (response) => {
+            if (response) {
+              $('#submitHide').hide()
+              $('#continueShow').show()
+              $('#third').show()
+              $('#fourth').hide()
+            }
           }
+        })
+
+        }
+        else if(res.b){
+          $('#ifscInvalid').show()
+        }
         }
       })
     }
     } else {
       $('#panInvalid').show()
     }
-    
+    }
 
   }
   function paymentRazor() {

@@ -19,6 +19,7 @@ const {
 const {
     disable
 } = require('debug');
+const { rejects } = require('assert');
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -407,6 +408,21 @@ module.exports = {
             else{
                 reject()
             }
+        })
+    },
+    verifyIFSC:(ifsce)=>{
+        var ifsc = require('ifsc');
+        console.log('called',ifsc);
+        let data = ifsce.toUpperCase()
+        return new Promise((resolve,reject)=>{
+            ifsc.fetchDetails(data).then(function(res) {
+                console.log('UPPER SARATH ',res);
+                resolve(res)
+             }).catch((err)=>{
+                 console.log(err);
+                 reject(err)
+             })
+            
         })
     }
 }

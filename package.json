@@ -18,6 +18,7 @@
     "handlebars": "^4.7.7",
     "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
+    "ifsc": "^1.5.11",
     "jquery": "^3.6.0",
     "mongodb": "^3.6.4",
     "morgan": "~1.9.1",

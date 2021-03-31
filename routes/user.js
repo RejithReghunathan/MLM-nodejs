@@ -98,6 +98,7 @@ router.post('/verifyOTP', (req, res) => {
   })
 })
 router.post('/documentUpload', (req, res) => {
+  console.log('called',req.body);
   let user = req.session.user
   userController.documentUpload(req.body, user._id).then((datas) => {
     req.session.user.document = true
@@ -261,6 +262,14 @@ router.get('/facebookAuth/callback',passport.authenticate('facebook',{failureRed
       res.redirect('/')
     })
 })
+router.post('/verifyIFSC',(req,res)=>{
+  console.log(req.body.ifsc);
+  userController.verifyIFSC(req.body.ifsc).then(()=>{
+    res.json({a:true})
+  }).catch(()=>{
+    res.json({b:true})
 
+  })
+})
 
 module.exports = router;
