@@ -751,6 +751,7 @@
               <div class="form-group fg_2" style="position:absolute;width:350px">
                 <input type="text" class="form-control" required name="panNum" id="panNum"
                   style="text-transform: uppercase;" placeholder="PAN number">
+                  <div style="color: red;display:none" id="panInvalid">Invalid PAN</div>
               </div>
               <div class="custom-file" style="margin-left:400px;margin-top:10px;">
                 <input type="file" class="custom-file-input" id="upload" name="pan" required onchange="viewImag(event)">
@@ -814,6 +815,11 @@
   function submitDetails() {
     console.log('Submiteed')
     let pan = $('#panNum').val()
+    var panVal = $('#panNumber').val();
+    var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+
+    if(regpan.test(pan)){
+      $('#panInvalid').hide()
     let bank = $('#bankNum').val()
     let ifsc = $('#ifsc').val()
     var imagePa = document.getElementById('upload').files[0]
@@ -847,6 +853,10 @@
         }
       })
     }
+    } else {
+      $('#panInvalid').show()
+    }
+    
 
   }
   function paymentRazor() {
