@@ -182,9 +182,8 @@ router.post('/getSubOridinates', (req, res) => {
           })
         }
          }
-         if(check===  0){
+         if(check===0){
           req.session.id.push(id)
-          console.log("vannu",req.session.id);
           res.json({
           a: true,
           data,
