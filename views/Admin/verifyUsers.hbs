@@ -30,6 +30,8 @@
 									<th scope="row" style="text-align: center;">{{math @index "+" 1}}</th>
 									<td style="text-align: center;">{{this.name}}</td>
 									<td id="{{this._id}}panverify" style="text-align:center; display:none;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
+									<td id="{{this._id}}panreject" style="text-align:center; display:none;"><button type="button" class="btn btn-danger m-1 px-5 radius-30">Rejected</button></td>
+
 									{{#if documents.panVerify}}
 									<td style="text-align: center;"><button type="button" class="btn btn-success m-1 px-5 radius-30">Verified</button></td>
 									{{else}}
@@ -57,7 +59,7 @@
 													<button type="button" id="btn" class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
 													<button type="button" class="btn btn-primary" onclick="verifyPan('{{this._id}}')">Verify Pan</button>
-													<button type="button" class="btn btn-danger">Reject Pan</button>
+													<button type="button" class="btn btn-danger" onclick="rejectPan('{{this._id}}')">Reject Pan</button>
 												</div>
 											</div>
 										</div>
@@ -153,6 +155,38 @@
 				}
 			}
 
+		})
+	}
+	function rejectPan(userId){
+		$.ajax({
+			url:'/admin/rejectPan',
+			method:'post',
+			data:{
+				userId
+			},
+			success:(response)=>{
+				if(response){
+					alert('Pan Rejected')
+					$('#'+userId+'panveri').hide()
+					$('#'+userId+'panreject').show()
+				}
+			}
+		})
+	}
+	function rejectPan(userId){
+		$.ajax({
+			url:'/admin/rejectBank',
+			method:'post',
+			data:{
+				userId
+			},
+			success:(response)=>{
+				if(response){
+					alert('Pan Rejected')
+					$('#'+userId+'bankveri').hide()
+					$('#'+userId+'bankreject').show()
+				}
+			}
 		})
 	}
 </script>

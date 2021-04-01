@@ -104,4 +104,15 @@ router.get('/membershipUser',(req,res)=>{
         res.render('Admin/membershipUsers',{admin:true,users})
     })
 })
+router.post('/rejectPan',(req,res)=>{
+    adminController.rejectPanAdmin(req.body.userId).then(()=>{
+        res.send({res:true})
+    })
+})
+router.post('/rejectBank',(req,res)=>{
+    adminController.rejectBankAdmin(req.body.userId).then(()=>{
+        res.send({res:true})
+    })
+})
+
 module.exports = router;

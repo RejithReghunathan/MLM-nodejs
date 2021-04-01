@@ -79,14 +79,14 @@ module.exports={
                     panVerify:true
                 }
             })
-            if(data.bankVerify){
-                if(data.panVerify){
+            if(data.bankVerify&&data.panVerify){
+               
                     db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{
                         $set:{
                             verify:true
                         }
                     })
-                }
+                
             }
             if(data)
             {
@@ -101,14 +101,14 @@ module.exports={
                     bankVerify:true
                 }
             })
-            if(data.panVerify){
-                if(data.bankVerify){
+            if(data.panVerify&&data.bankVerify){
+                
                     db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{
                         $set:{
                             verify:true
                         }
                     })
-                }
+                
             }
             if(data)
             {
@@ -118,7 +118,7 @@ module.exports={
     },
     getverifiedUsers:()=>{
         return new Promise(async(resolve,reject)=>{
-            let users = db.get().collection(collection.USER_COLLECTION).find({verify:true}).toArray()
+            let users = db.get().collection(collection.USER_COLLECTION).find({status:true,role:1}).toArray()
             if(users){
                 resolve(users)
             }
@@ -147,6 +147,24 @@ module.exports={
             if(data){
                 resolve(data)
             }
+        })
+    },
+    rejectPanAdmin:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({_id:objectId(userId)},{
+                $set:{
+                    panReject:true
+                }
+            })
+        })
+    },
+    rejectBankAdmin:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({_id:objectId(userId)},{
+                $set:{
+                    bankReject:true
+                }
+            })
         })
     }
 }
