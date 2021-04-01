@@ -94,7 +94,7 @@
 													<button type="button"  class="btn btn-secondary"
 														data-dismiss="modal">Close</button>
 													<button type="button" class="btn btn-primary" onclick="verifyBank('{{this._id}}')">Verify Bank</button>
-													<button type="button" class="btn btn-danger">Reject Bank</button>
+													<button type="button" class="btn btn-danger" onclick="rejectBank('{{this._id}}')">Reject Bank</button>
 												</div>
 											</div>
 										</div>
@@ -173,7 +173,7 @@
 			}
 		})
 	}
-	function rejectPan(userId){
+	function rejectBank(userId){
 		$.ajax({
 			url:'/admin/rejectBank',
 			method:'post',
@@ -182,7 +182,7 @@
 			},
 			success:(response)=>{
 				if(response){
-					alert('Pan Rejected')
+					alert('Bank Rejected')
 					$('#'+userId+'bankveri').hide()
 					$('#'+userId+'bankreject').show()
 				}

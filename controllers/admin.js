@@ -150,21 +150,27 @@ module.exports={
         })
     },
     rejectPanAdmin:(userId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({_id:objectId(userId)},{
+        return new Promise(async(resolve,reject)=>{
+           let data=await db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({userId:objectId(userId)},{
                 $set:{
                     panReject:true
                 }
             })
+            if(data){
+            resolve()
+            }
         })
     },
     rejectBankAdmin:(userId)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({_id:objectId(userId)},{
-                $set:{
-                    bankReject:true
-                }
-            })
+        return new Promise(async(resolve,reject)=>{
+           let data= await db.get().collection(collection.DOCUMENT_COLLECTION).updateOne({userId:objectId(userId)},{
+            $set:{
+                bankReject:true
+            }
+        })
+            if(data){
+            resolve()
+            }
         })
     }
 }
