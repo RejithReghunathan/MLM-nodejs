@@ -88,7 +88,8 @@ module.exports = {
                     if (user.referrals == 0) {
                         data.status = false
                         data.referred_code = user.referral_code
-                        data.referred_user = user.name
+                        data.referred_userid = objectId(user._id)
+                        data.referred_user=user.name
                         data.referral_code = referralCodeGenerator.custom('uppercase', 3, 3, data.name)
                         data.side = 'left'
                         data.role = 1
@@ -99,15 +100,30 @@ module.exports = {
                         wallet.refferalAmount = 0
                         wallet.bonusAmount = 0
                         data.wallet = wallet
+                        data.membership= objectId('606176368ba9da0cac5e2b18')
                         let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
-                        db.get().collection(collection.USER_COLLECTION).updateOne({
+                        let result = await db.get().collection(collection.USER_COLLECTION).updateOne({
                             referral_code: user.referral_code
                         }, {
                             $set: {
                                 referrals: referrals,
-                                left:objectId(response.ops[0]._id)
+                                left:objectId(response.ops[0]._id),
+                                levels:{
+                                    "1":1
+                                }
                             }
                         })
+                        getTotalLevels(user._id)
+                        async function getTotalLevels(referralId){
+                            let a = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(referralId)})
+                            
+                            if(a){
+                                console.log(a,"The A of the India");
+                                console.log("THe a id",a._id);
+                                getTotalLevels(a.referred_userid)
+                                
+                            }
+                        }
                         resolve(response.ops[0])
                     } else {
                         data.status = false
@@ -129,7 +145,10 @@ module.exports = {
                         }, {
                             $set: {
                                 referrals: referrals,
-                                right:objectId(response.ops[0]._id)
+                                right:objectId(response.ops[0]._id),
+                                levels:{
+                                    "1":2
+                                }
                             }
                         })
                         resolve(response.ops[0])

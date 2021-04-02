@@ -51,7 +51,6 @@ router.get('/home', (req, res) => {
 router.post('/signup', (req, res) => {
   userController.userSignup(req.body).then((response) => {
     req.session.user = response;
-    console.log(response,"The reponse");
     res.json(response)
   }).catch((response) => {
     res.json(response)
