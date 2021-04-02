@@ -41,7 +41,8 @@ module.exports={
                     $project:{
                         name:1,
                         _id:1,
-                        phone:1
+                        phone:1,
+                        document:1,
                     }
                 },
                 {
@@ -57,6 +58,7 @@ module.exports={
                         name:1,
                         _id:1,
                         phone:1,
+                        document:1,
                         documents:{
                             $arrayElemAt:["$documents",0]
                         }
@@ -169,6 +171,11 @@ module.exports={
             }
         })
             if(data){
+                await db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(userId)},{
+                    $set:{
+
+                    reject:true
+                }})
             resolve()
             }
         })
