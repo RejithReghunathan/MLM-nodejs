@@ -162,6 +162,18 @@ module.exports = {
 
 
                                         }
+                                        if(anArray[i].levels[i]===8){
+                                            let walletData={}
+                                            walletData.refferalAmount = 1500
+                                            walletData.bonusAmount = 0
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id:objectId(anArray[i]._id)
+                                            },{
+                                                $set:{
+                                                    wallet:walletData
+                                                }
+                                            })
+                                        }
                                     }
                                 }
                             }, 5000)
@@ -211,7 +223,6 @@ module.exports = {
                                 for (i = 0; i < a; i++) {
                                     for (j = i; j <= i; j++) {
                                         if (anArray[i].levels == undefined) {
-                                            console.log("keri");
                                             db.get().collection(collection.USER_COLLECTION).updateOne({
                                                 _id: objectId(anArray[i]._id)
                                             }, {
@@ -235,6 +246,18 @@ module.exports = {
                                                     levels: daa
                                                 }
                                             })
+                                            if(anArray[i].levels[i]===8){
+                                                let walletData={}
+                                                walletData.refferalAmount = 1500
+                                                walletData.bonusAmount = 0
+                                                db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                    _id:objectId(anArray[i]._id)
+                                                },{
+                                                    $set:{
+                                                        wallet:walletData
+                                                    }
+                                                })
+                                            }
 
                                         }
                                     }

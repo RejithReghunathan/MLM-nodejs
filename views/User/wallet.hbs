@@ -216,20 +216,22 @@
 									<img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw"
 										alt="wallet">
 									<p>Total Balance</p>
-									<p class="amount">$ {{math userData.wallet.refferalAmount "+" userData.wallet.refferalAmount}}</p>
+									<p class="amount">$ {{math userData.wallet.refferalAmount "+" userData.wallet.bonusAmount
+}}</p>
 								</div>
 								<div class="footer-menu">
 								</div>
 								<br>
 								<div>
 									<h3>Referral Bonus : $ {{userData.wallet.refferalAmount}}</h3><br>
-									<h3>Additional Bonus : $ {{userData.wallet.refferalAmount}}</h3><br>
+									<h3>Additional Bonus : $ {{userData.wallet.bonusAmount
+}}</h3><br>
 
 								</div>
 								<div class="footer-menu">
 								</div>
 									<div class="btn-group text-center">
-			<button type="button" class="btn btn-outline-light">Add Money</button>
+			{{!-- <button type="button" class="btn btn-outline-light">Add Money</button> --}}
 			<button type="button" class="btn btn-outline-light">Widthdraw</button>
 			</div>
 					{{!-- <div class="card radius-15">
