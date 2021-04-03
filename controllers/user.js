@@ -162,9 +162,33 @@ module.exports = {
 
 
                                         }
-                                        if(anArray[i].levels[i]===8){
+                                        if(anArray[2].levels[2]===8){
                                             let walletData={}
                                             walletData.refferalAmount = 1500
+                                            walletData.bonusAmount = 0
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id:objectId(anArray[i]._id)
+                                            },{
+                                                $set:{
+                                                    wallet:walletData
+                                                }
+                                            })
+                                        }
+                                        if(anArray[4].levels[4]===32){
+                                            let walletData={}
+                                            walletData.refferalAmount = 5000
+                                            walletData.bonusAmount = 0
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id:objectId(anArray[i]._id)
+                                            },{
+                                                $set:{
+                                                    wallet:walletData
+                                                }
+                                            })
+                                        }
+                                        if(anArray[8].levels[8]===512){
+                                            let walletData={}
+                                            walletData.refferalAmount = 100000
                                             walletData.bonusAmount = 0
                                             db.get().collection(collection.USER_COLLECTION).updateOne({
                                                 _id:objectId(anArray[i]._id)
@@ -249,6 +273,30 @@ module.exports = {
                                             if(anArray[i].levels[i]===8){
                                                 let walletData={}
                                                 walletData.refferalAmount = 1500
+                                                walletData.bonusAmount = 0
+                                                db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                    _id:objectId(anArray[i]._id)
+                                                },{
+                                                    $set:{
+                                                        wallet:walletData
+                                                    }
+                                                })
+                                            }
+                                            if(anArray[4].levels[4]===32){
+                                                let walletData={}
+                                                walletData.refferalAmount = 5000
+                                                walletData.bonusAmount = 0
+                                                db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                    _id:objectId(anArray[i]._id)
+                                                },{
+                                                    $set:{
+                                                        wallet:walletData
+                                                    }
+                                                })
+                                            }
+                                            if(anArray[8].levels[8]===512){
+                                                let walletData={}
+                                                walletData.refferalAmount = 100000
                                                 walletData.bonusAmount = 0
                                                 db.get().collection(collection.USER_COLLECTION).updateOne({
                                                     _id:objectId(anArray[i]._id)
