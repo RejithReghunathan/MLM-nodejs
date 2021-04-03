@@ -19,7 +19,9 @@ const {
 const {
     disable
 } = require('debug');
-const { rejects } = require('assert');
+const {
+    rejects
+} = require('assert');
 var instance = new Razorpay({
     key_id: process.env.razorpayKeyID,
     key_secret: process.env.razorpayKeySECRET,
@@ -44,22 +46,21 @@ module.exports = {
                     if (status) {
                         response.status = 1
                         response.user = user
-                        if(user.wallet){
+                        if (user.wallet) {
                             resolve(response)
-                        }
-                        else{
+                        } else {
                             db.get().collection(collection.USER_COLLECTION).updateOne({
-                                _id:objectId(user._id)
-                            },
-                            {
-                            $set:{
-                                wallet:{
-                                    refferalAmount:0,
-                                    bonusAmount:0
+                                _id: objectId(user._id)
+                            }, {
+                                $set: {
+                                    wallet: {
+                                        refferalAmount: 0,
+                                        bonusAmount: 0
+                                    }
                                 }
-                            }})
+                            })
                         }
-                        
+
                     } else {
                         response.status = 2
                         resolve(response)
@@ -73,183 +74,186 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             let anArray = []
             let status = {}
-            let wallet ={}
+            let wallet = {}
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 referral_code: data.referral_code
             })
             let email = await db.get().collection(collection.USER_COLLECTION).findOne({
-                email:data.email
+                email: data.email
             })
-            if(email){
-                status.errCode=3
-                
-            }else{
-            if (user) {
-                if (user.referrals < 2) {
-                    if (user.referrals == 0) {
-                        data.status = false
-                        data.referred_code = user.referral_code
-                        data.referred_userid = objectId(user._id)
-                        data.referred_user=user.name
-                        data.referral_code = referralCodeGenerator.custom('uppercase', 3, 3, data.name)
-                        data.side = 'left'
-                        data.role = 1
-                        data.referrals = 0
-                        data.verify=false
-                        referrals = user.referrals + 1
-                        data.password = await bcrypt.hash(data.password, 10);
-                        wallet.refferalAmount = 0
-                        wallet.bonusAmount = 0
-                        data.wallet = wallet
-                        data.membership= objectId('606176368ba9da0cac5e2b18')
-                        let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
-                        let result = await db.get().collection(collection.USER_COLLECTION).updateOne({
-                            referral_code: user.referral_code
-                        }, {
-                            $set: {
-                                referrals: referrals,
-                                left:objectId(response.ops[0]._id),
-                            }
-                        })
-                        getTotalLevels(user._id)
-                        async function getTotalLevels(referralId){
-                            let a = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(referralId)})
-                            if(a){
-                                console.log(a.levels);
-                                anArray.push(a)
-                                getTotalLevels(a.referred_userid)
-                                
-                            }
-                        }
-                        setTimeout(()=>{
-                             setTimeout(()=>{
-                            resolve(response.ops[0])
-                            },3000)
-                            let a = anArray.length
-                            console.log(a,"Is the lenght");
-                            
-                            for(i=0;i<a;i++){
-                                 for(j=i;j<=i;j++){
-                                    if(anArray[i].levels==undefined){
-                                        console.log("keri");
-                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
-                                            {
-                                                $set:{
-                                                    levels:[1]
-                                                }
-                                            })
-                                
-                                    }
-                                    else{
-                                        if(anArray[i].levels[i]==undefined){
-                                            anArray[i].levels[i]=0
-                                        }
-                                        let daa=anArray[i].levels
-                                        console.log(daa,"This is the array in the db initalsy",anArray.levels,"Full vannu",anArray[i].levels[i],"@ mathe levlnte satham");
-                                        let count = anArray[i].levels[i]+1
-                                        daa[i]=count
-                                        console.log(daa,"Daa value changed");
-                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
-                                            {
-                                                $set:{
-                                                    levels:daa
-                                                }
-                                            })
-                                        console.log(daa,"COunt anu mwone ellam");
+            if (email) {
+                status.errCode = 3
 
-                                        
+            } else {
+                if (user) {
+                    if (user.referrals < 2) {
+                        if (user.referrals == 0) {
+                            data.status = false
+                            data.referred_code = user.referral_code
+                            data.referred_userid = objectId(user._id)
+                            data.referred_user = user.name
+                            data.referral_code = referralCodeGenerator.custom('uppercase', 3, 3, data.name)
+                            data.side = 'left'
+                            data.role = 1
+                            data.referrals = 0
+                            data.verify = false
+                            referrals = user.referrals + 1
+                            data.password = await bcrypt.hash(data.password, 10);
+                            wallet.refferalAmount = 0
+                            wallet.bonusAmount = 0
+                            data.wallet = wallet
+                            data.membership = objectId('606176368ba9da0cac5e2b18')
+                            let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
+                            let result = await db.get().collection(collection.USER_COLLECTION).updateOne({
+                                referral_code: user.referral_code
+                            }, {
+                                $set: {
+                                    referrals: referrals,
+                                    left: objectId(response.ops[0]._id),
+                                }
+                            })
+                            getTotalLevels(user._id)
+                            async function getTotalLevels(referralId) {
+                                let a = await db.get().collection(collection.USER_COLLECTION).findOne({
+                                    _id: objectId(referralId)
+                                })
+                                if (a) {
+                                    console.log(a.levels, "left");
+                                    anArray.push(a)
+                                    getTotalLevels(a.referred_userid)
+
                                 }
                             }
-                            } 
-                        },2000)
+                            setTimeout(() => {
+                                setTimeout(() => {
+                                    resolve(response.ops[0])
+                                }, 3000)
+                                let a = anArray.length
+                                console.log(a, "Is the lenght");
+
+                                for (i = 0; i < a; i++) {
+                                    for (j = i; j <= i; j++) {
+                                        if (anArray[i].levels == undefined) {
+                                            console.log("keri");
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id: objectId(anArray[i]._id)
+                                            }, {
+                                                $set: {
+                                                    levels: [1]
+                                                }
+                                            })
+                                        } else {
+                                            if (anArray[i].levels[i] == undefined) {
+                                                anArray[i].levels[i] = 0
+                                            }
+                                            let daa = anArray[i].levels
+                                            console.log(daa, "This is the array in the db initalsy", anArray[i].levels, "Full vannu", anArray[i].levels[i], "@ mathe levlnte satham");
+                                            let count = anArray[i].levels[i] + 1
+                                            daa[i] = count
+                                            console.log(daa, "Daa value changed");
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id: objectId(anArray[i]._id)
+                                            }, {
+                                                $set: {
+                                                    levels: daa
+                                                }
+                                            })
+                                            console.log(daa, "COunt anu mwone ellam");
+
+
+                                        }
+                                    }
+                                }
+                            }, 5000)
+                        } else {
+                            data.status = false
+                            data.referred_code = user.referral_code
+                            data.referred_userid = objectId(user._id)
+                            data.referred_user = user.name
+                            data.referral_code = referralCodeGenerator.custom('uppercase', 3, 3, data.name)
+                            data.side = 'right'
+                            data.role = 1
+                            data.referrals = 0
+                            data.verify = false
+                            referrals = user.referrals + 1
+                            data.password = await bcrypt.hash(data.password, 10);
+                            wallet.refferalAmount = 0
+                            wallet.bonusAmount = 0
+                            data.wallet = wallet
+                            data.membership = objectId('606176368ba9da0cac5e2b18')
+                            let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
+                            let result = await db.get().collection(collection.USER_COLLECTION).updateOne({
+                                referral_code: user.referral_code
+                            }, {
+                                $set: {
+                                    referrals: referrals,
+                                    right: objectId(response.ops[0]._id),
+                                }
+                            })
+                            getTotalLevels(user._id)
+                            async function getTotalLevels(referralId) {
+                                let a = await db.get().collection(collection.USER_COLLECTION).findOne({
+                                    _id: objectId(referralId)
+                                })
+                                if (a) {
+                                    console.log(a.levels, "right");
+                                    anArray.push(a)
+                                    getTotalLevels(a.referred_userid)
+
+                                }
+                            }
+                            setTimeout(() => {
+                                setTimeout(() => {
+                                    resolve(response.ops[0])
+                                }, 3000)
+                                let a = anArray.length
+                                console.log(a, "Is the lenght");
+                                for (i = 0; i < a; i++) {
+                                    for (j = i; j <= i; j++) {
+                                        if (anArray[i].levels == undefined) {
+                                            console.log("keri");
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id: objectId(anArray[i]._id)
+                                            }, {
+                                                $set: {
+                                                    levels: [1]
+                                                }
+                                            })
+                                        } else {
+                                            if (anArray[i].levels[i] == undefined) {
+                                                anArray[i].levels[i] = 0
+                                            }
+                                            let daa = anArray[i].levels
+                                            console.log(daa, "This is the array in the db initalsy", anArray[i].levels, "Full vannu", anArray[i].levels[i], "@ mathe levlnte satham");
+                                            let count = anArray[i].levels[i] + 1
+                                            daa[i] = count
+                                            console.log(daa, "Daa value changed");
+                                            db.get().collection(collection.USER_COLLECTION).updateOne({
+                                                _id: objectId(anArray[i]._id)
+                                            }, {
+                                                $set: {
+                                                    levels: daa
+                                                }
+                                            })
+
+                                        }
+                                    }
+                                }
+                            }, 5000)
+                        }
                     } else {
-                        data.status = false
-                        data.referred_code = user.referral_code
-                        data.referred_user = user.name
-                        data.referral_code = referralCodeGenerator.custom('uppercase', 3, 3, data.name)
-                        data.side = 'right'
-                        data.role = 1
-                        data.referrals = 0
-                        data.verify=false
-                        referrals = user.referrals + 1
-                        data.password = await bcrypt.hash(data.password, 10);
-                        wallet.refferalAmount = 0
-                        wallet.bonusAmount = 0
-                        data.wallet = wallet
-                        data.membership= objectId('606176368ba9da0cac5e2b18')
-                        let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
-                        db.get().collection(collection.USER_COLLECTION).updateOne({
-                            referral_code: user.referral_code
-                        }, {
-                            $set: {
-                                referrals: referrals,
-                                right:objectId(response.ops[0]._id),
-                            
-                            }
-                        })
-                        getTotalLevels(user._id)
-                        async function getTotalLevels(referralId){
-                            let a = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(referralId)})
-                            if(a){
-                                console.log(a.levels);
-                                anArray.push(a)
-                                getTotalLevels(a.referred_userid)
-                                
-                            }
-                        }
-                        setTimeout(()=>{
-                             setTimeout(()=>{
-                            resolve(response.ops[0])
-                            },3000)
-                            let a = anArray.length
-                            for(i=0;i<a;i++){
-                                 for(j=i;j<=i;j++){
-                                    if(anArray[i].levels===undefined){
-                                        console.log("keri");
-                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
-                                            {
-                                                $set:{
-                                                    levels:[1]
-                                                }
-                                            })
-                                
-                                    }
-                                    else{
-                                        if(anArray[i].levels[i]===undefined){
-                                            anArray[i].levels[i]=0
-                                        }
-                                        let daa=anArray[i].levels
-                                        console.log(daa,"This is the array in the db initalsy");
-                                        let count = anArray[i].levels[i]+1
-                                        daa[i]=count
-                                        console.log(daa,"Daa value changed");
-                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
-                                            {
-                                                $set:{
-                                                    levels:daa
-                                                }
-                                            })
-                                        console.log(daa,"COunt anu mwone ellam");
-
-                                        
-                                }
-                            }
-                            } 
-                        },2000)
+                        status.errCode = 2 //limit exceeded
+                        reject(status)
                     }
                 } else {
-                    status.errCode = 2 //limit exceeded
+                    status.errCode = 1 //invalid referal
                     reject(status)
                 }
-            } else {
-                status.errCode = 1 //invalid referal
-                reject(status)
             }
-        }
 
         })
     },
-    getInviteLink: (id,host) => {
+    getInviteLink: (id, host) => {
         return new Promise(async (resolve, reject) => {
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
                 _id: objectId(id)
@@ -302,8 +306,8 @@ module.exports = {
         detail.bankAcct = data.bank
         detail.ifsc = data.ifsc
         detail.userId = objectId(userId)
-        detail.verifyBank=false
-        detail.panVerify=false
+        detail.verifyBank = false
+        detail.panVerify = false
         return new Promise(async (resolve, reject) => {
             let data = await db.get().collection(collection.DOCUMENT_COLLECTION).findOne({
                 _id: objectId(userId)
@@ -364,7 +368,7 @@ module.exports = {
                 $set: {
                     payment: true,
                     status: true,
-                    verify:false
+                    verify: false
                 }
             }).then(() => {
                 resolve()
@@ -480,52 +484,51 @@ module.exports = {
             resolve(data)
         })
     },
-    getDetails:(userId)=>{
-        return new Promise((resolve,reject)=>{
+    getDetails: (userId) => {
+        return new Promise((resolve, reject) => {
             let user = db.get().collection(collection.USER_COLLECTION).findOne({
-                _id:objectId(userId)
+                _id: objectId(userId)
             })
             resolve(user)
         })
     },
-    subOrdinatesDetails:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let sub=[]
-            let list = await db.get().collection(collection.USER_COLLECTION).aggregate([
-                {
-                    $match:{
-                        _id:objectId(userId)
-                    },
-                }
-            ]).toArray()
-           resolve(list)
+    subOrdinatesDetails: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            let sub = []
+            let list = await db.get().collection(collection.USER_COLLECTION).aggregate([{
+                $match: {
+                    _id: objectId(userId)
+                },
+            }]).toArray()
+            resolve(list)
         })
     },
-    emailCheck:(emailId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let email =await db.get().collection(collection.USER_COLLECTION).findOne({email:emailId})
-            if(email){
-                console.log(email,"athe Email")
+    emailCheck: (emailId) => {
+        return new Promise(async (resolve, reject) => {
+            let email = await db.get().collection(collection.USER_COLLECTION).findOne({
+                email: emailId
+            })
+            if (email) {
+                console.log(email, "athe Email")
                 resolve(email)
-            }
-            else{
+            } else {
                 reject()
             }
         })
     },
-    verifyIFSC:(ifsce)=>{
+    verifyIFSC: (ifsce) => {
         var ifsc = require('ifsc');
-        console.log('called',ifsc);
+        console.log('called', ifsc);
         let data = ifsce.toUpperCase()
-        return new Promise((resolve,reject)=>{
-            ifsc.fetchDetails(data).then(function(res) {
-                console.log('UPPER SARATH ',res);
+        return new Promise((resolve, reject) => {
+            ifsc.fetchDetails(data).then(function (res) {
+                console.log('UPPER SARATH ', res);
                 resolve(res)
-             }).catch((err)=>{
-                 console.log(err);
-                 reject(err)
-             })
-            
+            }).catch((err) => {
+                console.log(err);
+                reject(err)
+            })
+
         })
     }
 }

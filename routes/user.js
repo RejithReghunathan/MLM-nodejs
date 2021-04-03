@@ -31,6 +31,7 @@ router.get('/register', (req, res) => {
 router.post('/login', (req, res) => {
   userController.userLogin(req.body).then((response) => {
     req.session.user = response.user;
+    console.log(response.user.levels)
     req.session.userLoggedIn=true
     req.session.id=[]
     res.json(response)
