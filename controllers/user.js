@@ -71,6 +71,7 @@ module.exports = {
     },
     userSignup: (data) => {
         return new Promise(async (resolve, reject) => {
+            let anArray = []
             let status = {}
             let wallet ={}
             let user = await db.get().collection(collection.USER_COLLECTION).findOne({
@@ -108,25 +109,59 @@ module.exports = {
                             $set: {
                                 referrals: referrals,
                                 left:objectId(response.ops[0]._id),
-                                levels:[
-                                    {"1":1}
-                            ]
                             }
                         })
                         getTotalLevels(user._id)
                         async function getTotalLevels(referralId){
                             let a = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(referralId)})
-                            
                             if(a){
-                                console.log(a,"The A of the India");
-                                console.log("THe a id",a._id);
+                                console.log(a.levels);
+                                anArray.push(a)
                                 getTotalLevels(a.referred_userid)
                                 
                             }
                         }
                         setTimeout(()=>{
+                             setTimeout(()=>{
                             resolve(response.ops[0])
-                        },3000)
+                            },3000)
+                            let a = anArray.length
+                            console.log(a,"Is the lenght");
+                            
+                            for(i=0;i<a;i++){
+                                 for(j=i;j<=i;j++){
+                                    if(anArray[i].levels==undefined){
+                                        console.log("keri");
+                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
+                                            {
+                                                $set:{
+                                                    levels:[1]
+                                                }
+                                            })
+                                
+                                    }
+                                    else{
+                                        if(anArray[i].levels[i]==undefined){
+                                            anArray[i].levels[i]=0
+                                        }
+                                        let daa=anArray[i].levels
+                                        console.log(daa,"This is the array in the db initalsy",anArray.levels,"Full vannu",anArray[i].levels[i],"@ mathe levlnte satham");
+                                        let count = anArray[i].levels[i]+1
+                                        daa[i]=count
+                                        console.log(daa,"Daa value changed");
+                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
+                                            {
+                                                $set:{
+                                                    levels:daa
+                                                }
+                                            })
+                                        console.log(daa,"COunt anu mwone ellam");
+
+                                        
+                                }
+                            }
+                            } 
+                        },2000)
                     } else {
                         data.status = false
                         data.referred_code = user.referral_code
@@ -141,6 +176,7 @@ module.exports = {
                         wallet.refferalAmount = 0
                         wallet.bonusAmount = 0
                         data.wallet = wallet
+                        data.membership= objectId('606176368ba9da0cac5e2b18')
                         let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
                         db.get().collection(collection.USER_COLLECTION).updateOne({
                             referral_code: user.referral_code
@@ -148,12 +184,58 @@ module.exports = {
                             $set: {
                                 referrals: referrals,
                                 right:objectId(response.ops[0]._id),
-                                levels:[
-                                    {"1":2}
-                            ]
+                            
                             }
                         })
-                        resolve(response.ops[0])
+                        getTotalLevels(user._id)
+                        async function getTotalLevels(referralId){
+                            let a = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(referralId)})
+                            if(a){
+                                console.log(a.levels);
+                                anArray.push(a)
+                                getTotalLevels(a.referred_userid)
+                                
+                            }
+                        }
+                        setTimeout(()=>{
+                             setTimeout(()=>{
+                            resolve(response.ops[0])
+                            },3000)
+                            let a = anArray.length
+                            for(i=0;i<a;i++){
+                                 for(j=i;j<=i;j++){
+                                    if(anArray[i].levels===undefined){
+                                        console.log("keri");
+                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
+                                            {
+                                                $set:{
+                                                    levels:[1]
+                                                }
+                                            })
+                                
+                                    }
+                                    else{
+                                        if(anArray[i].levels[i]===undefined){
+                                            anArray[i].levels[i]=0
+                                        }
+                                        let daa=anArray[i].levels
+                                        console.log(daa,"This is the array in the db initalsy");
+                                        let count = anArray[i].levels[i]+1
+                                        daa[i]=count
+                                        console.log(daa,"Daa value changed");
+                                        db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(anArray[i]._id)},
+                                            {
+                                                $set:{
+                                                    levels:daa
+                                                }
+                                            })
+                                        console.log(daa,"COunt anu mwone ellam");
+
+                                        
+                                }
+                            }
+                            } 
+                        },2000)
                     }
                 } else {
                     status.errCode = 2 //limit exceeded
