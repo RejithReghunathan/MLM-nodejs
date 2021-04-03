@@ -231,49 +231,12 @@
 								<div class="footer-menu">
 								</div>
 									<div class="btn-group text-center">
-			{{!-- <button type="button" class="btn btn-outline-light">Add Money</button> --}}
-			<button type="button" class="btn btn-outline-light">Widthdraw</button>
+			<input type="text" name="" id="withdrawAmount" style="border-radius: 6px;color:black;">&nbsp;&nbsp;&nbsp;
+			<button type="button" class="btn btn-outline-light" onclick="showWithDrawForm('{{userData._id}}')">Widthdraw</button><br>
+			
+			
 			</div>
-					{{!-- <div class="card radius-15">
-						<div class="card-body">
-							<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#exampleModal3">Centered Modal</button>
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title">Modal title</h5>
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">	<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="button" class="btn btn-primary">Save changes</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-					</div> --}}
-					{{!-- <button type="button" class="btn btn-primary radius-30 px-5 m-3" data-toggle="modal" data-target="#exampleModal8">Card Modal</button>
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal8" tabindex="-1" role="dialog" aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered">
-									<div class="modal-content">
-										<div class="">
-											<div class="card mb-0">
-												<img src="assets/images/gallery/01.jpg" class="card-img-top" alt="...">
-												<div class="card-body">
-													<h5 class="card-title">Card title</h5>
-													<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> <a href="#" class="btn btn-primary">Go somewhere</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div> --}}
+					<h5 id="showError" style="display: none;">Please Enter the Withdrawal amount</h5>
 							<br><br>
 						</div>
 						<br>
@@ -292,6 +255,29 @@
 			document.execCommand("copy");
 			alert("Link copied");
 		}
+	</script>
+	<script>
+		function showWithDrawForm(id){
+			let withdrawAmount = $('#withdrawAmount').val()
+			console.log(withdrawAmount)
+			if(withdrawAmount==''){
+			$('#showError').show()
+		}else{
+			$.ajax({
+				url:'/withdrawRequest',
+				method:'post',
+				data:{
+					withdrawAmount,id
+				},
+				success:(response)=>{
+					if(response){
+						alert('THe data')
+					}
+				}
+			})
+		}
+		}
+		
 	</script>
 	<script src="/assets/js/popper.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>

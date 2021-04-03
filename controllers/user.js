@@ -118,7 +118,6 @@ module.exports = {
                                     _id: objectId(referralId)
                                 })
                                 if (a) {
-                                    console.log(a.levels, "left");
                                     anArray.push(a)
                                     getTotalLevels(a.referred_userid)
 
@@ -129,12 +128,9 @@ module.exports = {
                                     resolve(response.ops[0])
                                 }, 3000)
                                 let a = anArray.length
-                                console.log(a, "Is the lenght");
-
                                 for (i = 0; i < a; i++) {
                                     for (j = i; j <= i; j++) {
                                         if (anArray[i].levels == undefined) {
-                                            console.log("keri");
                                             db.get().collection(collection.USER_COLLECTION).updateOne({
                                                 _id: objectId(anArray[i]._id)
                                             }, {
@@ -147,10 +143,8 @@ module.exports = {
                                                 anArray[i].levels[i] = 0
                                             }
                                             let daa = anArray[i].levels
-                                            console.log(daa, "This is the array in the db initalsy", anArray[i].levels, "Full vannu", anArray[i].levels[i], "@ mathe levlnte satham");
                                             let count = anArray[i].levels[i] + 1
                                             daa[i] = count
-                                            console.log(daa, "Daa value changed");
                                             db.get().collection(collection.USER_COLLECTION).updateOne({
                                                 _id: objectId(anArray[i]._id)
                                             }, {
@@ -158,9 +152,6 @@ module.exports = {
                                                     levels: daa
                                                 }
                                             })
-                                            console.log(daa, "COunt anu mwone ellam");
-
-
                                         }
                                         if(anArray[2].levels[2]===8){
                                             let walletData={}
@@ -232,7 +223,6 @@ module.exports = {
                                     _id: objectId(referralId)
                                 })
                                 if (a) {
-                                    console.log(a.levels, "right");
                                     anArray.push(a)
                                     getTotalLevels(a.referred_userid)
 
@@ -243,7 +233,6 @@ module.exports = {
                                     resolve(response.ops[0])
                                 }, 3000)
                                 let a = anArray.length
-                                console.log(a, "Is the lenght");
                                 for (i = 0; i < a; i++) {
                                     for (j = i; j <= i; j++) {
                                         if (anArray[i].levels == undefined) {
@@ -259,10 +248,8 @@ module.exports = {
                                                 anArray[i].levels[i] = 0
                                             }
                                             let daa = anArray[i].levels
-                                            console.log(daa, "This is the array in the db initalsy", anArray[i].levels, "Full vannu", anArray[i].levels[i], "@ mathe levlnte satham");
                                             let count = anArray[i].levels[i] + 1
                                             daa[i] = count
-                                            console.log(daa, "Daa value changed");
                                             db.get().collection(collection.USER_COLLECTION).updateOne({
                                                 _id: objectId(anArray[i]._id)
                                             }, {
@@ -270,7 +257,7 @@ module.exports = {
                                                     levels: daa
                                                 }
                                             })
-                                            if(anArray[i].levels[i]===8){
+                                            if(anArray[2].levels[2]===8){
                                                 let walletData={}
                                                 walletData.refferalAmount = 1500
                                                 walletData.bonusAmount = 0
@@ -600,6 +587,11 @@ module.exports = {
                 reject(err)
             })
 
+        })
+    },
+    requestWithdraw:(data)=>{
+        return new Promise((resolve,reject)=>{
+            
         })
     }
 }

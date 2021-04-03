@@ -1,3 +1,4 @@
+const { response } = require('express');
 var express = require('express');
 const {
   ObjectID
@@ -7,7 +8,8 @@ const { session } = require('passport');
 require('./passport')
 
 var router = express.Router();
-const passport = require('passport')
+const passport = require('passport');
+const user = require('../controllers/user');
 const userController = require('../controllers/user')
 
 
@@ -269,6 +271,11 @@ router.post('/verifyIFSC',(req,res)=>{
   }).catch(()=>{
     res.json({b:true})
 
+  })
+})
+router.post('/withdrawRequest',(req,res)=>{
+  userController.requestWithdraw(req.body).then(()=>{
+    res.json({data:true})
   })
 })
 
