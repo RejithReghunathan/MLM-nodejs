@@ -274,8 +274,10 @@ router.post('/verifyIFSC',(req,res)=>{
   })
 })
 router.post('/withdrawRequest',(req,res)=>{
-  userController.requestWithdraw(req.body).then(()=>{
-    res.json({data:true})
+  console.log('called');
+  userController.requestWithdraw(req.body).then((response)=>{
+    console.log(response);
+    res.json({response})
   })
 })
 

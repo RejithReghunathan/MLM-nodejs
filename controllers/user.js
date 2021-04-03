@@ -100,7 +100,6 @@ module.exports = {
                             referrals = user.referrals + 1
                             data.password = await bcrypt.hash(data.password, 10);
                             wallet.refferalAmount = 0
-                            wallet.bonusAmount = 0
                             data.wallet = wallet
                             data.membership = objectId('606176368ba9da0cac5e2b18')
                             let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
@@ -205,7 +204,6 @@ module.exports = {
                             referrals = user.referrals + 1
                             data.password = await bcrypt.hash(data.password, 10);
                             wallet.refferalAmount = 0
-                            wallet.bonusAmount = 0
                             data.wallet = wallet
                             data.membership = objectId('606176368ba9da0cac5e2b18')
                             let response = await db.get().collection(collection.USER_COLLECTION).insertOne(data)
@@ -576,11 +574,9 @@ module.exports = {
     },
     verifyIFSC: (ifsce) => {
         var ifsc = require('ifsc');
-        console.log('called', ifsc);
         let data = ifsce.toUpperCase()
         return new Promise((resolve, reject) => {
             ifsc.fetchDetails(data).then(function (res) {
-                console.log('UPPER SARATH ', res);
                 resolve(res)
             }).catch((err) => {
                 console.log(err);
@@ -590,8 +586,35 @@ module.exports = {
         })
     },
     requestWithdraw:(data)=>{
-        return new Promise((resolve,reject)=>{
-            
+        console.log('called');
+        let total
+        let response={}
+        return new Promise(async(resolve,reject)=>{
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.id)})
+            if(user){
+                console.log('pinnem called');
+                total=user.wallet.refferalAmount
+                console.log(total);
+                if(data.withdrawAmount>total){
+                    response.greater=true
+                    resolve(response)
+                }else if(data.withdrawAmount<total){
+                    console.log('evideyo');
+                    response.success=true
+                    let walle = {}
+                    response.amount=total-data.withdrawAmount
+                    walle.refferalAmount=total-data.withdrawAmount
+                    db.get().collection(collection.USER_COLLECTION).updateOne({_id:objectId(data.id)},{
+                        $set:{
+                            wallet:walle
+                        }
+                    })
+                    resolve(response)
+                }else if(total===0){
+                    response.lowBalance=true
+                    resolve(response)
+                }
+            }
         })
     }
 }

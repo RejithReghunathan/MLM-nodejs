@@ -216,16 +216,14 @@
 									<img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw"
 										alt="wallet">
 									<p>Total Balance</p>
-									<p class="amount">$ {{math userData.wallet.refferalAmount "+" userData.wallet.bonusAmount
-}}</p>
+									<p class="amount" >$ <span id="am">{{userData.wallet.refferalAmount}}</span></p>
 								</div>
 								<div class="footer-menu">
 								</div>
 								<br>
 								<div>
-									<h3>Referral Bonus : $ {{userData.wallet.refferalAmount}}</h3><br>
-									<h3>Additional Bonus : $ {{userData.wallet.bonusAmount
-}}</h3><br>
+									<h3 >Referral Bonus : $ <span id="amount">{{userData.wallet.refferalAmount}}</span></h3><br>
+									{{!-- <h3>Additional Bonus : $ {{userData.wallet.bonusAmount}}</h3><br> --}}
 
 								</div>
 								<div class="footer-menu">
@@ -237,6 +235,9 @@
 			
 			</div>
 					<h5 id="showError" style="display: none;">Please Enter the Withdrawal amount</h5>
+					<h5 id="greater" style="display: none;">Requested Amount is Higher than your account balance</h5>
+					<h5 id="low" style="display: none;">Your balance is Zero</h5>
+					<h5 id="greater" style="display: none;">Please Enter the Withdrawal amount</h5>
 							<br><br>
 						</div>
 						<br>
@@ -270,8 +271,16 @@
 					withdrawAmount,id
 				},
 				success:(response)=>{
-					if(response){
-						alert('THe data')
+					console.log(response)
+					if(response.response.greater){
+						$('#greater').show()
+					}else if(response.response.lowBalance){
+						$('#low').show()
+					}else if(response.response.success){
+						alert('You Withdraw successfully')
+						document.getElementById('amount').innerHTML = response.response.amount
+						document.getElementById('am').innerHTML = response.response.amount
+						$('#withdrawAmount').val('')
 					}
 				}
 			})
