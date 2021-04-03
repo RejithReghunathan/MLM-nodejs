@@ -205,7 +205,9 @@ router.get('/account',(req,res)=>{
     userController.getDetails(user._id).then((userData)=>{
       userController.getInviteLink(user._id,req.headers.host).then((inviteLink) => {
         userController.subOrdinatesDetails(user._id).then((data)=>{
-        res.render('User/account',{user,userData,inviteLink,data})
+          console.log("fTHe data",data)
+          let datas=data[0].levels[0]
+        res.render('User/account',{user,userData,inviteLink,datas})
       })
       })
     })

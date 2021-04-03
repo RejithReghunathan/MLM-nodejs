@@ -108,9 +108,9 @@ module.exports = {
                             $set: {
                                 referrals: referrals,
                                 left:objectId(response.ops[0]._id),
-                                levels:{
-                                    "1":1
-                                }
+                                levels:[
+                                    {"1":1}
+                            ]
                             }
                         })
                         getTotalLevels(user._id)
@@ -124,7 +124,9 @@ module.exports = {
                                 
                             }
                         }
-                        resolve(response.ops[0])
+                        setTimeout(()=>{
+                            resolve(response.ops[0])
+                        },3000)
                     } else {
                         data.status = false
                         data.referred_code = user.referral_code
@@ -146,9 +148,9 @@ module.exports = {
                             $set: {
                                 referrals: referrals,
                                 right:objectId(response.ops[0]._id),
-                                levels:{
-                                    "1":2
-                                }
+                                levels:[
+                                    {"1":2}
+                            ]
                             }
                         })
                         resolve(response.ops[0])
@@ -411,7 +413,7 @@ module.exports = {
                 {
                     $match:{
                         _id:objectId(userId)
-                    }
+                    },
                 }
             ]).toArray()
            resolve(list)

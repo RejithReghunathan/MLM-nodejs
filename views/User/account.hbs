@@ -100,7 +100,7 @@
 												</tr>
 												<tr>
 													<th style="border:none">Referrals:</th>
-													<td style="border:none">2</td>
+													<td style="border:none">{{userData.referrals}}</td>
 												</tr>
 												<tr>
 													<th style="border:none">Invite Link:</th>
@@ -452,7 +452,7 @@
 									<thead style="background-color:#1d4354;" class="text-white">
 										<tr>
 											<th scope="col" style="text-align: center; color:white">#</th>
-											<th scope="col" style="text-align: center; color:white">Level One </th>
+											<th scope="col" style="text-align: center; color:white">Levels </th>
 											<th scope="col" style="text-align: center; color:white">Total Subordiantes</th>
 											<th scope="col" style="text-align: center; color:white">Verified users</th>
 											<th scope="col" style="text-align: center; color:white">Amount Earned</th>
@@ -460,16 +460,16 @@
 										</tr>
 									</thead>
 									<tbody>
-										{{#each data}}
+										
 										<tr>
 											<th scope="row" style="text-align: center;">1</th>
-											<td style="text-align: center;">Level One</td>
-											<td style="text-align: center;">{{referrals}}</td>
+											<td style="text-align: center;">Level{{datas.level1}}</td>
+											<td style="text-align: center;">{{datas.level1}}</td>
 											<td style="text-align: center;">3</td>
 											<td style="text-align: center;">{{Amount}}</td>
 											<td style="text-align: center;">150</td>
 										</tr>
-										{{/each}}
+										
 									</tbody>
 								</table>
 								<br><br>
