@@ -20,6 +20,7 @@
     "http-errors": "~1.6.3",
     "ifsc": "^1.5.11",
     "jquery": "^3.6.0",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.4",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",
@@ -29,6 +30,7 @@
     "passport-oauth2": "^1.5.0",
     "razorpay": "^2.0.6",
     "referral-code-generator": "^1.0.8",
+    "socket.io": "^4.0.1",
     "twilio": "^3.57.0"
   }
 }
