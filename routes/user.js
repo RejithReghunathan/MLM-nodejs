@@ -274,11 +274,21 @@ router.post('/verifyIFSC',(req,res)=>{
   })
 })
 router.post('/withdrawRequest',(req,res)=>{
-  console.log('called');
   userController.requestWithdraw(req.body).then((response)=>{
     console.log(response);
     res.json({response})
   })
+})
+router.get('/messages',(req,res)=>{
+  let user = req.session.user
+  let loggedIn = req.session.userLoggedIn
+  if (loggedIn) {
+    res.render('User/messages', {
+      user
+    })
+  } else {
+    res.render('User/login',{user:true,login:true})
+  }
 })
 
 module.exports = router;

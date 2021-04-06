@@ -17,7 +17,33 @@ var userRouter = require('./routes/user');
 const passport = require('passport');
 
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
+
+io.on("connection",(socket)=>{
+  console.log('New User Logged In with ID '+socket.id);
+  console.log("connect aayi mwonuse...");
+
+  socket.on("disconnect",()=>{
+    console.log("connection closed");
+    io.emit('message','A user has left the chat')
+  })
+
+  socket.on("message",(msg)=>{ 
+    console.log('vannu thirichayachu')
+
+    
+    
+    var d= new Date();
+    msg.date = moment(d).format('lll');
+    
+    userHelper.insertMessage(msg)
+    
+    io.emit("board_content",msg);
+  })
+
+})
 // Session
 
 // app.use(
@@ -106,4 +132,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+// module.exports = app,server;
+module.exports = {app: app, server: server};
+
