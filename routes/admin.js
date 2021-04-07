@@ -36,15 +36,11 @@ router.get('/logoutadmin', (req, res) => {
     res.redirect('/admin')
 })
 router.get('/getAllUser',(req,res)=>{
-    let adminLoggedIn = req.session.adminLoggedIn
-    if(adminLoggedIn){
+   
         adminController.getAllUsers().then((users)=>{
             res.render('Admin/allUsers',{admin:true,users})
         })
-    }
-    else{
-        res.render('Admin/login-admin')
-    }   
+    
 })
 router.get('/verifyUsers',(req,res)=>{
     let adminLoggedIn = req.session.adminLoggedIn

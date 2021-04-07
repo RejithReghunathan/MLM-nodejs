@@ -623,12 +623,10 @@ module.exports = {
                     if(data.left){
                         left = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.left)})
                         users.push(left)
-                        console.log(left);
                     }
                     if(data.right){
                         right = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.right)})
                         users.push(right)
-                        console.log(right);
                     }
                     if(data.referred_userid){
                         userR = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.referred_userid)})

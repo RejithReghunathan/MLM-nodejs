@@ -284,7 +284,6 @@ router.get('/messages',(req,res)=>{
   let loggedIn = req.session.userLoggedIn
   if (loggedIn) {
     userController.getChatUser(user._id).then((data)=>{
-      console.log(data);
       res.render('User/messages', {
         user,data
       })

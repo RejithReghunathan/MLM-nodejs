@@ -22,25 +22,14 @@ var io = require('socket.io')(server);
 
 
 io.on("connection",(socket)=>{
-  console.log('New User Logged In with ID '+socket.id);
-  console.log("connect aayi mwonuse...");
-
-  socket.on("disconnect",()=>{
+  console.log('Chat connected')
+   socket.on("disconnect",()=>{
     console.log("connection closed");
-    io.emit('message','A user has left the chat')
   })
 
   socket.on("message",(msg)=>{ 
-    console.log('vannu thirichayachu')
-
-    
-    
-    var d= new Date();
-    msg.date = moment(d).format('lll');
-    
-    userHelper.insertMessage(msg)
-    
-    io.emit("board_content",msg);
+  console.log('vannu thirichayachu',msg)  
+  io.emit("board_content",msg);
   })
 
 })
