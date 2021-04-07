@@ -586,7 +586,6 @@ module.exports = {
         })
     },
     requestWithdraw:(data)=>{
-        console.log('called');
         let total
         let response={}
         return new Promise(async(resolve,reject)=>{
@@ -599,7 +598,6 @@ module.exports = {
                     response.greater=true
                     resolve(response)
                 }else if(data.withdrawAmount<total){
-                    console.log('evideyo');
                     response.success=true
                     let walle = {}
                     response.amount=total-data.withdrawAmount
@@ -615,6 +613,34 @@ module.exports = {
                     resolve(response)
                 }
             }
+        })
+    },
+    getChatUser:(userId)=>{
+        let users = [];
+        return new Promise(async(resolve,reject)=>{
+            let data =await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)}) 
+                if(data){
+                    if(data.left){
+                        left = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.left)})
+                        users.push(left)
+                        console.log(left);
+                    }
+                    if(data.right){
+                        right = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.right)})
+                        users.push(right)
+                        console.log(right);
+                    }
+                    if(data.referred_userid){
+                        userR = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.referred_userid)})
+                        users.push(userR)
+                        if(users.length==2){
+                            resolve(users)
+                        }
+                    }
+                }
+              setTimeout(()=>{
+                resolve(users)
+              },1000)  
         })
     }
 }

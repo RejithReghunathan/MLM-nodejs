@@ -693,7 +693,7 @@
 		<div id="profile">
 			<div class="wrap">
 				<img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
-				<p>User</p>
+				<p>{{user.name}}</p>
 				{{!--    --}}
 				
                     {{!-- <div id="expanded">
@@ -712,32 +712,25 @@
 		</div> --}}
 		<div id="contacts">
 			<ul>
-                <li class="contact">
+        {{#each data}}
+          <li class="contact"style="margin-top:10px;">
 					<div class="wrap">
 						<span class="contact-status online"></span>
 						<img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
 						<div class="meta">
-							<p class="name">Louis Litt</p>
-							<p class="preview">You just got LITT up, Mike.</p>
+							<p class="name">{{name}}</p>
+							{{!-- <p class="preview">You just got LITT up, Mike.</p> --}}
 						</div>
 					</div>
 				</li>
+        {{/each}}
             </ul>
 		</div>
-		{{!-- <div id="bottom-bar">
-			<button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
-			<button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
-		</div> --}}
 	</div>
 	<div class="content">
 		<div class="contact-profile">
 			<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
 			<p>Harvey Specter</p>
-			{{!-- <div class="social-media">
-				<i class="fa fa-facebook" aria-hidden="true"></i>
-				<i class="fa fa-twitter" aria-hidden="true"></i>
-				 <i class="fa fa-instagram" aria-hidden="true"></i>
-			</div> --}}
 		</div>
 		<div class="messages">
 			<ul>
@@ -755,7 +748,7 @@
 			<div class="wrap">
 			<input type="text" placeholder="Write your message..." / style="width: 610px; height:42px;">
 			{{!-- <i class="fa fa-paperclip attachment" aria-hidden="true"></i> --}}
-			<button class="submit" style="float: right;" id="sendMessage"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+			<button class="submit" style="float: right;" id="sendMessage"><i class="fa fa-paper-plane" aria-hidden="true" ></i></button>
             </div>
 			</div>
 		</div>
