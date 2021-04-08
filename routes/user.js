@@ -284,8 +284,10 @@ router.get('/messages',(req,res)=>{
   let loggedIn = req.session.userLoggedIn
   if (loggedIn) {
     userController.getChatUser(user._id).then((data)=>{
-      res.render('User/messages', {
-        user,data
+      userController.getChat(user._id).then((RecievedUser)=>{
+        res.render('User/messages', {
+          user,data,RecievedUser
+        })
       })
     })
     

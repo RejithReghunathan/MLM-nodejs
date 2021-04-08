@@ -719,7 +719,7 @@
 						<img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
 						<div class="meta">
 							<p class="name">{{name}}</p>
-							{{!-- <p class="preview">You just got LITT up, Mike.</p> --}}
+							{{!-- --}}
 						</div>
 					</div>
 				</li>
@@ -730,17 +730,18 @@
 	<div class="content">
 		<div class="contact-profile">
 			<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-			<p>Harvey Specter</p>
+			<p>{{RecievedUser.name}}</p>
 		</div>
 		<div class="messages">
 			<ul>
 				<li class="sent">
-					<img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-					<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+					<p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!
+              <br><small style="color: rgb(197, 194, 188);float:right;font-size:12px;">21/04/2012,4:43pm</small>
+          </p>
+          {{!--   --}}
 				</li>
-				<li class="replies">
-					<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-					<p>When you're backed against the wall, break the god damn thing down.</p>
+				<li class="replies" id="reply">
+					
 				</li>
 			</ul>
 		</div>
@@ -810,7 +811,8 @@ function sendMsg(){
   newMessage();
 }
 socket.on("board_content", (msg) => {
-        console.log('thirichethi',msg)
+  console.log("the msg is ",msg)
+        $('#reply').append('<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /><p>\'' +msg+ '\'</p>')
 })
 //# sourceURL=pen.js
 </script>

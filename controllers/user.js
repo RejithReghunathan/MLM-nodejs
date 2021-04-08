@@ -640,5 +640,16 @@ module.exports = {
                 resolve(users)
               },1000)  
         })
+    },
+    getChat:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let data =await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(userId)}) 
+            if(data){
+                if(data.left){
+                    left = await db.get().collection(collection.USER_COLLECTION).findOne({_id:objectId(data.left)})
+                    resolve(left)
+                }
+            }
+        })
     }
 }
