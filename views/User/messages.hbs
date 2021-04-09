@@ -713,7 +713,7 @@
 		<div id="contacts">
 			<ul>
         {{#each data}}
-          <li class="contact"style="margin-top:10px;">
+          <li class="contact"style="margin-top:10px;" onclick="changeView('{{_id}}','{{../user._id}}')">
 					<div class="wrap">
 						<span class="contact-status online"></span>
 						<img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
@@ -730,7 +730,8 @@
 	<div class="content">
 		<div class="contact-profile">
 			<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-			<p>{{RecievedUser.name}}</p>
+			<p id="hell">{{RecievedUser.name}}</p>
+      <div id="abc">hello</div>
 		</div>
 		<div class="messages">
 			<ul>
@@ -755,6 +756,7 @@
 		</div>
 	</div>
 </div>
+{{!-- <div id="red">treg</div> --}}
 <script src="/socket.io/socket.io.js"></script>
 <script >
   var socket = io(); 
@@ -802,8 +804,6 @@ function newMessage() {
 	$('.contact.active .preview').html('<span>You: </span>' + message);
 	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 };
-
-
 function sendMsg(){
   console.log('Warning Msg')
   msg = $(".message-input input").val();
@@ -814,5 +814,13 @@ socket.on("board_content", (msg) => {
   console.log("the msg is ",msg)
         $('#reply').append('<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /><p>\'' +msg+ '\'</p>')
 })
-//# sourceURL=pen.js
+
+function changeView(chatUserId,userId){
+  console.log("Hello Guys")
+  console.log(chatUserId,"The chat userid ")
+  console.log("the original user the ",userId)
+  let dfs=$("red").hide()
+  let df = document.getElementById('red').value
+  console.log(df,dfs)
+}
 </script>
